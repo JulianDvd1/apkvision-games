@@ -102,8 +102,8 @@ app.get('/', (req, res) => {
   const recentGames = [...games].reverse();
 
   res.render('index', {
-    title: 'Descargar Juegos Mod APK Gratis para Android | APKVision Hub',
-    metaDesc: 'Descarga los mejores juegos y aplicaciones móviles para Android en formato APK y MOD gratis, actualizados y 100% seguros.',
+    title: 'Descargar Juegos Mod APK Gratis para Android | AuraAPK',
+    metaDesc: 'Descarga los mejores juegos y aplicaciones móviles para Android en formato APK y MOD gratis, actualizados y 100% seguros en AuraAPK.',
     featuredGames,
     recentGames,
     activeCategory: 'todos'
@@ -126,8 +126,8 @@ app.get('/categoria/:slug', (req, res) => {
     : allGames.filter(g => g.category.toLowerCase() === (category ? category.name.toLowerCase() : ''));
 
   res.render('category', {
-    title: `Juegos de ${category ? category.name : 'Todos'} para Android APK | APKVision Hub`,
-    metaDesc: `Descarga los mejores juegos móviles de la categoría ${category ? category.name : 'Todos'}. Versiones completas y actualizadas.`,
+    title: `Juegos de ${category ? category.name : 'Todos'} para Android APK | AuraAPK`,
+    metaDesc: `Descarga los mejores juegos móviles de la categoría ${category ? category.name : 'Todos'}. Versiones completas y actualizadas en AuraAPK.`,
     games: filtered,
     categoryName: category ? category.name : 'Todos',
     activeCategory: slug
@@ -142,7 +142,7 @@ app.get('/juego/:slug', (req, res) => {
 
   if (!game) {
     return res.status(404).render('404', {
-      title: 'Juego no encontrado | APKVision Hub',
+      title: 'Juego no encontrado | AuraAPK',
       metaDesc: 'El juego que buscas no existe o ha sido removido.'
     });
   }
@@ -158,7 +158,7 @@ app.get('/juego/:slug', (req, res) => {
     .slice(0, 4);
 
   res.render('game', {
-    title: `${game.title} ${game.version} (${game.badge}) Descargar Gratis APK Android`,
+    title: `${game.title} ${game.version} (${game.badge}) Descargar Gratis APK Android | AuraAPK`,
     metaDesc: game.shortDescription || `Descarga ${game.title} para Android. ${game.description.substring(0, 140)}...`,
     game,
     relatedGames,
@@ -415,7 +415,7 @@ app.post(`${ADMIN_PATH}/ads/guardar`, requireAdminAuth, (req, res) => {
 // Página 404
 app.use((req, res) => {
   res.status(404).render('404', {
-    title: '404 - Página no encontrada | APKVision Hub',
+    title: '404 - Página no encontrada | AuraAPK',
     metaDesc: 'La página que buscas no existe o ha sido movida.'
   });
 });
@@ -423,7 +423,7 @@ app.use((req, res) => {
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`===============================================`);
-  console.log(`🚀 APK Gaming Hub corriendo en http://localhost:${PORT}`);
+  console.log(`✨ AuraAPK corriendo en http://localhost:${PORT}`);
   console.log(`🔒 Panel Privado Oculto: http://localhost:${PORT}${ADMIN_PATH}`);
   console.log(`🔑 Contraseña del Panel: ${ADMIN_PASSWORD}`);
   console.log(`===============================================`);

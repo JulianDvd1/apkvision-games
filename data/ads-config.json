@@ -2,8 +2,8 @@
   "enabled": true,
   "testMode": true,
   "settings": {
-    "siteName": "APKGaming",
-    "siteTagline": "Descarga los mejores juegos y MODs para Android",
+    "siteName": "AuraAPK",
+    "siteTagline": "Descarga los mejores juegos y MODs para Android en AuraAPK",
     "directLinkBeforeDownload": false,
     "downloadCountdownSeconds": 6
   },

@@ -2,5 +2,5 @@
   <rect width="100%" height="100%" fill="#121826"/>
   <circle cx="200" cy="110" r="45" fill="#1e293b"/>
   <path d="M185 100a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0v-20zm20 0a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0v-20zm-15-5a5 5 0 0 1 0-10h20a5 5 0 0 1 0 10h-20zm0 30a5 5 0 0 1 0-10h20a5 5 0 0 1 0 10h-20z" fill="#10b981"/>
-  <text x="50%" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#64748b" text-anchor="middle">APK VISION GAME</text>
+  <text x="50%" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#64748b" text-anchor="middle">AURA APK</text>
 </svg>
