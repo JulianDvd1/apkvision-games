@@ -3,11 +3,11 @@
 <!-- FICHA TÉCNICA PRINCIPAL DEL JUEGO -->
 <article class="game-detail-header">
   <div class="game-detail-banner">
-    <img src="<%= game.banner || game.icon %>" alt="<%= game.title %> Banner" onerror="this.src='/images/placeholder-game.svg'">
+    <img src="<%= game.banner || game.icon %>" alt="<%= game.title %> Banner" fetchpriority="high" decoding="async" onerror="this.src='/images/placeholder-game.svg'">
   </div>
 
   <div class="game-detail-main">
-    <img src="<%= game.icon %>" alt="<%= game.title %> Icon" class="game-icon-large" onerror="this.src='/images/placeholder-game.svg'">
+    <img src="<%= game.icon %>" alt="<%= game.title %> Icon" class="game-icon-large" decoding="async" onerror="this.src='/images/placeholder-game.svg'">
 
     <div class="game-info-col">
       <h1 class="game-info-title"><%= game.title %></h1>
@@ -188,7 +188,7 @@
         <div class="screenshots-wrap">
           <% game.screenshots.forEach((screen, i) => { %>
             <div class="screenshot-item" onclick="openLightbox('<%= screen %>')">
-              <img src="<%= screen %>" alt="Captura <%= i + 1 %> de <%= game.title %>" loading="lazy">
+              <img src="<%= screen %>" alt="Captura <%= i + 1 %> de <%= game.title %>" loading="lazy" decoding="async">
             </div>
           <% }) %>
         </div>
@@ -291,7 +291,7 @@
         <div class="sidebar-game-list">
           <% popularGames.forEach(pop => { %>
             <a href="/juego/<%= pop.slug %>" class="sidebar-game-item">
-              <img src="<%= pop.icon %>" alt="<%= pop.title %>" class="sidebar-game-thumb" onerror="this.src='/images/placeholder-game.svg'">
+              <img src="<%= pop.icon %>" alt="<%= pop.title %>" class="sidebar-game-thumb" loading="lazy" decoding="async" onerror="this.src='/images/placeholder-game.svg'">
               <div class="sidebar-game-info">
                 <div class="sidebar-game-title"><%= pop.title %></div>
                 <div class="sidebar-game-meta">
@@ -355,6 +355,7 @@
               alt="" 
               class="game-card-thumb-ambient" 
               loading="lazy"
+              decoding="async"
               aria-hidden="true"
             >
             <div class="game-card-icon-box">
@@ -363,6 +364,7 @@
                 alt="<%= rel.title %>" 
                 class="game-card-thumb" 
                 loading="lazy"
+                decoding="async"
                 onerror="this.src='/images/placeholder-game.svg'"
               >
             </div>

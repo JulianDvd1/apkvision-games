@@ -33,16 +33,6 @@
   
   <!-- Favicon / Estilos -->
   <link rel="stylesheet" href="/css/style.css">
-
-  <%# Adsterra Global Scripts: Social Bar & Popunder %>
-  <% if (adsConfig && adsConfig.enabled && !adsConfig.testMode) { %>
-    <% if (adsConfig.slots.socialBar && adsConfig.slots.socialBar.enabled && adsConfig.slots.socialBar.code) { %>
-      <%- adsConfig.slots.socialBar.code %>
-    <% } %>
-    <% if (adsConfig.slots.popunder && adsConfig.slots.popunder.enabled && adsConfig.slots.popunder.code) { %>
-      <%- adsConfig.slots.popunder.code %>
-    <% } %>
-  <% } %>
 </head>
 <body>
 

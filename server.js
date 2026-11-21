@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
@@ -53,10 +54,15 @@ const gameUploadMiddleware = upload.fields([
 
 // Middlewares
 app.set('trust proxy', 1);
+app.use(compression());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true
+}));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'apk-hub-secret-session',
   resave: false,

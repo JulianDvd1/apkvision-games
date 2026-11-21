@@ -57,7 +57,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Luces ambientales flotantes en el fondo (recortadas sin generar overflow) */
+/* Luces ambientales estáticas en el fondo (sin repintado continuo de GPU) */
 body::before {
   content: "";
   position: fixed;
@@ -65,12 +65,12 @@ body::before {
   left: 20%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.09) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
   z-index: 0;
-  animation: floatOrb 18s ease-in-out infinite alternate;
+  transform: translateZ(0);
 }
 
 body::after {
@@ -80,18 +80,12 @@ body::after {
   right: -50px;
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(90px);
   pointer-events: none;
   z-index: 0;
-  animation: floatOrb 22s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-20px, 50px) scale(0.95); }
+  transform: translateZ(0);
 }
 
 a {
@@ -411,24 +405,19 @@ img {
   padding: 1.8rem 0 0.8rem;
 }
 
-/* Aura Neón y Resplandor Ambiental de Fondo */
+/* Aura Neón y Resplandor Ambiental de Fondo (Optimizado GPU) */
 .hero-glow-backdrop {
   position: absolute;
   top: 50%;
   right: 15%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateZ(0);
   width: 480px;
   height: 320px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.18) 45%, transparent 75%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.20) 0%, rgba(6, 182, 212, 0.15) 45%, transparent 75%);
   filter: blur(55px);
   pointer-events: none;
   z-index: 0;
-  animation: auraPulse 6s ease-in-out infinite alternate;
-}
-
-@keyframes auraPulse {
-  0% { transform: translateY(-50%) scale(0.95); opacity: 0.7; }
-  100% { transform: translateY(-50%) scale(1.05); opacity: 1; }
+  opacity: 0.85;
 }
 
 .hero-card {
@@ -459,7 +448,7 @@ img {
 }
 
 /* ==========================================================================
-   FONDO ANIMADO GAMER GLOBAL (POR DETRÁS DE TODO EL SITIO)
+   FONDO ANIMADO GAMER GLOBAL (ACELERADO POR HARDWARE / GPU)
    ========================================================================== */
 .aura-global-gamer-bg {
   position: fixed;
@@ -469,7 +458,9 @@ img {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  opacity: 0.30;
+  opacity: 0.28;
+  transform: translateZ(0);
+  contain: strict;
 }
 
 .aura-global-stream {
@@ -478,6 +469,7 @@ img {
   left: 0;
   width: 100%;
   height: 520px;
+  transform: translateZ(0);
 }
 
 .aura-global-svg {
@@ -487,41 +479,42 @@ img {
   height: 100%;
   min-width: 1500px;
   width: auto;
-  filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.35));
-  animation: auraGlobalSlide 22s linear infinite;
-  will-change: left, transform;
+  transform: translate3d(-18%, 0, 0);
+  animation: auraGlobalSlide 26s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 @keyframes auraGlobalSlide {
-  0%, 100% {
-    left: -18%;
-  }
-  25%, 75% {
-    left: -10%;
+  0% {
+    transform: translate3d(-18%, 0, 0);
   }
   50% {
-    left: -3%;
+    transform: translate3d(-9%, -8px, 0);
+  }
+  100% {
+    transform: translate3d(-2%, 4px, 0);
   }
 }
 
 @media (max-width: 768px) {
   .aura-global-gamer-bg {
-    opacity: 0.26;
+    opacity: 0.22;
   }
   .aura-global-stream {
     top: 6%;
-    height: 400px;
+    height: 380px;
   }
   .aura-global-svg {
     min-width: 1050px;
-    animation: auraGlobalSlideMobile 18s linear infinite;
+    transform: translate3d(-45%, 0, 0);
+    animation: auraGlobalSlideMobile 20s ease-in-out infinite alternate;
   }
   @keyframes auraGlobalSlideMobile {
-    0%, 100% {
-      left: -55%;
+    0% {
+      transform: translate3d(-45%, 0, 0);
     }
-    50% {
-      left: -10%;
+    100% {
+      transform: translate3d(-10%, 0, 0);
     }
   }
 }
