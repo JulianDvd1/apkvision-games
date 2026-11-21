@@ -92,6 +92,47 @@
     "featured": false
   },
   {
+    "id": "minecraft-dungeons",
+    "slug": "minecraft-dungeons",
+    "title": "Minecraft Dungeons APK (Full Port Android + Dungeons II)",
+    "shortDescription": "Descarga Minecraft Dungeons APK v1.1.3 para Android. Port completo del aclamado dungeon crawler de Mojang con controles táctiles optimizados, soporte para mandos y todas las misiones.",
+    "description": "¡Adéntrate en las mazmorras más peligrosas del universo de bloques con **Minecraft Dungeons para Android**! Inspirado en los clásicos juegos de rol de acción y exploración de mazmorras (*dungeon crawlers* estilo Diablo), este espectacular port completo **v1.1.3** traslada toda la experiencia de PC y consolas directamente a tu smartphone o tablet Android.\n\nÁbrete camino a través de cañones escarpados, ciénagas putrefactas, forjas subterráneas y castillos custodiados para derrotar al malvado **Arch-Illager** (Archialdeano) y su temible Orbe de Dominación antes de que someta a todas las aldeas pacíficas del supramundo.\n\n---\n\n### ⚔️ Características Destacadas del Port Android\n\n* **Instalador Completo Todo en Uno:** Archivo APK único de 3.87 GB que incluye el motor del juego, texturas en alta resolución y archivos de audio listos para jugar sin tener que copiar manualmente carpetas OBB.\n* **Controles Táctiles Nativos:** Interfaz en pantalla táctil con stick virtual analógico suave y botones de ataque cuerpo a cuerpo, disparo de flechas a distancia, esquiva rodando y uso de artefactos mágicos.\n* **Compatibilidad Total con Mandos:** Juega como en consola conectando cualquier gamepad Bluetooth o USB-C (Xbox One / Series, PS4 DualShock, PS5 DualSense, GameSir y mandos telescópicos).\n* **Motor Gráfico Unreal Engine 4:** Iluminación dinámica de antorchas, partículas mágicas, sombras en tiempo real y tasa de cuadros por segundo desbloqueada a 60 FPS estables en dispositivos compatibles.\n* **Progresión sin Clases Fijas:** Define tu estilo de juego a través de tu equipamiento: sé un guerrero pesado de armadura de placas, un arquero certero o un hechicero que invoca tótems y gólems aliados.\n\n---\n\n### 🛡️ Botín Legendario, Encantamientos y Artefactos\n\n* **Cientos de Armas y Armaduras:** Descubre espadas de diamante, hachas de combate dobles, guadañas de almas, ballestas de disparo múltiple y corazas de placas oscuras.\n* **Poderosos Encantamientos:** Cada pieza de botín cuenta con ranuras aleatorias para mejorar tus armas con daño de fuego, robo de vida (vampirismo), relámpagos en cadena, veneno o retroceso.\n* **Artefactos Tácticos:** Activa plumas de viento para impulsarte, cañas de pescar para atraer enemigos lejanos, tótems de regeneración o el poderoso cuerno de viento para empujar hordas.\n\n---\n\n### 📋 Guía de Instalación Paso a Paso\n\n1. Haz clic en el botón verde **Descargar APK** situado más abajo para bajar el instalador completo (`Minecraft-Dungeons-II-v1.1.3-APKVISION.apk`).\n2. En tu móvil, ve a **Ajustes > Seguridad** y asegúrate de permitir **\"Instalar aplicaciones de fuentes desconocidas\"**.\n3. Abre tu gestor de archivos o la carpeta Descargas y presiona sobre el APK descargado.\n4. Pulsa en **Instalar** y aguarda unos minutos mientras se descomprime e instala el paquete completo de 3.87 GB.\n5. ¡Inicia el juego y adéntrate en la aventura!\n\n---\n\n### ⚙️ Requisitos Técnicos del Sistema\n\n* **Sistema Operativo:** Android 10 (Q) o superior\n* **Arquitectura:** Dispositivos de 64 bits (`arm64-v8a`)\n* **Procesador:** Octa-Core Snapdragon 730G / 855 / Dimensity 800 o superior\n* **GPU:** Adreno 618 / Mali-G76 o superior con soporte Vulkan\n* **Memoria RAM:** 4 GB de RAM mínimo (6 GB recomendados)\n* **Almacenamiento Libre:** 5.5 GB de espacio libre para la instalación",
+    "category": "Aventura",
+    "badge": "PORT ANDROID",
+    "version": "v1.1.3",
+    "size": "3.87 GB",
+    "requiresAndroid": "Android 10+ (ARM64)",
+    "developer": "Mojang Studios / Xbox Game Studios",
+    "updatedAt": "2026-11-21",
+    "rating": 4.9,
+    "downloadsCount": "350K+",
+    "icon": "/uploads/games/minecraft-dungeons-2-140x140-1795282391157.png",
+    "banner": "/uploads/games/mcd2_netblogeditorial_1170x500-1795282391159.png",
+    "screenshots": [
+      "/uploads/games/minecraft-dungeons-ii-2-1795282391435.png",
+      "/uploads/games/minecraft-dungeons-ii-1-1795282391618.png"
+    ],
+    "modFeatures": [
+      "Port completo de acción y rol (Dungeon Crawler) adaptado para Android ARM64",
+      "Controles táctiles en pantalla ergonómicos y soporte total para mandos Bluetooth",
+      "Campaña completa de misiones para derrotar al Arch-Illager y salvar el supramundo",
+      "Sistema de botín infinito: armas cuerpo a cuerpo, arcos, armaduras y artefactos místicos",
+      "Árbol de encantamientos para personalizar y potenciar las armas a tu gusto",
+      "Gráficos HD a 60 FPS con motor Unreal Engine y efectos de iluminación dinámica"
+    ],
+    "downloadUrl": "https://dl.apkvision.org/minecraft-dungeons-2/Minecraft-Dungeons-II-v1.1.3-APKVISION.apk",
+    "downloadFiles": [
+      {
+        "name": "Minecraft Dungeons II (Instalador Completo APK v1.1.3)",
+        "type": "APK",
+        "size": "3.87 GB",
+        "badge": "Full Port (Sin OBB externa)",
+        "url": "https://dl.apkvision.org/minecraft-dungeons-2/Minecraft-Dungeons-II-v1.1.3-APKVISION.apk"
+      }
+    ],
+    "featured": false
+  },
+  {
     "id": "lef-4-dead-apk",
     "slug": "lef-4-dead-apk",
     "title": "Left 4 Dead APK (Full Port Android + L4D1 Recomp)",
