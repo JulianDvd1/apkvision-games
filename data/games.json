@@ -1,5 +1,54 @@
 [
   {
+    "id": "dragon-ball-sparking-zero",
+    "slug": "dragon-ball-sparking-zero",
+    "title": "Dragon Ball: Sparking! ZERO (Edición Móvil + OBB)",
+    "shortDescription": "Vive la legendaria saga Budokai Tenkaichi en Android con combates 3D a máxima velocidad, gráficos Ultra y plantel completo desbloqueado.",
+    "description": "¡Desata el verdadero poder de los Guerreros Z en tu teléfono! Dragon Ball: Sparking! ZERO llega a dispositivos Android para revivir la mítica experiencia de los Budokai Tenkaichi, llevando el combate 3D al límite con escenarios interactivos destructibles, animaciones espectaculares y choques de ráfagas Ki cinemáticos.\n\n⚡ Puntos Fuertes de esta Edición Móvil:\n• Batallas Tridimensionales 360°: Domina el espacio aéreo y terrestre con desplazamientos a la velocidad de la luz, contraataques fulminantes y golpes coordinados.\n• Plantel Colosal de Guerreros: Juega con más de 180 personajes de Dragon Ball Z, Dragon Ball Super, Dragon Ball GT y películas canónicas.\n• Transformaciones en Tiempo Real: Pasa a Super Saiyan, Super Saiyan Blue, Ultra Instinto, Ego Ultra y Gohan Modo Bestia durante el mismo combate.\n• Controles Táctiles y Mandos: Botones en pantalla diseñados para respuesta inmediata y soporte nativo para Gamepads Bluetooth (Xbox, PS4, PS5, Gamesir, Razer).\n• Múltiples Modos Disponibles: Disfruta del Torneo del Poder, Batallas de Episodio y modo libre para jugar sin conexión a internet.\n\n📱 Requisitos Recomendados:\nDispositivo con Android 8.0 en adelante, procesador octa-core de gama media o superior y al menos 4 GB de RAM para disfrutar de 60 FPS estables.",
+    "category": "Lucha & Pelea",
+    "badge": "APK + OBB",
+    "version": "v2.0.76",
+    "size": "7.2 GB",
+    "requiresAndroid": "Android 8.0+",
+    "developer": "Bandai Namco Entertainment",
+    "updatedAt": "2026-11-21",
+    "rating": 4.9,
+    "downloadsCount": "850K",
+    "icon": "/uploads/games/5db0f83ea17217dec603c3bb531356-1795231613593.png",
+    "banner": "/uploads/games/dbsz_banner_mobile-1795231613652.png",
+    "screenshots": [
+      "/uploads/games/db-sparking-zero-3-1024x582-1795231613908.png",
+      "/uploads/games/db-sparking-zero-2-1024x576-1795231613983.png",
+      "/uploads/games/dragon-1795231613987.png"
+    ],
+    "modFeatures": [
+      "Gráficos Ultra en 3D optimizados para pantallas táctiles a 60 FPS",
+      "Todos los personajes, vestimentas y transformaciones desbloqueadas",
+      "Controles táctiles en pantalla 100% configurables + Compatibilidad con Gamepad Bluetooth",
+      "Audio cinemático original con selector de voces en japonés y latino",
+      "Efectos de destrucción de entornos y choques de ráfagas Ki mejorados",
+      "Modo sin conexión a internet (Offline) para jugar en cualquier lugar"
+    ],
+    "downloadUrl": "https://www.mediafire.com/file/8bmm1b4sy2bkece/Dragon_Ball_Sparking_ZERO_v2.0.76.apk/file",
+    "downloadFiles": [
+      {
+        "name": "Dragon Ball: Sparking! ZERO APK (Instalador)",
+        "type": "APK",
+        "size": "26.8 MB",
+        "badge": "Instalador Principal",
+        "url": "https://www.mediafire.com/file/8bmm1b4sy2bkece/Dragon_Ball_Sparking_ZERO_v2.0.76.apk/file"
+      },
+      {
+        "name": "Datos OBB del Juego Completo",
+        "type": "OBB",
+        "size": "7.17 GB",
+        "badge": "Juego Base (Obligatorio)",
+        "url": "https://www.mediafire.com/file/6528wq0r3t6istg/dragon-ball-sparking-zero.obb/file"
+      }
+    ],
+    "featured": true
+  },
+  {
     "id": "super-mario-strikers-android",
     "slug": "super-mario-strikers-android",
     "title": "Super Mario Strikers (Edición Android + Texturas HD)",

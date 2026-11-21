@@ -132,20 +132,31 @@
       <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.85rem;">
         Acerca de <%= game.title %>
       </h3>
-      <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.75;">
+      <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.75; white-space: pre-line;">
         <%= game.description %>
       </div>
 
-      <% if (game.downloadFiles && game.downloadFiles.length > 1) { %>
+      <% if (game.downloadFiles && game.downloadFiles.length > 1) { 
+           const hasIso = game.downloadFiles.some(f => (f.type || '').toUpperCase().includes('ISO'));
+           const hasObb = game.downloadFiles.some(f => (f.type || '').toUpperCase().includes('OBB'));
+           const hasZip = game.downloadFiles.some(f => (f.type || '').toUpperCase().includes('ZIP') || (f.type || '').toUpperCase().includes('HD'));
+      %>
         <div style="margin-top: 1.6rem; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-md); padding: 1.25rem;">
           <h4 style="font-size: 1rem; font-weight: 800; color: var(--accent-cyan); display: flex; align-items: center; gap: 8px; margin-bottom: 0.6rem;">
-            <span>💡</span> Guía de Instalación Rápida (APK + ISO + Texturas):
+            <span>💡</span> Guía de Instalación Rápida en Móvil:
           </h4>
-          <ol style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.65; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 5px;">
+          <ol style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.65; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 6px;">
             <li><strong>Descarga el APK</strong> e instálalo en tu dispositivo Android.</li>
-            <li><strong>Descarga la ISO (ROM)</strong> del juego y guárdala en una carpeta accesible (por ejemplo, en <code>Download</code>).</li>
-            <li>Abre la aplicación instalada, selecciona la carpeta donde guardaste la ISO y ¡listo para jugar!</li>
-            <li><em>(Opcional):</em> Descarga el pack de texturas zip y descomprímelo dentro de la carpeta <code>Load/Textures/</code> para disfrutar de gráficos mejorados en alta definición.</li>
+            <% if (hasObb) { %>
+              <li><strong>Descarga los Datos OBB</strong> y mueve el archivo o carpeta descomprimida a la ruta interna <code>Android/obb/</code>.</li>
+            <% } %>
+            <% if (hasIso) { %>
+              <li><strong>Descarga la ROM ISO</strong> del juego y guárdala en una carpeta accesible (por ejemplo, en <code>Download</code>).</li>
+            <% } %>
+            <% if (hasZip) { %>
+              <li><em>(Opcional):</em> Descarga el pack de texturas y descomprímelo dentro de la carpeta correspondientes para gráficos mejorados en alta definición.</li>
+            <% } %>
+            <li>Abre el juego desde tu menú de aplicaciones, concede los permisos de almacenamiento y ¡a jugar!</li>
           </ol>
         </div>
       <% } %>
