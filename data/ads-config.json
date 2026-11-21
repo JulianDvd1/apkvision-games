@@ -23,6 +23,11 @@
       "format": "300x250 Medium Rectangle",
       "code": "<!-- Pega aquí el banner de Adsterra 300x250 para la ficha del juego -->"
     },
+    "sidebarSticky": {
+      "enabled": true,
+      "format": "300x600 Half Page / Skyscraper Vertical",
+      "code": "<!-- Pega aquí el banner vertical 300x600 de Adsterra para el lateral derecho -->"
+    },
     "downloadPageBanner": {
       "enabled": true,
       "format": "728x90 o 300x250",

@@ -445,6 +445,15 @@ app.post(`${ADMIN_PATH}/ads/guardar`, requireAdminAuth, (req, res) => {
     currentAds.slots.gameDetailTop.enabled = body.gameDetailTop_enabled === 'on';
     currentAds.slots.gameDetailTop.code = body.gameDetailTop_code || '';
   }
+  if (!currentAds.slots.sidebarSticky) {
+    currentAds.slots.sidebarSticky = {
+      enabled: true,
+      format: "300x600 Half Page / Skyscraper Vertical",
+      code: ""
+    };
+  }
+  currentAds.slots.sidebarSticky.enabled = body.sidebarSticky_enabled === 'on';
+  currentAds.slots.sidebarSticky.code = body.sidebarSticky_code || '';
   if (currentAds.slots.downloadPageBanner) {
     currentAds.slots.downloadPageBanner.enabled = body.downloadPageBanner_enabled === 'on';
     currentAds.slots.downloadPageBanner.code = body.downloadPageBanner_code || '';

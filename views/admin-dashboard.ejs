@@ -419,6 +419,15 @@
             <textarea name="gameDetailTop_code" class="form-control" rows="3" placeholder="Pega el código de banner 300x250 para el sidebar"><%= (ads.slots.gameDetailTop) ? ads.slots.gameDetailTop.code : '' %></textarea>
           </div>
 
+          <!-- Slot: Game Detail Sidebar Skyscraper 300x600 -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="sidebarSticky_enabled" <%= (ads.slots.sidebarSticky && ads.slots.sidebarSticky.enabled) ? 'checked' : '' %>>
+              <strong>Sidebar Lateral Ficha (300x600 Half Page / Skyscraper Vertical - Espacio Largo)</strong>
+            </label>
+            <textarea name="sidebarSticky_code" class="form-control" rows="3" placeholder="Pega el código de banner vertical 300x600 o 160x600 de Adsterra"><%= (ads.slots.sidebarSticky) ? ads.slots.sidebarSticky.code : '' %></textarea>
+          </div>
+
           <!-- Slot: Download Countdown Banner -->
           <div class="admin-card" style="background: rgba(255,255,255,0.02);">
             <label class="switch-label" style="margin-bottom: 0.5rem;">

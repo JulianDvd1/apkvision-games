@@ -877,6 +877,11 @@ img {
   min-height: 250px;
 }
 
+.ad-placeholder.size-300x600 {
+  max-width: 300px;
+  min-height: 500px;
+}
+
 /* ================= FICHA DE DETALLE DEL JUEGO ================= */
 .game-detail-header {
   position: relative;
