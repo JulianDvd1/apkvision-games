@@ -253,12 +253,63 @@ function getCategories() {
   }
 }
 
+// Convertidor de Markdown a HTML semántico limpio (elimina ###, **, *, --- y crea títulos y negritas reales)
+function parseMarkdown(md) {
+  if (!md) return '';
+  if (/<[a-z][\s\S]*>/i.test(md) && !md.includes('###') && !md.includes('**')) {
+    return md;
+  }
+
+  let text = String(md).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // Separadores horizontales (---)
+  text = text.replace(/^---+$/gm, '<hr class="game-desc-divider">');
+
+  // Títulos y subtítulos (###, ##, #)
+  text = text.replace(/^### (.*$)/gm, '<h4 class="game-desc-h4">$1</h4>');
+  text = text.replace(/^## (.*$)/gm, '<h3 class="game-desc-h3">$1</h3>');
+  text = text.replace(/^# (.*$)/gm, '<h2 class="game-desc-h2">$1</h2>');
+
+  // Negrita e itálica (***, **, *)
+  text = text.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Código inline entre acentos graves
+  text = text.replace(/`([^`]+)`/g, '<code class="game-desc-code">$1</code>');
+
+  // Elementos de lista con viñeta (* o -)
+  text = text.replace(/^[\*\-] (.*$)/gm, '<li class="game-desc-li">$1</li>');
+
+  // Elementos de lista numerada (1. 2. 3.)
+  text = text.replace(/^\d+\. (.*$)/gm, '<li class="game-desc-oli">$1</li>');
+
+  // Agrupar elementos <li> consecutivos dentro de <ul> y <ol>
+  text = text.replace(/((?:<li class="game-desc-li">.*?<\/li>\s*)+)/gs, '<ul class="game-desc-ul">$1</ul>');
+  text = text.replace(/((?:<li class="game-desc-oli">.*?<\/li>\s*)+)/gs, '<ol class="game-desc-ol">$1</ol>');
+
+  // Párrafos limpios (bloques separados por salto doble)
+  const blocks = text.split(/\n{2,}/);
+  const parsedBlocks = blocks.map(block => {
+    block = block.trim();
+    if (!block) return '';
+    if (/^<(h[1-6]|ul|ol|hr|div|p|blockquote)/i.test(block)) {
+      return block;
+    }
+    const withBr = block.replace(/\n/g, '<br>');
+    return `<p class="game-desc-p">${withBr}</p>`;
+  });
+
+  return parsedBlocks.filter(Boolean).join('\n\n');
+}
+
 // Global template variables middleware
 app.use((req, res, next) => {
   res.locals.adsConfig = getAdsConfig();
   res.locals.categories = getCategories();
   res.locals.currentPath = req.path;
   res.locals.adminPath = ADMIN_PATH;
+  res.locals.parseMarkdown = parseMarkdown;
   const proto = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
   res.locals.siteUrl = process.env.SITE_URL || `${proto}://${req.headers.host}`;
   next();

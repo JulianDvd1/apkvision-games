@@ -141,8 +141,8 @@
       <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.85rem;">
         Acerca de <%= game.title %>
       </h3>
-      <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.75; white-space: pre-line;">
-        <%= game.description %>
+      <div class="game-desc-container">
+        <%- parseMarkdown(game.description) %>
       </div>
 
       <% if (game.downloadFiles && game.downloadFiles.length > 1) { 
