@@ -52,6 +52,7 @@ const gameUploadMiddleware = upload.fields([
 ]);
 
 // Middlewares
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -60,8 +61,35 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'apk-hub-secret-session',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días continuos
+    sameSite: 'lax',
+    secure: false
+  }
 }));
+
+// Helper para parsear cookies nativamente sin dependencias
+function parseCookies(req) {
+  const list = {};
+  const rc = req.headers && req.headers.cookie;
+  if (!rc) return list;
+  rc.split(';').forEach(cookie => {
+    const parts = cookie.split('=');
+    const name = parts.shift().trim();
+    if (name) {
+      list[name] = decodeURIComponent(parts.join('='));
+    }
+  });
+  return list;
+}
+
+const crypto = require('crypto');
+const ADMIN_AUTH_SECRET = process.env.SESSION_SECRET || 'auraapk-permanent-admin-auth-2026';
+const ADMIN_COOKIE_NAME = 'aura_auth_permanent_token';
+
+function getAdminTokenHash() {
+  return crypto.createHmac('sha256', ADMIN_AUTH_SECRET).update(ADMIN_PASSWORD).digest('hex');
+}
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -188,10 +216,16 @@ async function syncToGitHub(repoRelativePath, contentStringOrBuffer, commitMessa
   }
 }
 
+let syncGamesTimeout = null;
 function saveGames(games) {
   const content = JSON.stringify(games, null, 2);
   fs.writeFileSync(gamesFilePath, content, 'utf8');
-  syncToGitHub('data/games.json', content, 'Auto-sync data/games.json desde Panel de Gestión');
+
+  // Debounce de 5 segundos para que no reinicie el servidor de inmediato si se siguen guardando cambios
+  if (syncGamesTimeout) clearTimeout(syncGamesTimeout);
+  syncGamesTimeout = setTimeout(() => {
+    syncToGitHub('data/games.json', content, 'Auto-sync data/games.json desde Panel de Gestión');
+  }, 5000);
 }
 
 function getAdsConfig() {
@@ -230,9 +264,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware de autenticación para panel privado
+// Middleware de autenticación para panel privado (con persistencia a reinicios y caída de servidor)
 function requireAdminAuth(req, res, next) {
+  // 1. Sesión activa en memoria
   if (req.session && req.session.isAdmin) {
+    return next();
+  }
+  // 2. Cookie permanente segura (30 días de duración resistente a reinicios del servidor)
+  const cookies = parseCookies(req);
+  if (cookies[ADMIN_COOKIE_NAME] === getAdminTokenHash()) {
+    if (req.session) {
+      req.session.isAdmin = true;
+    }
     return next();
   }
   return res.redirect(`${ADMIN_PATH}/login`);
@@ -481,6 +524,12 @@ app.post(`${ADMIN_PATH}/login`, (req, res) => {
   const { password } = req.body;
   if (password === ADMIN_PASSWORD) {
     req.session.isAdmin = true;
+    res.cookie(ADMIN_COOKIE_NAME, getAdminTokenHash(), {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días de persistencia continua
+      httpOnly: true,
+      sameSite: 'lax',
+      path: '/'
+    });
     return res.redirect(ADMIN_PATH);
   }
   res.render('admin-login', {
@@ -490,6 +539,7 @@ app.post(`${ADMIN_PATH}/login`, (req, res) => {
 });
 
 app.post(`${ADMIN_PATH}/logout`, (req, res) => {
+  res.clearCookie(ADMIN_COOKIE_NAME, { path: '/' });
   req.session.destroy(() => {
     res.redirect('/');
   });
@@ -662,23 +712,6 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, gameUploadMiddleware, 
   }
 
   saveGames(games);
-
-  // Sincronizar archivos de imagen subidos con GitHub para persistencia permanente
-  if (req.files) {
-    const allUploaded = [
-      ...(req.files['iconFile'] || []),
-      ...(req.files['bannerFile'] || []),
-      ...(req.files['screenshotFiles'] || [])
-    ];
-    for (const f of allUploaded) {
-      try {
-        const fileBuf = fs.readFileSync(f.path);
-        syncToGitHub(`public/uploads/games/${f.filename}`, fileBuf, `Subir imagen ${f.filename} desde Panel de Gestión`);
-      } catch (err) {
-        console.error('Error al sincronizar imagen subida:', err.message);
-      }
-    }
-  }
 
   res.redirect(`${ADMIN_PATH}?msg=Juego+guardado+correctamente`);
 });

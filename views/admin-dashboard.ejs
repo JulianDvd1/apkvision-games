@@ -707,6 +707,15 @@
           Agregar Nuevo Juego al Catálogo
         </h2>
 
+        <!-- Alerta de Borrador Automático Recuperado -->
+        <div id="draftAlert" style="display: none; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 20px; justify-content: space-between; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-primary);">
+            <span style="font-size: 1.2rem;">💾</span>
+            <span><strong>Borrador restaurado:</strong> Se recuperaron automáticamente los datos que estabas escribiendo para que no pierdas nada.</span>
+          </div>
+          <button type="button" onclick="clearGameDraft()" class="btn btn-secondary" style="font-size: 0.78rem; padding: 4px 10px; flex-shrink: 0;">Descartar borrador</button>
+        </div>
+
         <form action="<%= adminPath %>/juego/guardar" method="POST" enctype="multipart/form-data" id="gameForm">
           <input type="hidden" name="id" id="game_id" value="">
 
@@ -1286,13 +1295,131 @@
       }
     }
 
-    // Inicializar con 1 fila por defecto al cargar si está vacío
+    // ================= AUTOGUARDADO DE BORRADOR (LOCALSTORAGE) =================
+    const DRAFT_KEY = 'aura_admin_game_draft';
+    let isSubmitting = false;
+
+    function saveFormDraft() {
+      const gameId = document.getElementById('game_id').value;
+      if (gameId) return; // Si estamos editando un juego existente, no sobreescribir el borrador de juego nuevo
+
+      const draft = {
+        title: document.getElementById('game_title').value,
+        category: document.getElementById('game_category').value,
+        badge: document.getElementById('game_badge').value,
+        version: document.getElementById('game_version').value,
+        size: document.getElementById('game_size').value,
+        requiresAndroid: document.getElementById('game_requiresAndroid').value,
+        developer: document.getElementById('game_developer').value,
+        rating: document.getElementById('game_rating').value,
+        icon: document.getElementById('game_icon').value,
+        banner: document.getElementById('game_banner').value,
+        shortDescription: document.getElementById('game_shortDescription').value,
+        description: document.getElementById('game_description').value,
+        modFeatures: document.getElementById('game_modFeatures').value,
+        screenshots: document.getElementById('game_screenshots').value,
+        featured: document.getElementById('game_featured').checked,
+        timestamp: Date.now()
+      };
+
+      const fileRows = [];
+      document.querySelectorAll('#downloadFilesContainer .download-file-row').forEach(row => {
+        const name = row.querySelector('input[name="file_name[]"]')?.value || '';
+        const type = row.querySelector('input[name="file_type[]"]')?.value || '';
+        const size = row.querySelector('input[name="file_size[]"]')?.value || '';
+        const badge = row.querySelector('input[name="file_badge[]"]')?.value || '';
+        const url = row.querySelector('input[name="file_url[]"]')?.value || '';
+        if (name || url) {
+          fileRows.push({ name, type, size, badge, url });
+        }
+      });
+      draft.downloadFiles = fileRows;
+
+      if (draft.title || draft.description || draft.shortDescription || fileRows.length > 0) {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+      }
+    }
+
+    function restoreFormDraft() {
+      const gameId = document.getElementById('game_id').value;
+      if (gameId) return;
+
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (!saved) return;
+
+      try {
+        const draft = JSON.parse(saved);
+        if (draft.title || draft.description || draft.shortDescription) {
+          if (draft.title) document.getElementById('game_title').value = draft.title;
+          if (draft.category) document.getElementById('game_category').value = draft.category;
+          if (draft.badge) document.getElementById('game_badge').value = draft.badge;
+          if (draft.version) document.getElementById('game_version').value = draft.version;
+          if (draft.size) document.getElementById('game_size').value = draft.size;
+          if (draft.requiresAndroid) document.getElementById('game_requiresAndroid').value = draft.requiresAndroid;
+          if (draft.developer) document.getElementById('game_developer').value = draft.developer;
+          if (draft.rating) document.getElementById('game_rating').value = draft.rating;
+          if (draft.icon) document.getElementById('game_icon').value = draft.icon;
+          if (draft.banner) document.getElementById('game_banner').value = draft.banner;
+          if (draft.shortDescription) document.getElementById('game_shortDescription').value = draft.shortDescription;
+          if (draft.description) document.getElementById('game_description').value = draft.description;
+          if (draft.modFeatures) document.getElementById('game_modFeatures').value = draft.modFeatures;
+          if (draft.screenshots) document.getElementById('game_screenshots').value = draft.screenshots;
+          if (draft.featured !== undefined) document.getElementById('game_featured').checked = draft.featured;
+
+          if (draft.downloadFiles && draft.downloadFiles.length > 0) {
+            const container = document.getElementById('downloadFilesContainer');
+            container.innerHTML = '';
+            draft.downloadFiles.forEach(f => addDownloadFileRow(f));
+          }
+
+          const alertBox = document.getElementById('draftAlert');
+          if (alertBox) alertBox.style.display = 'flex';
+        }
+      } catch (e) {
+        console.error('Error restaurando borrador:', e);
+      }
+    }
+
+    function clearGameDraft() {
+      localStorage.removeItem(DRAFT_KEY);
+      const alertBox = document.getElementById('draftAlert');
+      if (alertBox) alertBox.style.display = 'none';
+      document.getElementById('gameForm').reset();
+      const container = document.getElementById('downloadFilesContainer');
+      container.innerHTML = '';
+      addDownloadFileRow({ name: 'Instalador Principal APK', type: 'APK', size: '100 MB', badge: 'Principal', url: '' });
+    }
+
+    // Escuchar cambios en cualquier input para guardar borrador en tiempo real
+    document.addEventListener('input', (e) => {
+      if (e.target.closest('#gameForm')) {
+        saveFormDraft();
+      }
+    });
+
+    document.addEventListener('change', (e) => {
+      if (e.target.closest('#gameForm')) {
+        saveFormDraft();
+      }
+    });
+
+    // Limpiar borrador al enviar con éxito
+    const gameFormEl = document.getElementById('gameForm');
+    if (gameFormEl) {
+      gameFormEl.addEventListener('submit', () => {
+        isSubmitting = true;
+        localStorage.removeItem(DRAFT_KEY);
+      });
+    }
+
+    // Inicializar con 1 fila por defecto y restaurar borrador si existe
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById('downloadFilesContainer');
       if (container && container.children.length === 0) {
         addDownloadFileRow({ name: 'Instalador Principal APK', type: 'APK', size: '100 MB', badge: 'Principal', url: '' });
       }
       setupDragAndDrop();
+      restoreFormDraft();
     });
   </script>
 
