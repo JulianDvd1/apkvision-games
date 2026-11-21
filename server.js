@@ -90,6 +90,11 @@ function requireAdminAuth(req, res, next) {
 
 // ================= RUTAS PÚBLICAS =================
 
+// Endpoint ultraligero para Cron-Job / Uptime (mantiene el servidor despierto 24/7 en Render)
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 // Home
 app.get('/', (req, res) => {
   const games = getGames();
