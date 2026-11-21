@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "testMode": true,
+  "testMode": false,
   "settings": {
     "siteName": "AuraAPK",
     "siteTagline": "Descarga los mejores juegos y MODs para Android en AuraAPK",
@@ -10,8 +10,8 @@
   "slots": {
     "headerBanner": {
       "enabled": true,
-      "format": "728x90 Billboard / 320x50 Mobile",
-      "code": "<!-- Pega aquí el script o iframe de Adsterra Banner 728x90 / 320x50 -->"
+      "format": "728x90 Leaderboard / Billboard",
+      "code": "<script>\n  atOptions = {\n    'key' : 'd235810094006069f7051f8bf3fc6004',\n    'format' : 'iframe',\n    'height' : 90,\n    'width' : 728,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bellnewyork.org/22/d235810094006069f7051f8bf3fc6004\"></script>"
     },
     "inFeedNative": {
       "enabled": true,

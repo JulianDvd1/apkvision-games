@@ -1101,6 +1101,20 @@ img {
   min-height: 500px;
 }
 
+.ad-live-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ad-live-code iframe {
+  max-width: 100% !important;
+}
+
 /* Utilidades Responsive para Publicidad (Desktop vs Móvil) */
 .mobile-only-ad {
   display: block;

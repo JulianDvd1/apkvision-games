@@ -59,6 +59,15 @@
 </section>
 <% } %>
 
+<!-- Banner Adsterra 728x90 Leaderboard / 320x50 Móvil -->
+<div style="margin: 1.5rem 0 2rem;">
+  <%- include('partials/ad-slot', { 
+    slot: adsConfig.slots.headerBanner, 
+    sizeClass: 'size-728x90', 
+    customClass: 'header-leaderboard-ad' 
+  }) %>
+</div>
+
 <!-- SECCIÓN: Catálogo de Juegos con Efecto Cascada -->
 <div class="section-header">
   <h2 class="section-title">
