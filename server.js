@@ -4,12 +4,52 @@ const fs = require('fs');
 const cors = require('cors');
 const session = require('express-session');
 const slugify = require('slugify');
+const multer = require('multer');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_PATH = process.env.ADMIN_SECRET_PATH || '/gestion-privada-apk';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin12345';
+
+// Configuración de Multer para subida de imágenes desde PC
+const uploadsDir = path.join(__dirname, 'public', 'uploads', 'games');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    const cleanName = path.basename(file.originalname, ext)
+      .toLowerCase()
+      .replace(/[^a-z0-9_-]/g, '-')
+      .substring(0, 30);
+    cb(null, `${cleanName}-${Date.now()}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 25 * 1024 * 1024 }, // 25 MB max por imagen
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg'].includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Solo se permiten archivos de imagen (.png, .jpg, .webp, .svg, .gif)'));
+    }
+  }
+});
+
+const gameUploadMiddleware = upload.fields([
+  { name: 'iconFile', maxCount: 1 },
+  { name: 'bannerFile', maxCount: 1 },
+  { name: 'screenshotFiles', maxCount: 15 }
+]);
 
 // Middlewares
 app.use(cors());
@@ -296,8 +336,8 @@ app.get(ADMIN_PATH, requireAdminAuth, (req, res) => {
   });
 });
 
-// Guardar / Editar juego
-app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
+// Guardar / Editar juego (Soporta subida de archivos desde PC y URLs)
+app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, gameUploadMiddleware, (req, res) => {
   const {
     id,
     title,
@@ -364,19 +404,47 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
   const existingIndex = games.findIndex(g => g.id === (id || slug));
   const existingGame = existingIndex >= 0 ? games[existingIndex] : null;
 
-  // Parsear capturas de pantalla si se proporcionan por saltos de línea o conservar existentes
-  let parsedScreenshots = [];
+  // Procesar icono (archivo subido desde PC o URL o existente)
+  let finalIcon = icon ? icon.trim() : '';
+  if (req.files && req.files['iconFile'] && req.files['iconFile'][0]) {
+    finalIcon = `/uploads/games/${req.files['iconFile'][0].filename}`;
+  } else if (!finalIcon && existingGame) {
+    finalIcon = existingGame.icon;
+  } else if (!finalIcon) {
+    finalIcon = '/images/placeholder-game.svg';
+  }
+
+  // Procesar banner (archivo subido desde PC o URL o existente)
+  let finalBanner = banner ? banner.trim() : '';
+  if (req.files && req.files['bannerFile'] && req.files['bannerFile'][0]) {
+    finalBanner = `/uploads/games/${req.files['bannerFile'][0].filename}`;
+  } else if (!finalBanner && existingGame) {
+    finalBanner = existingGame.banner;
+  } else if (!finalBanner) {
+    finalBanner = finalIcon;
+  }
+
+  // Procesar capturas de pantalla (archivos subidos desde PC + URLs escritas)
+  let uploadedScreenshots = [];
+  if (req.files && req.files['screenshotFiles'] && req.files['screenshotFiles'].length > 0) {
+    uploadedScreenshots = req.files['screenshotFiles'].map(f => `/uploads/games/${f.filename}`);
+  }
+
+  let typedScreenshots = [];
   if (req.body.screenshots && req.body.screenshots.trim()) {
-    parsedScreenshots = req.body.screenshots
+    typedScreenshots = req.body.screenshots
       .split('\n')
       .map(s => s.trim())
       .filter(Boolean);
+  }
+
+  let parsedScreenshots = [];
+  if (uploadedScreenshots.length > 0 || typedScreenshots.length > 0) {
+    parsedScreenshots = [...new Set([...typedScreenshots, ...uploadedScreenshots])];
   } else if (existingGame && existingGame.screenshots && existingGame.screenshots.length > 0) {
     parsedScreenshots = existingGame.screenshots;
   } else {
-    parsedScreenshots = [
-      icon || '/images/placeholder-game.svg'
-    ];
+    parsedScreenshots = [finalIcon];
   }
 
   const gameData = {
@@ -394,8 +462,8 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
     updatedAt: new Date().toISOString().split('T')[0],
     rating: parseFloat(rating) || 4.7,
     downloadsCount: downloadsCount || '10K',
-    icon: icon || '/images/placeholder-game.svg',
-    banner: banner || icon || '/images/placeholder-game.svg',
+    icon: finalIcon,
+    banner: finalBanner,
     screenshots: parsedScreenshots,
     modFeatures: featuresArray,
     downloadUrl: primaryDownloadUrl,

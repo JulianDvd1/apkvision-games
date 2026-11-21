@@ -203,7 +203,7 @@
           Agregar Nuevo Juego al Catálogo
         </h2>
 
-        <form action="<%= adminPath %>/juego/guardar" method="POST" id="gameForm">
+        <form action="<%= adminPath %>/juego/guardar" method="POST" enctype="multipart/form-data" id="gameForm">
           <input type="hidden" name="id" id="game_id" value="">
 
           <div class="form-row cols-2">
@@ -286,13 +286,50 @@
           </div>
 
           <div class="form-row cols-2">
-            <div class="form-group">
-              <label class="form-label">Ruta o URL del Icono Cuadrado (140x140)</label>
-              <input type="text" name="icon" id="game_icon" class="form-control" placeholder="/uploads/mario-strikers/... o https://..." value="/images/placeholder-game.svg">
+            <div class="form-group" style="background: rgba(255, 255, 255, 0.02); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <label class="form-label" style="display: flex; align-items: center; gap: 6px; color: var(--accent-green); font-weight: 700;">
+                <span>🖼️</span> Icono de la App (Subir desde PC)
+              </label>
+              
+              <div style="margin-bottom: 8px;">
+                <input type="file" name="iconFile" id="game_iconFile" class="form-control" accept="image/*" onchange="previewImageFile(this, 'iconPreview', 'iconPreviewImg')">
+              </div>
+
+              <div id="iconPreview" style="display: none; margin: 10px 0; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px;">
+                <img id="iconPreviewImg" src="" style="width: 52px; height: 52px; border-radius: 12px; object-fit: cover; border: 1px solid var(--accent-green); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <div>
+                  <span style="font-size: 0.8rem; color: var(--accent-green); font-weight: 700; display: block;">✓ Imagen cargada</span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">Se aplicará al guardar</span>
+                </div>
+              </div>
+
+              <label style="font-size: 0.76rem; color: var(--text-muted); display: block; margin-top: 8px;">
+                O escribe una ruta o URL web existente:
+              </label>
+              <input type="text" name="icon" id="game_icon" class="form-control" placeholder="/uploads/games/... o https://..." value="/images/placeholder-game.svg">
             </div>
-            <div class="form-group">
-              <label class="form-label">Ruta o URL del Banner Panorámico HD</label>
-              <input type="text" name="banner" id="game_banner" class="form-control" placeholder="/uploads/mario-strikers/... o https://..." value="/images/placeholder-game.svg">
+
+            <div class="form-group" style="background: rgba(255, 255, 255, 0.02); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <label class="form-label" style="display: flex; align-items: center; gap: 6px; color: var(--accent-cyan); font-weight: 700;">
+                <span>🌄</span> Banner Panorámico HD (Subir desde PC)
+              </label>
+
+              <div style="margin-bottom: 8px;">
+                <input type="file" name="bannerFile" id="game_bannerFile" class="form-control" accept="image/*" onchange="previewImageFile(this, 'bannerPreview', 'bannerPreviewImg')">
+              </div>
+
+              <div id="bannerPreview" style="display: none; margin: 10px 0; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px;">
+                <img id="bannerPreviewImg" src="" style="width: 110px; height: 52px; border-radius: 8px; object-fit: cover; border: 1px solid var(--accent-cyan); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <div>
+                  <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; display: block;">✓ Banner cargado</span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">Se aplicará al guardar</span>
+                </div>
+              </div>
+
+              <label style="font-size: 0.76rem; color: var(--text-muted); display: block; margin-top: 8px;">
+                O escribe una ruta o URL web existente:
+              </label>
+              <input type="text" name="banner" id="game_banner" class="form-control" placeholder="/uploads/games/... o https://..." value="/images/placeholder-game.svg">
             </div>
           </div>
 
@@ -311,9 +348,26 @@
             <textarea name="modFeatures" id="game_modFeatures" class="form-control" rows="3" placeholder="60 FPS estables desbloqueados&#10;Pack de Texturas HD incluido&#10;Controles táctiles optimizados"></textarea>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Capturas de Pantalla (Una ruta o URL por línea)</label>
-            <textarea name="screenshots" id="game_screenshots" class="form-control" rows="4" placeholder="/uploads/mario-strikers/super-mario-strikers-1.png&#10;/uploads/mario-strikers/super-mario-strikers-2.png"></textarea>
+          <!-- Gestor de Capturas de Pantalla desde PC + URLs -->
+          <div class="form-group" style="background: rgba(6, 182, 212, 0.04); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: var(--radius-md); padding: 1.25rem;">
+            <label class="form-label" style="font-size: 1rem; font-weight: 800; color: var(--accent-cyan); display: flex; align-items: center; gap: 8px; margin-bottom: 0.4rem;">
+              <span>📸</span> Capturas de Pantalla del Juego (Subir desde PC)
+            </label>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+              Selecciona una o varias imágenes desde tu ordenador (puedes arrastrar o seleccionar varias manteniendo presionada la tecla Ctrl / Shift).
+            </p>
+
+            <div style="margin-bottom: 0.85rem;">
+              <input type="file" name="screenshotFiles" id="game_screenshotFiles" class="form-control" accept="image/*" multiple onchange="previewScreenshotsFromFiles(this)">
+            </div>
+
+            <!-- Previsualización de imágenes seleccionadas en PC -->
+            <div id="screenshotsFilesPreview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0.85rem;"></div>
+
+            <label class="form-label" style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px;">
+              Rutas o enlaces de capturas (Una por línea, se conservan o complementan automáticamente):
+            </label>
+            <textarea name="screenshots" id="game_screenshots" class="form-control" rows="3" placeholder="/uploads/mario-strikers/super-mario-strikers-1.png&#10;/uploads/mario-strikers/super-mario-strikers-2.png"></textarea>
           </div>
 
           <div class="form-group">
@@ -549,10 +603,58 @@
       return String(text).replace(/"/g, '&quot;');
     }
 
+    function previewImageFile(input, containerId, imgId) {
+      const container = document.getElementById(containerId);
+      const img = document.getElementById(imgId);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          img.src = e.target.result;
+          container.style.display = 'flex';
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    function previewScreenshotsFromFiles(input) {
+      const previewDiv = document.getElementById('screenshotsFilesPreview');
+      previewDiv.innerHTML = '';
+      if (input.files && input.files.length > 0) {
+        Array.from(input.files).forEach((file, idx) => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const thumbWrap = document.createElement('div');
+            thumbWrap.style.cssText = 'position: relative; width: 110px; height: 65px; border-radius: 8px; overflow: hidden; border: 1px solid var(--accent-cyan); box-shadow: 0 4px 10px rgba(0,0,0,0.5); background: #000;';
+            
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+            
+            const badge = document.createElement('span');
+            badge.textContent = '#' + (idx + 1);
+            badge.style.cssText = 'position: absolute; bottom: 3px; right: 3px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.65rem; padding: 1px 5px; border-radius: 4px; font-weight: 700;';
+            
+            thumbWrap.appendChild(img);
+            thumbWrap.appendChild(badge);
+            previewDiv.appendChild(thumbWrap);
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+    }
+
     function resetGameForm() {
       document.getElementById('gameForm').reset();
       document.getElementById('game_id').value = '';
       document.getElementById('game_screenshots').value = '';
+      document.getElementById('game_iconFile').value = '';
+      document.getElementById('game_bannerFile').value = '';
+      document.getElementById('game_screenshotFiles').value = '';
+      document.getElementById('iconPreview').style.display = 'none';
+      document.getElementById('bannerPreview').style.display = 'none';
+      document.getElementById('screenshotsFilesPreview').innerHTML = '';
       document.getElementById('formTitle').textContent = 'Agregar Nuevo Juego al Catálogo';
       document.getElementById('downloadFilesContainer').innerHTML = '';
       fileCounter = 0;
@@ -579,6 +681,49 @@
       document.getElementById('game_modFeatures').value = (game.modFeatures || []).join('\n');
       document.getElementById('game_screenshots').value = (game.screenshots || []).join('\n');
       document.getElementById('game_featured').checked = !!game.featured;
+
+      // Limpiar inputs de archivos de PC
+      document.getElementById('game_iconFile').value = '';
+      document.getElementById('game_bannerFile').value = '';
+      document.getElementById('game_screenshotFiles').value = '';
+      document.getElementById('screenshotsFilesPreview').innerHTML = '';
+
+      // Mostrar previsualización de imágenes existentes
+      if (game.icon) {
+        document.getElementById('iconPreviewImg').src = game.icon;
+        document.getElementById('iconPreview').style.display = 'flex';
+      } else {
+        document.getElementById('iconPreview').style.display = 'none';
+      }
+
+      if (game.banner) {
+        document.getElementById('bannerPreviewImg').src = game.banner;
+        document.getElementById('bannerPreview').style.display = 'flex';
+      } else {
+        document.getElementById('bannerPreview').style.display = 'none';
+      }
+
+      // Cargar todos los enlaces de descarga dinámicos
+      const container = document.getElementById('downloadFilesContainer');
+      container.innerHTML = '';
+      fileCounter = 0;
+
+      if (game.downloadFiles && game.downloadFiles.length > 0) {
+        game.downloadFiles.forEach(file => {
+          addDownloadFileRow(file);
+        });
+      } else if (game.downloadUrl) {
+        addDownloadFileRow({
+          name: game.title + ' (' + (game.badge || 'APK') + ')',
+          type: game.badge || 'APK',
+          size: game.size || '100 MB',
+          badge: 'Principal',
+          url: game.downloadUrl
+        });
+      } else {
+        addDownloadFileRow();
+      }
+    }
 
       // Cargar todos los enlaces de descarga dinámicos
       const container = document.getElementById('downloadFilesContainer');
