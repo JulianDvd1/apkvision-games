@@ -92,6 +92,59 @@
     "featured": false
   },
   {
+    "id": "lef-4-dead-apk",
+    "slug": "lef-4-dead-apk",
+    "title": "Left 4 Dead APK (Full Port Android + L4D1 Recomp)",
+    "shortDescription": "Descarga Left 4 Dead APK v1.0.4 para Android. El legendario shooter cooperativo de Valve adaptado con motor Source nativo (L4D1 Recomp), controles táctiles, soporte para mando y campañas completas.",
+    "description": "¡Prepárate para sobrevivir al apocalipsis zombi definitivo en tu dispositivo móvil! **Left 4 Dead para Android** ya es una realidad gracias al extraordinario proyecto de recompilación nativa **L4D1 Recomp v1.0.4**. Por primera vez puedes disfrutar de la aclamada obra maestra de disparos cooperativos en primera persona y terror y supervivencia de Valve Corporation directamente en tu smartphone o tablet, con rendimiento fluido a 60 FPS, gráficos en alta definición y controles táctiles totalmente optimizados.\n\nPonte en la piel de uno de los cuatro supervivientes icónicos —**Bill, Zoey, Louis o Francis**— y ábrete camino a tiros a través de metrópolis devastadas, túneles de metro en ruinas, pantanos sombríos y hospitales infestados de no-muertos.\n\n---\n\n### 🧟 Campañas Legendarias Incluidas (Edición GOTY)\n\nEste port completo incluye las 5 campañas originales completas de la edición *Game of the Year*:\n\n* **No Mercy (Alta Médica):** Avanza por las calles de Fairfield y lucha hasta la azotea del hospital Mercy para la evacuación en helicóptero.\n* **Crash Course (Terapia de Choque):** Sobrevive en los suburbios industriales tras el siniestro del helicóptero de rescate.\n* **Death Toll (Toque de Difuntos):** Cruza túneles, cavernas y un pueblo rural fantasma rumbo al muelle de Riverside.\n* **Dead Air (Último Vuelo):** Atraviesa edificios de oficinas en llamas hasta llegar a las pistas de aterrizaje del aeropuerto metropolitano.\n* **Blood Harvest (Cosecha de Sangre):** Escapa de los bosques y vías de tren hacia una granja fortificada por el ejército.\n\n---\n\n### 🧠 El Temible \"AI Director\" y Zombis Especiales\n\nEl legendario sistema dinámico **AI Director** de Valve analiza en tiempo real tu nivel de estrés, munición y salud para modular la música, la densidad de la niebla y la frecuencia de las emboscadas. Prepárate para combatir no solo a hordas masivas de infectados comunes, sino a las temidas mutaciones especiales:\n\n* **Hunter:** Infectado ágil que acecha desde cornisas y techos para lanzarse a gran velocidad sobre su presa.\n* **Smoker:** Especialista en emboscadas a distancia que arrastra a los supervivientes usando su larga lengua mutante.\n* **Boomer:** Criatura grotesca que vomita bilis ácida atrayendo instantáneamente a toda la horda hacia ti.\n* **Tank:** Gigantesco coloso imparable capaz de arrojar vehículos pesados y bloques de concreto.\n* **Witch:** La perturbadora figura que solloza en la oscuridad... ¡apaga tu linterna y no te acerques a ella!\n\n---\n\n### 🎮 Controles Táctiles y Compatibilidad con Mandos\n\n* **Controles en Pantalla Táctil:** Disposición ergonómica personalizable con joysticks virtuales, botones de acción rápida (apuntar, disparar, recargar, culatazo, linterna y salto).\n* **Soporte Nativo para Gamepads:** Compatible de fábrica con mandos Bluetooth (Xbox One / Series, PS4 DualShock, PS5 DualSense y controles telescópicos tipo GameSir y Razer Kishi).\n* **Motor Source Nativo:** Recompilación optimizada para procesadores ARM64 que aprovecha al máximo la aceleración de hardware gráfica.\n\n---\n\n### 📋 Guía de Instalación Paso a Paso (L4D1 Recomp)\n\n1. **Descargar los archivos necesarios:** Descarga tanto el **Instalador APK (52.36 MB)** como el paquete de datos del juego **Left-4-Dead-GOTY-Edition.7z (6.15 GB)** desde los enlaces oficiales de descarga directa más abajo.\n2. **Instalar el APK:** Instala el archivo `L4D1-Recomp-v1.0.4-full-apkvision.apk` en tu teléfono (habilita la opción de *Instalar aplicaciones desconocidas* en Seguridad).\n3. **Extraer la ISO del juego:** Con una aplicación como **ZArchiver** o **RAR**, descomprime el archivo `.7z` en tu memoria interna para obtener el archivo `.iso`.\n4. **Importar en el juego:** Abre la aplicación **Left 4 Dead**, toca sobre la opción **IMPORT GAME**, selecciona **DISC IMAGE (.ISO)** y elige la ISO extraída.\n5. **¡A jugar!:** Una vez terminada la importación, pulsa **PLAY** y sumérgete de lleno en la acción.\n\n---\n\n### ⚙️ Requisitos Técnicos del Sistema\n\n* **Sistema Operativo:** Android 8.0 (Oreo) o superior\n* **Procesador:** Octa-Core de 64 bits (Snapdragon 720G / Dimensity 700 o superior)\n* **GPU:** Adreno 618 / Mali-G57 o superior con soporte Vulkan / OpenGL ES 3.2\n* **Memoria RAM:** 4 GB mínimo (6 GB recomendados para 60 FPS ultra fluidos)\n* **Almacenamiento Libre:** 7.5 GB de espacio libre para la instalación y datos descomprimidos",
+    "category": "Acción",
+    "badge": "PORT ANDROID",
+    "version": "v1.0.4",
+    "size": "6.20 GB",
+    "requiresAndroid": "Android 8.0+ (ARM64)",
+    "developer": "Valve / L4D1 Recomp",
+    "updatedAt": "2026-11-21",
+    "rating": 4.9,
+    "downloadsCount": "250K+",
+    "icon": "/uploads/games/left_4_dead-square-140x140-1795273479726.png",
+    "banner": "/uploads/games/6902d6ff2fe9c-1795273479728.png",
+    "screenshots": [
+      "/uploads/games/left-4-dead-7-1795273479902.png",
+      "/uploads/games/left-4-dead-6-1795273480101.png",
+      "/uploads/games/left-4-dead-5-1795273480203.png",
+      "/uploads/games/left-4-dead-4-1795273480301.png",
+      "/uploads/games/left-4-dead-3-1795273480305.png",
+      "/uploads/games/left-4-dead-2-1795273480601.png",
+      "/uploads/games/left-4-dead-1-1795273480605.png"
+    ],
+    "modFeatures": [
+      "Port nativo Source Engine recompilado para arquitecturas Android ARM64",
+      "Las 5 campañas completas de la edición GOTY: No Mercy, Crash Course, Death Toll, Dead Air y Blood Harvest",
+      "IA Director dinámica que modula la tensión, niebla y hordas en cada partida",
+      "Los 4 supervivientes clásicos jugables: Bill, Zoey, Louis y Francis con voces originales",
+      "Controles táctiles en pantalla configurables y compatibilidad total con mandos Bluetooth",
+      "Rendimiento optimizado a 60 FPS con texturas HD, iluminación y sonido cinemático"
+    ],
+    "downloadUrl": "https://dl.apkvision.org/left-4-dead/L4D1-Recomp-v1.0.4-full-apkvision.apk",
+    "downloadFiles": [
+      {
+        "name": "Left 4 Dead (Instalador APK L4D1 Recomp v1.0.4)",
+        "type": "APK",
+        "size": "52.36 MB",
+        "badge": "Instalador Principal",
+        "url": "https://dl.apkvision.org/left-4-dead/L4D1-Recomp-v1.0.4-full-apkvision.apk"
+      },
+      {
+        "name": "Left 4 Dead GOTY Edition (Datos del Juego ISO / 7Z)",
+        "type": "ISO / 7Z",
+        "size": "6.15 GB",
+        "badge": "Datos Necesarios (6.15 GB)",
+        "url": "https://dl.apkvision.net/left-4-dead/Left-4-Dead-Game-of-the-Year-Edition-apkvision.7z"
+      }
+    ],
+    "featured": false
+  },
+  {
     "id": "dragon-ball-xenoverse-apk",
     "slug": "dragon-ball-xenoverse-apk",
     "title": "DRAGON BALL XENOVERSE APK (Full Port Android)",
