@@ -225,7 +225,8 @@ app.use((req, res, next) => {
   res.locals.categories = getCategories();
   res.locals.currentPath = req.path;
   res.locals.adminPath = ADMIN_PATH;
-  res.locals.siteUrl = process.env.SITE_URL || `http://${req.headers.host}`;
+  const proto = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+  res.locals.siteUrl = process.env.SITE_URL || `${proto}://${req.headers.host}`;
   next();
 });
 
@@ -249,10 +250,27 @@ app.get('/', (req, res) => {
   const games = getGames();
   const featuredGames = games.filter(g => g.featured);
   const recentGames = [...games].reverse();
+  const baseUrl = res.locals.siteUrl;
+
+  const schemaJson = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': 'AuraAPK',
+    'alternateName': ['Aura APK', 'AuraAPK Games', 'AuraAPK Android'],
+    'url': baseUrl,
+    'description': 'Plataforma líder para descargar los mejores juegos y aplicaciones móviles para Android en formato APK y MOD gratis, actualizados y 100% seguros.',
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': `${baseUrl}/categoria/todos?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  };
 
   res.render('index', {
-    title: 'Descargar Juegos Mod APK Gratis para Android | AuraAPK',
-    metaDesc: 'Descarga los mejores juegos y aplicaciones móviles para Android en formato APK y MOD gratis, actualizados y 100% seguros en AuraAPK.',
+    title: 'AuraAPK - Descargar Juegos y MODs APK Gratis para Android',
+    metaDesc: 'AuraAPK es la plataforma líder para descargar los mejores juegos y aplicaciones móviles para Android en formato APK y MOD gratis, actualizados y 100% seguros.',
+    metaKeywords: 'AuraAPK, aura apk, descargar juegos android, mod apk gratis, juegos android actualizados, apk seguros',
+    schemaJson,
     featuredGames,
     recentGames,
     activeCategory: 'todos'
