@@ -1,29 +1,60 @@
 <%- include('partials/header') %>
 
-<!-- HERO SECTION: Juego Destacado con Shimmer & Glow -->
+<!-- HERO SECTION: Juego Destacado con Aura Neón & Pop-Out 3D (Combinación A + C) -->
 <% if (featuredGames && featuredGames.length > 0) { 
     const hero = featuredGames[0];
 %>
 <section class="hero-section">
+  <!-- Aura Neón y Resplandor Ambiental de Fondo -->
+  <div class="hero-glow-backdrop" aria-hidden="true"></div>
+
   <div class="hero-card">
     <div class="hero-content">
-      <span class="hero-tag">🔥 Juego Destacado del Día</span>
-      <h1 class="hero-title"><%= hero.title %></h1>
+      
+      <!-- Fila Superior: Badges y Tendencia -->
+      <div class="hero-tags-row">
+        <span class="hero-tag">🔥 JUEGO DESTACADO DEL DÍA</span>
+        <span class="hero-chip-trend">⚡ #1 EN TENDENCIAS</span>
+      </div>
+
+      <!-- Cabecera con Icono Flotante 3D + Título + Microchips -->
+      <div class="hero-header-row">
+        <% if (hero.icon) { %>
+          <div class="hero-icon-squircle">
+            <img src="<%= hero.icon %>" alt="<%= hero.title %> Icono" onerror="this.src='/images/placeholder-game.svg'">
+          </div>
+        <% } %>
+        <div class="hero-header-titles">
+          <h1 class="hero-title"><%= hero.title %></h1>
+          <!-- Fila de Micro-Badges de Impacto -->
+          <div class="hero-meta-chips">
+            <span class="hero-chip hero-chip-rating">★ <%= hero.rating %></span>
+            <span class="hero-chip hero-chip-size">📦 <%= hero.size %></span>
+            <span class="hero-chip hero-chip-badge">⚡ <%= hero.badge %></span>
+            <span class="hero-chip hero-chip-cat"><%= hero.category %></span>
+          </div>
+        </div>
+      </div>
+
       <p class="hero-desc"><%= hero.shortDescription %></p>
+
       <div class="hero-actions">
-        <a href="/juego/<%= hero.slug %>" class="btn btn-primary">
+        <a href="/juego/<%= hero.slug %>" class="btn btn-hero-download">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
           Descargar <%= hero.version %>
         </a>
-        <a href="/juego/<%= hero.slug %>" class="btn btn-secondary">
-          Ver Ficha Técnica
+        <a href="/juego/<%= hero.slug %>" class="btn btn-secondary hero-btn-sec">
+          Ver Ficha Técnica ↗
         </a>
       </div>
     </div>
+
+    <!-- Área de Imagen con Efecto Pop-Out 3D -->
     <div class="hero-image-area">
-      <img src="<%= hero.banner || hero.icon %>" alt="<%= hero.title %>" class="hero-img">
+      <div class="hero-art-glow" aria-hidden="true"></div>
+      <img src="<%= hero.banner || hero.icon %>" alt="<%= hero.title %>" class="hero-img-popout">
     </div>
   </div>
 </section>

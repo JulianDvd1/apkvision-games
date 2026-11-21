@@ -341,8 +341,28 @@
       <article class="game-card cascade-item" data-tilt>
         <a href="/juego/<%= rel.slug %>" style="display: flex; flex-direction: column; height: 100%;">
           <div class="game-card-thumb-wrap">
-            <img src="<%= rel.banner || rel.icon %>" alt="<%= rel.title %>" class="game-card-thumb" loading="lazy" onerror="this.src='/images/placeholder-game.svg'">
-            <span class="game-badge"><%= rel.badge %></span>
+            <img 
+              src="<%= rel.icon || rel.banner %>" 
+              alt="" 
+              class="game-card-thumb-ambient" 
+              loading="lazy"
+              aria-hidden="true"
+            >
+            <div class="game-card-icon-box">
+              <img 
+                src="<%= rel.icon || rel.banner %>" 
+                alt="<%= rel.title %>" 
+                class="game-card-thumb" 
+                loading="lazy"
+                onerror="this.src='/images/placeholder-game.svg'"
+              >
+            </div>
+            <span class="game-badge <%= rel.badge && rel.badge.toLowerCase().includes('mod') ? 'mod' : '' %>">
+              <%= rel.badge %>
+            </span>
+            <span class="game-version-badge">
+              <%= rel.version %>
+            </span>
           </div>
           <div class="game-card-body">
             <h4 class="game-card-title"><%= rel.title %></h4>
