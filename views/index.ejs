@@ -125,39 +125,6 @@
         </div>
       </a>
     </article>
-
-    <%# Intercalar banner nativo de Adsterra perfectamente alineado como una tarjeta de juego más %>
-    <% if (index === 2) { %>
-      <article class="game-card cascade-item" style="border-color: rgba(245, 158, 11, 0.3);">
-        <% if (adsConfig.testMode || !adsConfig.slots.inFeedNative.code || adsConfig.slots.inFeedNative.code.includes('<!-- Pega aquí')) { %>
-          <a href="#" onclick="event.preventDefault();" style="display: flex; flex-direction: column; height: 100%;">
-            <div class="game-card-thumb-wrap">
-              <img 
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" 
-                alt="Patrocinado" 
-                class="game-card-thumb"
-              >
-              <span class="game-badge" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: #000;">
-                PATROCINADO
-              </span>
-              <span class="game-version-badge">ANUNCIO</span>
-            </div>
-            <div class="game-card-body">
-              <h3 class="game-card-title">Juegos Móviles & Ofertas</h3>
-              <div class="game-card-cat">Publicidad • Adsterra Native</div>
-              <div class="game-card-footer">
-                <span class="game-rating" style="color: var(--accent-amber);">★ 5.0</span>
-                <span style="color: var(--accent-green); font-weight: 800; font-size: 0.75rem;">VISITAR ↗</span>
-              </div>
-            </div>
-          </a>
-        <% } else { %>
-          <div style="padding: 10px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <%- adsConfig.slots.inFeedNative.code %>
-          </div>
-        <% } %>
-      </article>
-    <% } %>
   <% }) %>
 </div>
 
