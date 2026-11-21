@@ -68,6 +68,23 @@
           <span>•</span>
           <span>📱 Compatible con Android</span>
         </div>
+
+        <!-- Botones de Compartir Rápido (Generador de Tráfico Viral) -->
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+          <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Compartir:</span>
+          
+          <a href="https://api.whatsapp.com/send?text=Descarga%20<%= encodeURIComponent(game.title) %>%20gratis%20en%20AuraAPK:%20<%= encodeURIComponent(siteUrl + '/juego/' + game.slug) %>" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; border-radius: 9999px;">
+            <span>💬 WhatsApp</span>
+          </a>
+          
+          <a href="https://t.me/share/url?url=<%= encodeURIComponent(siteUrl + '/juego/' + game.slug) %>&text=Descarga%20<%= encodeURIComponent(game.title) %>%20en%20AuraAPK" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; border-radius: 9999px;">
+            <span>✈️ Telegram</span>
+          </a>
+
+          <button type="button" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; border-radius: 9999px;" onclick="copyGameLink(this)">
+            <span>📋 Copiar Enlace</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

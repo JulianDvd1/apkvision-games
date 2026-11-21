@@ -6,6 +6,9 @@
   { "id": "carreras", "name": "Carreras", "slug": "carreras", "icon": "truck" },
   { "id": "estrategia", "name": "Estrategia", "slug": "estrategia", "icon": "chess" },
   { "id": "arcade", "name": "Arcade", "slug": "arcade", "icon": "puzzle" },
+  { "id": "disparos", "name": "Disparos (Shooter)", "slug": "disparos", "icon": "target" },
   { "id": "simulacion", "name": "Simulación", "slug": "simulacion", "icon": "cpu" },
-  { "id": "rpg", "name": "RPG", "slug": "rpg", "icon": "shield" }
+  { "id": "rpg", "name": "RPG", "slug": "rpg", "icon": "shield" },
+  { "id": "lucha", "name": "Lucha & Pelea", "slug": "lucha", "icon": "swords" },
+  { "id": "terror", "name": "Terror & Supervivencia", "slug": "terror", "icon": "ghost" }
 ]

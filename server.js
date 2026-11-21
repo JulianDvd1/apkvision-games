@@ -326,6 +326,41 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
     ? modFeatures.split('\n').map(s => s.trim()).filter(Boolean)
     : [];
 
+  // Parsear archivos descargables múltiples (APK, ISO, Texturas, etc.)
+  let parsedDownloadFiles = [];
+  if (req.body.file_name) {
+    const names = Array.isArray(req.body.file_name) ? req.body.file_name : [req.body.file_name];
+    const types = Array.isArray(req.body.file_type) ? req.body.file_type : [req.body.file_type];
+    const sizes = Array.isArray(req.body.file_size) ? req.body.file_size : [req.body.file_size];
+    const badges = Array.isArray(req.body.file_badge) ? req.body.file_badge : [req.body.file_badge];
+    const urls = Array.isArray(req.body.file_url) ? req.body.file_url : [req.body.file_url];
+
+    for (let i = 0; i < names.length; i++) {
+      if (names[i] && names[i].trim()) {
+        parsedDownloadFiles.push({
+          name: names[i].trim(),
+          type: (types[i] || 'APK').trim(),
+          size: (sizes[i] || size || '100 MB').trim(),
+          badge: (badges[i] || 'Descarga Directa').trim(),
+          url: (urls[i] || '#').trim()
+        });
+      }
+    }
+  }
+
+  // Si no se enviaron archivos múltiples pero sí downloadUrl
+  if (parsedDownloadFiles.length === 0 && downloadUrl) {
+    parsedDownloadFiles.push({
+      name: `${title} (${badge || 'APK'})`,
+      type: badge || 'APK',
+      size: size || '100 MB',
+      badge: 'Principal',
+      url: downloadUrl
+    });
+  }
+
+  const primaryDownloadUrl = parsedDownloadFiles[0] ? parsedDownloadFiles[0].url : (downloadUrl || '#');
+
   const gameData = {
     id: id || slug,
     slug: slug,
@@ -347,7 +382,8 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
       icon || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'
     ],
     modFeatures: featuresArray,
-    downloadUrl: downloadUrl || '#',
+    downloadUrl: primaryDownloadUrl,
+    downloadFiles: parsedDownloadFiles,
     featured: featured === 'on' || featured === true || featured === 'true'
   };
 

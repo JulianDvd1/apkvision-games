@@ -171,3 +171,20 @@ document.addEventListener('keydown', (e) => {
     closeLightbox();
   }
 });
+
+// Copiar enlace al portapapeles con feedback visual
+function copyGameLink(btn) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span>✓ ¡Copiado!</span>';
+    btn.style.borderColor = 'var(--accent-green)';
+    btn.style.color = 'var(--accent-green)';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 2000);
+  }).catch(() => {
+    prompt('Copia este enlace para compartir:', window.location.href);
+  });
+}

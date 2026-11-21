@@ -74,13 +74,29 @@
   <!-- Barra de Categorías / Píldoras -->
   <nav class="categories-bar">
     <div class="container categories-scroll">
-      <% if (typeof categories !== 'undefined' && categories.length > 0) { %>
+      <% if (typeof categories !== 'undefined' && categories.length > 0) { 
+          const iconMap = {
+            'todos': '✨',
+            'deportes': '⚽',
+            'accion': '💥',
+            'aventura': '🧭',
+            'carreras': '🏎️',
+            'estrategia': '♟️',
+            'arcade': '🕹️',
+            'disparos': '🎯',
+            'simulacion': '🚜',
+            'rpg': '🛡️',
+            'lucha': '🥊',
+            'terror': '🧟'
+          };
+      %>
         <% categories.forEach(cat => { %>
           <a 
             href="/categoria/<%= cat.slug %>" 
             class="category-pill <%= (typeof activeCategory !== 'undefined' && activeCategory === cat.slug) ? 'active' : '' %>"
           >
-            <%= cat.name %>
+            <span><%= iconMap[cat.slug] || '🎮' %></span>
+            <span><%= cat.name %></span>
           </a>
         <% }) %>
       <% } %>
