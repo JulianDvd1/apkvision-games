@@ -5,8 +5,8 @@
 
 :root {
   --bg-main: #080c14;
-  --bg-card: rgba(16, 22, 36, 0.85);
-  --bg-card-hover: rgba(22, 31, 51, 0.95);
+  --bg-card: #101624;
+  --bg-card-hover: #161f33;
   --bg-elevated: #151d2f;
   --border-color: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(16, 185, 129, 0.45);
@@ -435,7 +435,7 @@ img {
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden; /* Totalmente contenido, nada sobresale */
-  background: linear-gradient(135deg, rgba(19, 28, 46, 0.9) 0%, rgba(12, 18, 30, 0.98) 100%);
+  background: linear-gradient(135deg, #131c2e 0%, #0c121e 100%);
   border: 1px solid rgba(16, 185, 129, 0.25);
   display: flex;
   flex-direction: column;
@@ -459,80 +459,25 @@ img {
 }
 
 /* ==========================================================================
-   FONDO ANIMADO GAMER (ESTILO ESPACIOAPK ADAPTADO A LA IDENTIDAD AURA)
+   FONDO ANIMADO GAMER GLOBAL (POR DETRÁS DE TODO EL SITIO)
    ========================================================================== */
-.hero-animated-bg-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-floating-gamer-svg {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 130%;
-  min-width: 1400px;
-  width: auto;
-  opacity: 0.38;
-  filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.3));
-  animation: auraGamerSlide 22s linear infinite;
-  will-change: left, transform;
-}
-
-@keyframes auraGamerSlide {
-  0%, 100% {
-    left: -20%;
-  }
-  25%, 75% {
-    left: -12%;
-  }
-  50% {
-    left: -4%;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-floating-gamer-svg {
-    height: 115%;
-    min-width: 950px;
-    opacity: 0.30;
-    animation: auraGamerSlideMobile 18s linear infinite;
-  }
-  
-  @keyframes auraGamerSlideMobile {
-    0%, 100% {
-      left: -60%;
-    }
-    50% {
-      left: -15%;
-    }
-  }
-}
-
-/* Fondo Global Gamer Sutil para todo el sitio */
 .aura-global-gamer-bg {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  opacity: 0.18;
+  opacity: 0.30;
 }
 
 .aura-global-stream {
   position: absolute;
-  top: 10%;
+  top: 8%;
   left: 0;
   width: 100%;
-  height: 500px;
+  height: 520px;
 }
 
 .aura-global-svg {
@@ -542,18 +487,42 @@ img {
   height: 100%;
   min-width: 1500px;
   width: auto;
-  animation: auraGlobalDrift 38s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.35));
+  animation: auraGlobalSlide 22s linear infinite;
+  will-change: left, transform;
 }
 
-@keyframes auraGlobalDrift {
-  0% {
-    transform: translateX(-15%) translateY(0);
+@keyframes auraGlobalSlide {
+  0%, 100% {
+    left: -18%;
+  }
+  25%, 75% {
+    left: -10%;
   }
   50% {
-    transform: translateX(3%) translateY(-25px);
+    left: -3%;
   }
-  100% {
-    transform: translateX(-8%) translateY(15px);
+}
+
+@media (max-width: 768px) {
+  .aura-global-gamer-bg {
+    opacity: 0.26;
+  }
+  .aura-global-stream {
+    top: 6%;
+    height: 400px;
+  }
+  .aura-global-svg {
+    min-width: 1050px;
+    animation: auraGlobalSlideMobile 18s linear infinite;
+  }
+  @keyframes auraGlobalSlideMobile {
+    0%, 100% {
+      left: -55%;
+    }
+    50% {
+      left: -10%;
+    }
   }
 }
 
