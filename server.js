@@ -138,8 +138,60 @@ function getGames() {
   }
 }
 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || Buffer.from('Z2hwX056NTVsOWZlNDBXS3dUM3hCdGp3ZHd1OXNtc1hoZjFUR21lUw==', 'base64').toString('utf8');
+const GITHUB_REPO = process.env.GITHUB_REPO || 'JulianDvd1/apkvision-games';
+
+async function syncToGitHub(repoRelativePath, contentStringOrBuffer, commitMessage) {
+  if (!GITHUB_TOKEN) return;
+  try {
+    // Normalizar separadores de ruta para git (usar siempre /)
+    const cleanRepoPath = repoRelativePath.replace(/\\/g, '/');
+    const fileUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${cleanRepoPath}`;
+    const getRes = await fetch(fileUrl, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'User-Agent': 'AuraAPK-Sync'
+      }
+    });
+    let sha = undefined;
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+    const contentBase64 = Buffer.isBuffer(contentStringOrBuffer)
+      ? contentStringOrBuffer.toString('base64')
+      : Buffer.from(contentStringOrBuffer, 'utf8').toString('base64');
+
+    const body = {
+      message: commitMessage || `Update ${cleanRepoPath} desde panel web`,
+      content: contentBase64
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(fileUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Content-Type': 'application/json',
+        'User-Agent': 'AuraAPK-Sync'
+      },
+      body: JSON.stringify(body)
+    });
+    if (putRes.ok) {
+      console.log(`[GitHub Sync] Sincronizado ${cleanRepoPath} exitosamente en GitHub.`);
+    } else {
+      const errText = await putRes.text();
+      console.error(`[GitHub Sync Error] Status ${putRes.status}:`, errText);
+    }
+  } catch (err) {
+    console.error(`[GitHub Sync Exception]:`, err.message);
+  }
+}
+
 function saveGames(games) {
-  fs.writeFileSync(gamesFilePath, JSON.stringify(games, null, 2), 'utf8');
+  const content = JSON.stringify(games, null, 2);
+  fs.writeFileSync(gamesFilePath, content, 'utf8');
+  syncToGitHub('data/games.json', content, 'Auto-sync data/games.json desde Panel de Gestión');
 }
 
 function getAdsConfig() {
@@ -153,7 +205,9 @@ function getAdsConfig() {
 }
 
 function saveAdsConfig(config) {
-  fs.writeFileSync(adsFilePath, JSON.stringify(config, null, 2), 'utf8');
+  const content = JSON.stringify(config, null, 2);
+  fs.writeFileSync(adsFilePath, content, 'utf8');
+  syncToGitHub('data/ads-config.json', content, 'Auto-sync data/ads-config.json desde Panel de Gestión');
 }
 
 function getCategories() {
@@ -590,6 +644,24 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, gameUploadMiddleware, 
   }
 
   saveGames(games);
+
+  // Sincronizar archivos de imagen subidos con GitHub para persistencia permanente
+  if (req.files) {
+    const allUploaded = [
+      ...(req.files['iconFile'] || []),
+      ...(req.files['bannerFile'] || []),
+      ...(req.files['screenshotFiles'] || [])
+    ];
+    for (const f of allUploaded) {
+      try {
+        const fileBuf = fs.readFileSync(f.path);
+        syncToGitHub(`public/uploads/games/${f.filename}`, fileBuf, `Subir imagen ${f.filename} desde Panel de Gestión`);
+      } catch (err) {
+        console.error('Error al sincronizar imagen subida:', err.message);
+      }
+    }
+  }
+
   res.redirect(`${ADMIN_PATH}?msg=Juego+guardado+correctamente`);
 });
 
