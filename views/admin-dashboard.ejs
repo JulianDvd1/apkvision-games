@@ -345,24 +345,14 @@
 
     
     <%
-      // Helper calculations for metrics & KPIs
-      let totalDownloadsRaw = 0;
+      // Helper calculations for real metrics & KPIs
+      const totalRealDownloads = (typeof metrics !== 'undefined' && metrics && metrics.totalDownloads) || 0;
+      const totalRealVisits = (typeof metrics !== 'undefined' && metrics && metrics.totalVisits) || 0;
       let totalFilesCount = 0;
       const categoryCounts = {};
       const allFilesList = [];
 
       games.forEach(g => {
-        const dlStr = (g.downloadsCount || '0').toUpperCase().trim();
-        let num = 0;
-        if (dlStr.endsWith('M')) {
-          num = parseFloat(dlStr) * 1000000;
-        } else if (dlStr.endsWith('K')) {
-          num = parseFloat(dlStr) * 1000;
-        } else {
-          num = parseFloat(dlStr) || 0;
-        }
-        totalDownloadsRaw += num;
-
         const cat = g.category || 'Otros';
         categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
 
@@ -393,18 +383,21 @@
         }
       });
 
-      const totalDownloadsFormatted = (totalDownloadsRaw / 1000000).toFixed(1) + 'M+';
-
-      const sortedGames = [...games].sort((a, b) => {
-        const getVal = (str) => {
-          str = (str || '0').toUpperCase().trim();
-          if (str.endsWith('M')) return parseFloat(str) * 1000000;
-          if (str.endsWith('K')) return parseFloat(str) * 1000;
-          return parseFloat(str) || 0;
-        };
-        return getVal(b.downloadsCount) - getVal(a.downloadsCount);
+      // Ordenar juegos por tráfico y descargas reales en AuraAPK
+      const sortedGamesByReal = [...games].sort((a, b) => {
+        const dlsA = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[a.id] && metrics.games[a.id].downloads) || 0;
+        const dlsB = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[b.id] && metrics.games[b.id].downloads) || 0;
+        if (dlsB !== dlsA) return dlsB - dlsA;
+        const visA = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[a.id] && metrics.games[a.id].visits) || 0;
+        const visB = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[b.id] && metrics.games[b.id].visits) || 0;
+        return visB - visA;
       });
-      const topDownloadsVal = sortedGames.length > 0 ? (sortedGames[0].downloadsCount.endsWith('M') ? parseFloat(sortedGames[0].downloadsCount)*1000000 : parseFloat(sortedGames[0].downloadsCount)*1000) : 1;
+
+      const maxScore = Math.max(1, ...sortedGamesByReal.map(g => {
+        const d = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[g.id] && metrics.games[g.id].downloads) || 0;
+        const v = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[g.id] && metrics.games[g.id].visits) || 0;
+        return d * 2 + v;
+      }));
     %>
 
     <!-- Grid de Métricas Principales (KPIs) -->
@@ -416,18 +409,33 @@
         </div>
         <div class="kpi-value"><%= games.length %></div>
         <div class="kpi-sub">
-          <span>✓ Títulos optimizados</span>
+          <span>✓ Títulos publicados</span>
         </div>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-header">
-          <span class="kpi-title">Descargas Totales</span>
+          <span class="kpi-title">Descargas Reales AuraAPK</span>
           <span class="kpi-icon">📥</span>
         </div>
-        <div class="kpi-value" style="color: var(--accent-green);"><%= totalDownloadsFormatted %></div>
+        <div class="kpi-value" style="color: var(--accent-green);"><%= totalRealDownloads %></div>
         <div class="kpi-sub">
-          <span>⚡ Tráfico acumulado estimado</span>
+          <% if (totalRealDownloads === 0) { %>
+            <span style="color: var(--text-muted);">Web nueva (0 descargas aún)</span>
+          <% } else { %>
+            <span>⚡ <%= totalRealDownloads %> descargas reales</span>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Visitas a Juegos</span>
+          <span class="kpi-icon">👁️</span>
+        </div>
+        <div class="kpi-value" style="color: var(--accent-cyan);"><%= totalRealVisits %></div>
+        <div class="kpi-sub">
+          <span>⚡ Clics reales a fichas de juego</span>
         </div>
       </div>
 
@@ -436,22 +444,9 @@
           <span class="kpi-title">Enlaces & Archivos</span>
           <span class="kpi-icon">🔗</span>
         </div>
-        <div class="kpi-value" style="color: var(--accent-cyan);"><%= totalFilesCount %></div>
+        <div class="kpi-value"><%= totalFilesCount %></div>
         <div class="kpi-sub">
           <span>📦 APKs, ISOs y Texturas</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-header">
-          <span class="kpi-title">Monetización Adsterra</span>
-          <span class="kpi-icon">💰</span>
-        </div>
-        <div class="kpi-value" style="font-size: 1.45rem; color: <%= ads.enabled ? 'var(--accent-green)' : '#ef4444' %>;">
-          <%= ads.enabled ? 'Activa' : 'Pausada' %>
-        </div>
-        <div class="kpi-sub" style="color: var(--text-muted);">
-          <span>5 formatos en producción</span>
         </div>
       </div>
     </div>
@@ -533,32 +528,40 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
         <div>
           <h2 style="font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <span>📊</span> Métricas de Tráfico & Rendimiento del Catálogo
+            <span>📊</span> Métricas Reales de Tráfico & Rendimiento
           </h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 3px;">
-            Análisis de juegos con mayor demanda, enlaces más descargados y distribución de categorías.
+            Contadores 100% reales de visitas y descargas efectuadas en AuraAPK desde el lanzamiento.
           </p>
         </div>
-        <button class="btn btn-secondary" onclick="window.location.reload();" style="font-size: 0.82rem; padding: 0.45rem 0.9rem;">
-          🔄 Actualizar Métricas
-        </button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="window.location.reload();" style="font-size: 0.82rem; padding: 0.45rem 0.9rem;">
+            🔄 Actualizar Métricas
+          </button>
+          <form action="<%= adminPath %>/metricas/reset" method="POST" onsubmit="return confirm('¿Seguro que deseas reiniciar todos los contadores de visitas y descargas reales a 0?');" style="margin: 0;">
+            <button type="submit" class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.45rem 0.9rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+              🗑️ Reiniciar Contadores a 0
+            </button>
+          </form>
+        </div>
       </div>
 
       <div class="stats-card-grid">
         <!-- Panel 1: Top Juegos Más Visitados / Populares -->
         <div class="stats-panel">
-          <div class="stats-panel-title">
-            <span>🔥</span> Top Juegos Más Populares & Descargados
+          <div class="stats-panel-title" style="justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span>🔥</span> Tráfico Real por Juego en AuraAPK
+            </div>
+            <span style="font-size: 0.72rem; color: var(--accent-green); font-weight: 700; background: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 9999px;">
+              100% REAL
+            </span>
           </div>
-          <% sortedGames.forEach((g, idx) => { 
-               const getVal = (str) => {
-                 str = (str || '0').toUpperCase().trim();
-                 if (str.endsWith('M')) return parseFloat(str) * 1000000;
-                 if (str.endsWith('K')) return parseFloat(str) * 1000;
-                 return parseFloat(str) || 0;
-               };
-               const val = getVal(g.downloadsCount);
-               const pct = Math.round((val / (topDownloadsVal || 1)) * 100);
+          <% sortedGamesByReal.forEach((g, idx) => { 
+               const gDownloads = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[g.id] && metrics.games[g.id].downloads) || 0;
+               const gVisits = (typeof metrics !== 'undefined' && metrics && metrics.games && metrics.games[g.id] && metrics.games[g.id].visits) || 0;
+               const score = gDownloads * 2 + gVisits;
+               const pct = maxScore > 0 && score > 0 ? Math.min(100, Math.round((score / maxScore) * 100)) : 0;
                const rankClass = idx === 0 ? 'rank-1' : (idx === 1 ? 'rank-2' : (idx === 2 ? 'rank-3' : 'rank-other'));
           %>
             <div class="stats-row">
@@ -566,24 +569,32 @@
                 <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
                   <span class="rank-badge <%= rankClass %>">#<%= idx + 1 %></span>
                   <img src="<%= g.icon || '/images/placeholder-game.svg' %>" style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
-                  <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px;" title="<%= g.title %>">
+                  <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 190px;" title="<%= g.title %>">
                     <%= g.title %>
                   </span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
                   <span style="font-size: 0.72rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 2px 7px; border-radius: 4px;">
-                    <%= g.category %>
+                    <%= gVisits %> visitas
                   </span>
                   <span style="color: var(--accent-green); font-weight: 800; font-size: 0.88rem;">
-                    <%= g.downloadsCount %>
+                    <%= gDownloads %> descargas
                   </span>
                 </div>
               </div>
               <div class="stats-progress-track">
-                <div class="stats-progress-fill" style="width: <%= pct %>%;"></div>
+                <div class="stats-progress-fill" style="width: <%= Math.max(pct, score > 0 ? 5 : 0) %>%;"></div>
               </div>
             </div>
           <% }); %>
+
+          <% if (totalRealDownloads === 0 && totalRealVisits === 0) { %>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 12px; margin-top: 12px; text-align: center;">
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">
+                ℹ️ La web acaba de publicarse. Conforme los visitantes naveguen y descarguen, estos contadores sumarán en vivo.
+              </span>
+            </div>
+          <% } %>
         </div>
 
         <!-- Panel 2: Desglose por Categorías & Monetización -->
@@ -651,11 +662,14 @@
                 <th>Tipo</th>
                 <th>Tamaño</th>
                 <th>Etiqueta</th>
+                <th>Descargas Reales</th>
                 <th>Destino</th>
               </tr>
             </thead>
             <tbody>
-              <% allFilesList.forEach(file => { %>
+              <% allFilesList.forEach(file => { 
+                   const fDownloads = (typeof metrics !== 'undefined' && metrics && metrics.files && metrics.files[file.url] && metrics.files[file.url].downloads) || 0;
+              %>
                 <tr>
                   <td style="font-weight: 700; color: var(--text-primary);"><%= file.gameTitle %></td>
                   <td style="color: var(--text-secondary);"><%= file.name %></td>
@@ -669,6 +683,9 @@
                     <span style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 0.72rem;">
                       <%= file.badge || 'Descarga' %>
                     </span>
+                  </td>
+                  <td style="color: var(--accent-green); font-weight: 700;">
+                    <%= fDownloads %>
                   </td>
                   <td>
                     <a href="<%= file.url %>" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">

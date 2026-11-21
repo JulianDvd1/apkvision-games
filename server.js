@@ -72,6 +72,61 @@ const dataDir = path.join(__dirname, 'data');
 const gamesFilePath = path.join(dataDir, 'games.json');
 const adsFilePath = path.join(dataDir, 'ads-config.json');
 const categoriesFilePath = path.join(dataDir, 'categories.json');
+const metricsFilePath = path.join(dataDir, 'metrics.json');
+
+function getMetrics() {
+  try {
+    if (!fs.existsSync(metricsFilePath)) {
+      const initial = { totalVisits: 0, totalDownloads: 0, games: {}, files: {} };
+      fs.writeFileSync(metricsFilePath, JSON.stringify(initial, null, 2), 'utf8');
+      return initial;
+    }
+    const raw = fs.readFileSync(metricsFilePath, 'utf8');
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error('Error al leer metrics.json:', err);
+    return { totalVisits: 0, totalDownloads: 0, games: {}, files: {} };
+  }
+}
+
+function saveMetrics(metrics) {
+  try {
+    fs.writeFileSync(metricsFilePath, JSON.stringify(metrics, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error al guardar metrics.json:', err);
+  }
+}
+
+function recordGameVisit(gameId) {
+  if (!gameId) return;
+  const m = getMetrics();
+  m.totalVisits = (m.totalVisits || 0) + 1;
+  if (!m.games) m.games = {};
+  if (!m.games[gameId]) {
+    m.games[gameId] = { visits: 0, downloads: 0 };
+  }
+  m.games[gameId].visits = (m.games[gameId].visits || 0) + 1;
+  saveMetrics(m);
+}
+
+function recordGameDownload(gameId, fileName, fileUrl) {
+  const m = getMetrics();
+  m.totalDownloads = (m.totalDownloads || 0) + 1;
+  if (!m.games) m.games = {};
+  if (gameId) {
+    if (!m.games[gameId]) {
+      m.games[gameId] = { visits: 0, downloads: 0 };
+    }
+    m.games[gameId].downloads = (m.games[gameId].downloads || 0) + 1;
+  }
+  if (!m.files) m.files = {};
+  const fileKey = fileUrl || fileName || 'general';
+  if (!m.files[fileKey]) {
+    m.files[fileKey] = { name: fileName || 'Archivo', downloads: 0 };
+  }
+  m.files[fileKey].downloads = (m.files[fileKey].downloads || 0) + 1;
+  saveMetrics(m);
+}
 
 function getGames() {
   try {
@@ -187,6 +242,9 @@ app.get('/juego/:slug', (req, res) => {
     });
   }
 
+  // Registrar visita real del juego
+  recordGameVisit(game.id);
+
   // Juegos populares para el Sidebar
   const popularGames = games
     .filter(g => g.id !== game.id)
@@ -232,6 +290,9 @@ app.get('/descargar/:slug', (req, res) => {
       selectedFile = game.downloadFiles[0];
     }
   }
+
+  // Registrar descarga real del juego y del archivo en AuraAPK
+  recordGameDownload(game.id, selectedFile.name, selectedFile.url);
 
   res.render('download', {
     title: `Descargando ${selectedFile.name} | Enlace Seguro`,
@@ -328,12 +389,25 @@ app.post(`${ADMIN_PATH}/logout`, (req, res) => {
 app.get(ADMIN_PATH, requireAdminAuth, (req, res) => {
   const games = getGames();
   const ads = getAdsConfig();
+  const metrics = getMetrics();
   res.render('admin-dashboard', {
     title: 'Panel de Control Oculto | Catálogo & Adsterra',
     games,
     ads,
+    metrics,
     message: req.query.msg || null
   });
+});
+
+// Reiniciar estadísticas y contadores reales a 0
+app.post(`${ADMIN_PATH}/metricas/reset`, requireAdminAuth, (req, res) => {
+  saveMetrics({
+    totalVisits: 0,
+    totalDownloads: 0,
+    games: {},
+    files: {}
+  });
+  res.redirect(`${ADMIN_PATH}?msg=Contadores+y+métricas+reales+reiniciados+a+0+correctamente`);
 });
 
 // Guardar / Editar juego (Soporta subida de archivos desde PC y URLs)
