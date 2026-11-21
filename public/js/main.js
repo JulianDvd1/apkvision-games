@@ -83,32 +83,68 @@ document.addEventListener('DOMContentLoaded', () => {
         countdownElement.style.color = 'var(--accent-green)';
         countdownElement.style.boxShadow = '0 0 35px rgba(16, 185, 129, 0.7)';
 
-        // Botón final con animación de entrada
+        // Botón final con sistema de 2 Clics Inteligente (1er Clic: Smartlink -> 2do Clic: Descarga Directa)
         const finalUrl = downloadButtonWrapper.dataset.url;
-        downloadButtonWrapper.innerHTML = `
-          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-download-big" style="animation: downloadPulse 1.8s infinite;">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-            </svg>
-            DESCARGAR AHORA (${progressBar ? '100%' : 'Listo'})
-          </a>
-          <p style="font-size: 0.88rem; color: var(--accent-green); margin-top: 12px; font-weight: 600;">
-            ✓ Enlace verificado. Se abrirá en una nueva pestaña segura.
-          </p>
-        `;
-
-        // Direct Link Adsterra opcional vinculado al clic del botón
         const directLink = downloadButtonWrapper.dataset.directlink;
-        const downloadBtn = downloadButtonWrapper.querySelector('.btn-download-big');
-        if (downloadBtn && directLink && directLink.startsWith('http')) {
-          downloadBtn.addEventListener('click', () => {
-            try {
-              window.open(directLink, '_blank');
-            } catch (e) {
-              console.log('DirectLink trigger:', e);
+        let adStepCompleted = !directLink || !directLink.startsWith('http');
+
+        function renderDownloadButton() {
+          if (!adStepCompleted) {
+            // Estado 1: Primer clic para activar Smartlink
+            downloadButtonWrapper.innerHTML = `
+              <button type="button" id="triggerDownloadBtn" class="btn btn-download-big" style="animation: downloadPulse 1.8s infinite; cursor: pointer;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                DESCARGAR AHORA (Listo)
+              </button>
+              <p id="downloadHelpText" style="font-size: 0.88rem; color: var(--accent-green); margin-top: 12px; font-weight: 600;">
+                ✓ Enlace verificado y disponible. Haz clic para continuar.
+              </p>
+            `;
+
+            const triggerBtn = document.getElementById('triggerDownloadBtn');
+            if (triggerBtn) {
+              triggerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // 1. Abrir anuncio Smartlink en nueva pestaña
+                try {
+                  window.open(directLink, '_blank');
+                } catch (err) {
+                  console.log('Smartlink error:', err);
+                }
+                // 2. Desbloquear botón para descarga directa inmediata
+                adStepCompleted = true;
+                renderDownloadButton();
+              });
             }
-          });
+          } else {
+            // Estado 2: Segundo clic -> Descarga Directa sin más publicidad ni bloqueos
+            downloadButtonWrapper.innerHTML = `
+              <a href="${finalUrl}" target="_blank" rel="noreferrer noopener" id="finalDownloadLink" class="btn btn-download-big" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); box-shadow: 0 0 35px rgba(16, 185, 129, 0.6); text-decoration: none; cursor: pointer;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                ✓ DESCARGAR ARCHIVO AHORA
+              </a>
+              <p id="downloadHelpText" style="font-size: 0.88rem; color: var(--accent-green); margin-top: 12px; font-weight: 600;">
+                🚀 ¡Descarga desbloqueada! Haz clic en el botón verde para iniciar la descarga.
+              </p>
+            `;
+
+            const finalBtn = document.getElementById('finalDownloadLink');
+            if (finalBtn) {
+              finalBtn.addEventListener('click', () => {
+                const helpText = document.getElementById('downloadHelpText');
+                if (helpText) {
+                  helpText.innerHTML = `⌛ Descarga iniciada. Si no comenzó en unos segundos, <a href="${finalUrl}" target="_blank" rel="noreferrer noopener" style="color: var(--accent-cyan); text-decoration: underline;">haz clic aquí para reintentar</a>.`;
+                }
+              });
+            }
+          }
         }
+
+        renderDownloadButton();
       }
     }, 1000);
   }
