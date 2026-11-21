@@ -312,6 +312,11 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">Capturas de Pantalla (Una ruta o URL por línea)</label>
+            <textarea name="screenshots" id="game_screenshots" class="form-control" rows="4" placeholder="/uploads/mario-strikers/super-mario-strikers-1.png&#10;/uploads/mario-strikers/super-mario-strikers-2.png"></textarea>
+          </div>
+
+          <div class="form-group">
             <label class="switch-label">
               <input type="checkbox" name="featured" id="game_featured">
               <span>Destacar en el Hero principal de la página de inicio</span>
@@ -538,6 +543,7 @@
     function resetGameForm() {
       document.getElementById('gameForm').reset();
       document.getElementById('game_id').value = '';
+      document.getElementById('game_screenshots').value = '';
       document.getElementById('formTitle').textContent = 'Agregar Nuevo Juego al Catálogo';
       document.getElementById('downloadFilesContainer').innerHTML = '';
       fileCounter = 0;
@@ -562,6 +568,7 @@
       document.getElementById('game_shortDescription').value = game.shortDescription || '';
       document.getElementById('game_description').value = game.description || '';
       document.getElementById('game_modFeatures').value = (game.modFeatures || []).join('\n');
+      document.getElementById('game_screenshots').value = (game.screenshots || []).join('\n');
       document.getElementById('game_featured').checked = !!game.featured;
 
       // Cargar todos los enlaces de descarga dinámicos

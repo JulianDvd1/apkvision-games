@@ -361,6 +361,24 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
 
   const primaryDownloadUrl = parsedDownloadFiles[0] ? parsedDownloadFiles[0].url : (downloadUrl || '#');
 
+  const existingIndex = games.findIndex(g => g.id === (id || slug));
+  const existingGame = existingIndex >= 0 ? games[existingIndex] : null;
+
+  // Parsear capturas de pantalla si se proporcionan por saltos de línea o conservar existentes
+  let parsedScreenshots = [];
+  if (req.body.screenshots && req.body.screenshots.trim()) {
+    parsedScreenshots = req.body.screenshots
+      .split('\n')
+      .map(s => s.trim())
+      .filter(Boolean);
+  } else if (existingGame && existingGame.screenshots && existingGame.screenshots.length > 0) {
+    parsedScreenshots = existingGame.screenshots;
+  } else {
+    parsedScreenshots = [
+      icon || '/images/placeholder-game.svg'
+    ];
+  }
+
   const gameData = {
     id: id || slug,
     slug: slug,
@@ -376,18 +394,15 @@ app.post(`${ADMIN_PATH}/juego/guardar`, requireAdminAuth, (req, res) => {
     updatedAt: new Date().toISOString().split('T')[0],
     rating: parseFloat(rating) || 4.7,
     downloadsCount: downloadsCount || '10K',
-    icon: icon || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80',
-    banner: banner || 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
-    screenshots: [
-      icon || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'
-    ],
+    icon: icon || '/images/placeholder-game.svg',
+    banner: banner || icon || '/images/placeholder-game.svg',
+    screenshots: parsedScreenshots,
     modFeatures: featuresArray,
     downloadUrl: primaryDownloadUrl,
     downloadFiles: parsedDownloadFiles,
     featured: featured === 'on' || featured === true || featured === 'true'
   };
 
-  const existingIndex = games.findIndex(g => g.id === (id || slug));
   if (existingIndex >= 0) {
     games[existingIndex] = { ...games[existingIndex], ...gameData };
   } else {

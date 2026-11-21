@@ -46,7 +46,7 @@
       <a href="/juego/<%= game.slug %>" style="display: flex; flex-direction: column; height: 100%;">
         <div class="game-card-thumb-wrap">
           <img 
-            src="<%= game.banner || game.icon %>" 
+            src="<%= game.icon || game.banner %>" 
             alt="<%= game.title %>" 
             class="game-card-thumb" 
             loading="lazy"
