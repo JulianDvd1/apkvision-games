@@ -4,7 +4,7 @@
   "settings": {
     "siteName": "AuraAPK",
     "siteTagline": "Descarga los mejores juegos y MODs para Android en AuraAPK",
-    "directLinkBeforeDownload": false,
+    "directLinkBeforeDownload": true,
     "downloadCountdownSeconds": 6
   },
   "slots": {
@@ -39,10 +39,10 @@
       "code": "<script data-cfasync=\"false\" src=\"https://bellnewyork.org/14/3a5faea467483cd1434d8c1522eac1d8\"></script>"
     },
     "popunder": {
-      "enabled": false,
+      "enabled": true,
       "format": "Popunder OnClick (Adsterra)",
-      "code": "<!-- Pega aquí el script Popunder de Adsterra -->"
+      "code": "<script data-cfasync=\"false\" src=\"https://accountut.com/1/3a7ff21649be7e2cf2797a591dd2ba54\"></script>"
     },
-    "directLinkUrl": ""
+    "directLinkUrl": "https://ardance.org/4/a9b49b62e750c08fa20c665527f4529b"
   }
 }

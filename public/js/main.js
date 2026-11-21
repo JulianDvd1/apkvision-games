@@ -97,10 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
           </p>
         `;
 
-        // Direct Link Adsterra opcional
+        // Direct Link Adsterra opcional vinculado al clic del botón
         const directLink = downloadButtonWrapper.dataset.directlink;
-        if (directLink && directLink.startsWith('http')) {
-          window.open(directLink, '_blank');
+        const downloadBtn = downloadButtonWrapper.querySelector('.btn-download-big');
+        if (downloadBtn && directLink && directLink.startsWith('http')) {
+          downloadBtn.addEventListener('click', () => {
+            try {
+              window.open(directLink, '_blank');
+            } catch (e) {
+              console.log('DirectLink trigger:', e);
+            }
+          });
         }
       }
     }, 1000);
