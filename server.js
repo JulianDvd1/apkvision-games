@@ -255,9 +255,47 @@ app.get('/juego/:slug', (req, res) => {
     .filter(g => g.id !== game.id && (g.category === game.category || g.featured))
     .slice(0, 4);
 
+  // SEO y Datos Estructurados Schema.org para Google
+  const baseUrl = res.locals.siteUrl;
+  const gameImage = game.banner ? (game.banner.startsWith('http') ? game.banner : `${baseUrl}${game.banner}`) : (game.icon ? (game.icon.startsWith('http') ? game.icon : `${baseUrl}${game.icon}`) : '');
+
+  const schemaJson = {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": game.title,
+    "operatingSystem": game.requiresAndroid || "Android",
+    "applicationCategory": "GameApplication",
+    "genre": game.category,
+    "softwareVersion": game.version,
+    "fileSize": game.size,
+    "image": gameImage,
+    "description": game.shortDescription || (game.description ? game.description.substring(0, 160) : ''),
+    "author": {
+      "@type": "Organization",
+      "name": game.developer || "AuraAPK"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": String(game.rating || 4.8),
+      "ratingCount": "1280",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+
+  const metaKeywords = `${game.title}, descargar ${game.title} apk, ${game.title} android gratis, ${game.title} full port, dragon ball xenoverse apk, xenoverse android, auraapk`;
+
   res.render('game', {
-    title: `${game.title} ${game.version} (${game.badge}) Descargar Gratis APK Android | AuraAPK`,
+    title: `Descargar ${game.title} ${game.version} (${game.badge}) Gratis para Android | AuraAPK`,
     metaDesc: game.shortDescription || `Descarga ${game.title} para Android. ${game.description.substring(0, 140)}...`,
+    metaKeywords,
+    ogImage: gameImage,
+    schemaJson,
     game,
     relatedGames,
     popularGames

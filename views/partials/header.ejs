@@ -5,13 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <meta name="description" content="<%= metaDesc %>">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="keywords" content="<%= typeof metaKeywords !== 'undefined' && metaKeywords ? metaKeywords : 'descargar apk, juegos android gratis, mod apk, roms android, port android' %>">
   
-  <!-- Open Graph / SEO -->
+  <!-- Open Graph / Redes Sociales / Google SEO -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="<%= title %>">
   <meta property="og:description" content="<%= metaDesc %>">
   <meta property="og:site_name" content="AuraAPK">
+  <meta property="og:url" content="<%= siteUrl %><%= currentPath %>">
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' && ogImage ? ogImage : (siteUrl + '/images/placeholder-game.svg') %>">
   <link rel="canonical" href="<%= siteUrl %><%= currentPath %>">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= title %>">
+  <meta name="twitter:description" content="<%= metaDesc %>">
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' && ogImage ? ogImage : (siteUrl + '/images/placeholder-game.svg') %>">
+
+  <!-- Google Rich Snippets / Schema.org JSON-LD -->
+  <% if (typeof schemaJson !== 'undefined' && schemaJson) { %>
+    <script type="application/ld+json">
+      <%- JSON.stringify(schemaJson) %>
+    </script>
+  <% } %>
   
   <!-- Favicon / Estilos -->
   <link rel="stylesheet" href="/css/style.css">

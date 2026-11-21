@@ -49,6 +49,53 @@
     "featured": true
   },
   {
+    "id": "dragon-ball-xenoverse-apk",
+    "slug": "dragon-ball-xenoverse-apk",
+    "title": "DRAGON BALL XENOVERSE APK (Full Port Android)",
+    "shortDescription": "Descarga DRAGON BALL XENOVERSE APK v0.1.46.1 para Android. Port completo con controles táctiles en pantalla, combates 3D en Toki Toki City y personalización de guerrero.",
+    "description": "¡Conviértete en el patrullero del tiempo definitivo con DRAGON BALL XENOVERSE en Android! Este port completo del aclamado juego de peleas y rol de acción 3D te permite sumergirte de lleno en el universo de Akira Toriyama como tu propio guerrero personalizado.\n\nViaja a través de las diferentes eras de la historia de Dragon Ball para corregir las distorsiones temporales provocadas por una misteriosa fuerza que amenaza con alterar el destino del universo para siempre.\n\n⚡ Características Destacadas del Port Android:\n• Creación y Personalización de Guerrero: Elige entre 5 razas icónicas (Saiyan, Terrícola, Namekiano, Majin y Clan de Freezer). Desarrolla tu estilo de combate, adquiere nuevas habilidades y personaliza atuendos y accesorios únicos.\n• Combates Aéreos y Terrestres 360°: Pelea en escenarios abiertos masivos y destructibles. Ejecuta combos encadenados, esquivas a velocidad de la luz y desata técnicas definitivas como el Kamehameha, el Big Bang Attack o la Bomba de Energía (Genkidama).\n• Toki Toki City: Recorre la metrópolis futurista, interactúa con otros patrulleros del tiempo, acepta misiones paralelas (Parallel Quests) y desafía a poderosos rivales.\n• Maestros Legendarios: Entrena bajo la tutela de personajes legendarios como Goku, Vegeta, Piccolo, Gohan, Bills y Whis para aprender sus técnicas maestras más letales.\n• Controles Táctiles y Soporte para Gamepad: Interfaz táctil adaptada para pantallas móviles con respuesta rápida, además de compatibilidad nativa con mandos Bluetooth (Xbox, DualShock/DualSense y Gamepads universales).\n\n⚠️ Requisitos de Espacio e Información Técnica:\n• El archivo APK inicial pesa 108.24 MB e instala el launcher y motor gráfico.\n• Al iniciar el juego por primera vez, el instalador descargará automáticamente los datos de la versión completa (~10.80 GB).\n• Requiere aproximadamente 22.14 GB de almacenamiento interno libre para la descarga, descompresión e instalación completa.\n• Compatible con dispositivos Android 11 o superior con arquitectura arm64-v8a.\n\n📲 Guía de Instalación Rápida:\n1. Descarga el archivo APK desde el botón de descarga seguro en la parte inferior.\n2. Habilita 'Instalar aplicaciones de fuentes desconocidas' en los ajustes de seguridad de tu teléfono.\n3. Instala el APK y ábrelo conectado a una red Wi-Fi estable y rápida.\n4. Permite la descarga automática de los archivos de juego y ¡comienza tu viaje temporal!",
+    "category": "Acción",
+    "badge": "PORT ANDROID",
+    "version": "v0.1.46.1",
+    "size": "108.24 MB",
+    "requiresAndroid": "Android 11+ (arm64-v8a)",
+    "developer": "DIMPS / Bandai Namco (Port: Shadow & brunosousaf)",
+    "updatedAt": "2026-11-21",
+    "rating": 4.9,
+    "downloadsCount": "320K",
+    "icon": "/uploads/games/dragon_ball_xenoverse-square-1795270962598.png",
+    "banner": "/uploads/games/ss_9270b9170af96b140d2ca060f93-1795270962810.png",
+    "screenshots": [
+      "/uploads/games/ss_588c779053cdaf956fff2e4998f-1795270962932.png",
+      "/uploads/games/ss_d5be6b784f16500635787940763-1795270963051.png",
+      "/uploads/games/ss_272afe12cc54cd8d7d08abff2d8-1795270963056.png",
+      "/uploads/games/ss_6e1a7f729b4110583068fef590f-1795270963350.png",
+      "/uploads/games/ss_cdbb16d696ecaf63aaf4dc2754f-1795270963353.png",
+      "/uploads/games/ss_8baa4b04e4c395f26879c6f6ca7-1795270963357.png",
+      "/uploads/games/ss_6205902c4caab9d81c87f46b71a-1795270963451.png",
+      "/uploads/games/ss_d912fb5588a5ff0a950306535ba-1795270963455.png"
+    ],
+    "modFeatures": [
+      "Port Completo para Android con controles táctiles en pantalla optimizados",
+      "Creador de personajes propio con 5 razas: Saiyan, Terrícola, Majin, Namekiano y Freezer",
+      "Compatibilidad total con mandos y gamepads Bluetooth (Xbox, PS4, PS5 y GameSir)",
+      "Combates 3D espectaculares en alta resolución con tecnología arm64-v8a",
+      "Historia original de Patrullero del Tiempo y misiones secundarias en Toki Toki City",
+      "Audio original con selector de voces cinemáticas y efectos de sonido fieles"
+    ],
+    "downloadUrl": "https://dl.apkvision.org/dragon-ball-xenoverse/Xenoverse-PC-Shadow-ll-brunosousaf-v0.1.46.1-shadow-brunosousaf-full-apkvision.apk",
+    "downloadFiles": [
+      {
+        "name": "DRAGON BALL XENOVERSE APK (Instalador Port)",
+        "type": "APK",
+        "size": "108.24 MB",
+        "badge": "Port Oficial (Shadow / brunosousaf)",
+        "url": "https://dl.apkvision.org/dragon-ball-xenoverse/Xenoverse-PC-Shadow-ll-brunosousaf-v0.1.46.1-shadow-brunosousaf-full-apkvision.apk"
+      }
+    ],
+    "featured": false
+  },
+  {
     "id": "super-mario-strikers-android",
     "slug": "super-mario-strikers-android",
     "title": "Super Mario Strikers (Edición Android + Texturas HD)",
