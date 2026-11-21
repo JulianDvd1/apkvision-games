@@ -93,6 +93,223 @@
     .btn-remove-file:hover {
       background: rgba(239, 68, 68, 0.3);
     }
+
+    /* ================= KPI CARDS DASHBOARD ================= */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: linear-gradient(135deg, rgba(22, 31, 51, 0.8) 0%, rgba(14, 20, 33, 0.95) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.35rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+    .kpi-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 18px rgba(16, 185, 129, 0.15);
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent-green), var(--accent-cyan));
+    }
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .kpi-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .kpi-icon {
+      font-size: 1.35rem;
+      opacity: 0.9;
+    }
+    .kpi-value {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: var(--accent-green);
+      margin-top: 0.45rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ================= CUSTOM DROPZONE STYLES ================= */
+    .custom-dropzone {
+      position: relative;
+      border: 2px dashed rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.03);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.3rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .custom-dropzone:hover, .custom-dropzone.dragover {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
+    }
+    .dropzone-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .dropzone-icon-bubble {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      color: var(--accent-green);
+    }
+    .dropzone-texts {
+      min-width: 0;
+    }
+    .dropzone-main-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .dropzone-hint {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+    .dropzone-action-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.5rem 0.95rem;
+      border-radius: 8px;
+      pointer-events: none;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .custom-dropzone:hover .dropzone-action-btn {
+      background: var(--accent-green);
+      color: #04120c;
+      border-color: var(--accent-green);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+
+    /* ================= STATS TAB STYLES ================= */
+    .stats-card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 900px) {
+      .stats-card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .stats-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-card);
+    }
+    .stats-panel-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.75rem;
+    }
+    .stats-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 1.1rem;
+    }
+    .stats-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .stats-progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 9999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .stats-progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+    .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+    .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: #fff; }
+    .rank-other { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -126,9 +343,123 @@
       </div>
     <% } %>
 
+    
+    <%
+      // Helper calculations for metrics & KPIs
+      let totalDownloadsRaw = 0;
+      let totalFilesCount = 0;
+      const categoryCounts = {};
+      const allFilesList = [];
+
+      games.forEach(g => {
+        const dlStr = (g.downloadsCount || '0').toUpperCase().trim();
+        let num = 0;
+        if (dlStr.endsWith('M')) {
+          num = parseFloat(dlStr) * 1000000;
+        } else if (dlStr.endsWith('K')) {
+          num = parseFloat(dlStr) * 1000;
+        } else {
+          num = parseFloat(dlStr) || 0;
+        }
+        totalDownloadsRaw += num;
+
+        const cat = g.category || 'Otros';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+
+        if (g.downloadFiles && g.downloadFiles.length > 0) {
+          totalFilesCount += g.downloadFiles.length;
+          g.downloadFiles.forEach(f => {
+            allFilesList.push({
+              gameTitle: g.title,
+              gameId: g.id,
+              name: f.name,
+              type: f.type || 'APK',
+              size: f.size || 'N/A',
+              badge: f.badge || '',
+              url: f.url
+            });
+          });
+        } else {
+          totalFilesCount += 1;
+          allFilesList.push({
+            gameTitle: g.title,
+            gameId: g.id,
+            name: g.title + ' (Instalador)',
+            type: g.badge || 'APK',
+            size: g.size || 'N/A',
+            badge: 'Principal',
+            url: g.downloadUrl || '#'
+          });
+        }
+      });
+
+      const totalDownloadsFormatted = (totalDownloadsRaw / 1000000).toFixed(1) + 'M+';
+
+      const sortedGames = [...games].sort((a, b) => {
+        const getVal = (str) => {
+          str = (str || '0').toUpperCase().trim();
+          if (str.endsWith('M')) return parseFloat(str) * 1000000;
+          if (str.endsWith('K')) return parseFloat(str) * 1000;
+          return parseFloat(str) || 0;
+        };
+        return getVal(b.downloadsCount) - getVal(a.downloadsCount);
+      });
+      const topDownloadsVal = sortedGames.length > 0 ? (sortedGames[0].downloadsCount.endsWith('M') ? parseFloat(sortedGames[0].downloadsCount)*1000000 : parseFloat(sortedGames[0].downloadsCount)*1000) : 1;
+    %>
+
+    <!-- Grid de Métricas Principales (KPIs) -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Catálogo Activo</span>
+          <span class="kpi-icon">🎮</span>
+        </div>
+        <div class="kpi-value"><%= games.length %></div>
+        <div class="kpi-sub">
+          <span>✓ Títulos optimizados</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Descargas Totales</span>
+          <span class="kpi-icon">📥</span>
+        </div>
+        <div class="kpi-value" style="color: var(--accent-green);"><%= totalDownloadsFormatted %></div>
+        <div class="kpi-sub">
+          <span>⚡ Tráfico acumulado estimado</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Enlaces & Archivos</span>
+          <span class="kpi-icon">🔗</span>
+        </div>
+        <div class="kpi-value" style="color: var(--accent-cyan);"><%= totalFilesCount %></div>
+        <div class="kpi-sub">
+          <span>📦 APKs, ISOs y Texturas</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Monetización Adsterra</span>
+          <span class="kpi-icon">💰</span>
+        </div>
+        <div class="kpi-value" style="font-size: 1.45rem; color: <%= ads.enabled ? 'var(--accent-green)' : '#ef4444' %>;">
+          <%= ads.enabled ? 'Activa' : 'Pausada' %>
+        </div>
+        <div class="kpi-sub" style="color: var(--text-muted);">
+          <span>5 formatos en producción</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Pestañas de Navegación -->
     <div class="admin-tabs">
       <button class="admin-tab-btn active" onclick="switchTab('tab-juegos')">🎮 Catálogo de Juegos (<%= games.length %>)</button>
+      <button class="admin-tab-btn" onclick="switchTab('tab-stats')">📊 Métricas & Estadísticas</button>
       <button class="admin-tab-btn" onclick="switchTab('tab-nuevo')">➕ Agregar / Editar Juego</button>
       <button class="admin-tab-btn" onclick="switchTab('tab-ads')">💰 Configuración Adsterra & Monetización</button>
     </div>
@@ -193,6 +524,162 @@
             <% }) %>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    
+    <!-- TAB: MÉTRICAS Y ESTADÍSTICAS -->
+    <div id="tab-stats" class="tab-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <span>📊</span> Métricas de Tráfico & Rendimiento del Catálogo
+          </h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 3px;">
+            Análisis de juegos con mayor demanda, enlaces más descargados y distribución de categorías.
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="window.location.reload();" style="font-size: 0.82rem; padding: 0.45rem 0.9rem;">
+          🔄 Actualizar Métricas
+        </button>
+      </div>
+
+      <div class="stats-card-grid">
+        <!-- Panel 1: Top Juegos Más Visitados / Populares -->
+        <div class="stats-panel">
+          <div class="stats-panel-title">
+            <span>🔥</span> Top Juegos Más Populares & Descargados
+          </div>
+          <% sortedGames.forEach((g, idx) => { 
+               const getVal = (str) => {
+                 str = (str || '0').toUpperCase().trim();
+                 if (str.endsWith('M')) return parseFloat(str) * 1000000;
+                 if (str.endsWith('K')) return parseFloat(str) * 1000;
+                 return parseFloat(str) || 0;
+               };
+               const val = getVal(g.downloadsCount);
+               const pct = Math.round((val / (topDownloadsVal || 1)) * 100);
+               const rankClass = idx === 0 ? 'rank-1' : (idx === 1 ? 'rank-2' : (idx === 2 ? 'rank-3' : 'rank-other'));
+          %>
+            <div class="stats-row">
+              <div class="stats-row-header">
+                <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                  <span class="rank-badge <%= rankClass %>">#<%= idx + 1 %></span>
+                  <img src="<%= g.icon || '/images/placeholder-game.svg' %>" style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
+                  <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px;" title="<%= g.title %>">
+                    <%= g.title %>
+                  </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+                  <span style="font-size: 0.72rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 2px 7px; border-radius: 4px;">
+                    <%= g.category %>
+                  </span>
+                  <span style="color: var(--accent-green); font-weight: 800; font-size: 0.88rem;">
+                    <%= g.downloadsCount %>
+                  </span>
+                </div>
+              </div>
+              <div class="stats-progress-track">
+                <div class="stats-progress-fill" style="width: <%= pct %>%;"></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+
+        <!-- Panel 2: Desglose por Categorías & Monetización -->
+        <div class="stats-panel">
+          <div class="stats-panel-title">
+            <span>🏷️</span> Distribución por Géneros & Categorías
+          </div>
+          <% Object.keys(categoryCounts).forEach(cat => { 
+               const count = categoryCounts[cat];
+               const pct = Math.round((count / games.length) * 100);
+          %>
+            <div class="stats-row">
+              <div class="stats-row-header">
+                <span style="color: var(--text-primary); font-weight: 600;"><%= cat %></span>
+                <span style="color: var(--accent-cyan); font-weight: 700;"><%= count %> juegos (<%= pct %>%)</span>
+              </div>
+              <div class="stats-progress-track">
+                <div class="stats-progress-fill" style="width: <%= pct %>%; background: linear-gradient(90deg, var(--accent-cyan), #3b82f6);"></div>
+              </div>
+            </div>
+          <% }); %>
+
+          <div style="margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px;">
+              <span>💰</span> Bloques de Monetización Adsterra
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.8rem;">
+              <div style="background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Banner Nativo 4x1</span>
+                <span style="color: var(--accent-green); font-weight: 700;">● Feed & Catálogo</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Rectángulo 300x250</span>
+                <span style="color: var(--accent-green); font-weight: 700;">● Sidebar & Descarga</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Temporizador 10s</span>
+                <span style="color: var(--accent-green); font-weight: 700;">● 100% Retención</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Popunder & Social</span>
+                <span style="color: var(--accent-green); font-weight: 700;">● Ganancia Máxima</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Lista de Enlaces y Archivos Gestionados -->
+      <div class="stats-panel">
+        <div class="stats-panel-title" style="justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span>🔗</span> Enlaces de Descarga Gestionados en Todo el Catálogo (<%= allFilesList.length %>)
+          </div>
+          <span style="font-size: 0.78rem; font-weight: normal; color: var(--text-muted);">
+            Todos pasan por la página monetizada
+          </span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="game-table" style="font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th>Juego Asociado</th>
+                <th>Nombre del Archivo</th>
+                <th>Tipo</th>
+                <th>Tamaño</th>
+                <th>Etiqueta</th>
+                <th>Destino</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% allFilesList.forEach(file => { %>
+                <tr>
+                  <td style="font-weight: 700; color: var(--text-primary);"><%= file.gameTitle %></td>
+                  <td style="color: var(--text-secondary);"><%= file.name %></td>
+                  <td>
+                    <span style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 0.72rem;">
+                      <%= file.type %>
+                    </span>
+                  </td>
+                  <td style="color: var(--text-muted);"><%= file.size %></td>
+                  <td>
+                    <span style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 0.72rem;">
+                      <%= file.badge || 'Descarga' %>
+                    </span>
+                  </td>
+                  <td>
+                    <a href="<%= file.url %>" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                      Enlace ↗
+                    </a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -291,8 +778,17 @@
                 <span>🖼️</span> Icono de la App (Subir desde PC)
               </label>
               
-              <div style="margin-bottom: 8px;">
-                <input type="file" name="iconFile" id="game_iconFile" class="form-control" accept="image/*" onchange="previewImageFile(this, 'iconPreview', 'iconPreviewImg')">
+              <!-- Custom Dropzone Elegante para Icono -->
+              <div class="custom-dropzone" id="dropzone_icon" onclick="document.getElementById('game_iconFile').click()" style="margin-bottom: 8px;">
+                <input type="file" name="iconFile" id="game_iconFile" accept="image/*" style="display: none;" onchange="handleDropzoneFile(this, 'icon', 'dropzone_icon_label', 'iconPreview', 'iconPreviewImg')">
+                <div class="dropzone-info">
+                  <div class="dropzone-icon-bubble">📁</div>
+                  <div class="dropzone-texts">
+                    <span class="dropzone-main-text" id="dropzone_icon_label">Subir Icono desde tu PC</span>
+                    <span class="dropzone-hint">Haz clic o arrastra un archivo PNG, JPG o WEBP</span>
+                  </div>
+                </div>
+                <div class="dropzone-action-btn">Explorar PC</div>
               </div>
 
               <div id="iconPreview" style="display: none; margin: 10px 0; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px;">
@@ -314,8 +810,17 @@
                 <span>🌄</span> Banner Panorámico HD (Subir desde PC)
               </label>
 
-              <div style="margin-bottom: 8px;">
-                <input type="file" name="bannerFile" id="game_bannerFile" class="form-control" accept="image/*" onchange="previewImageFile(this, 'bannerPreview', 'bannerPreviewImg')">
+              <!-- Custom Dropzone Elegante para Banner -->
+              <div class="custom-dropzone" id="dropzone_banner" onclick="document.getElementById('game_bannerFile').click()" style="margin-bottom: 8px; border-color: rgba(6, 182, 212, 0.35); background: rgba(6, 182, 212, 0.03);">
+                <input type="file" name="bannerFile" id="game_bannerFile" accept="image/*" style="display: none;" onchange="handleDropzoneFile(this, 'banner', 'dropzone_banner_label', 'bannerPreview', 'bannerPreviewImg')">
+                <div class="dropzone-info">
+                  <div class="dropzone-icon-bubble" style="background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.3); color: var(--accent-cyan);">🌄</div>
+                  <div class="dropzone-texts">
+                    <span class="dropzone-main-text" id="dropzone_banner_label">Subir Banner Panorámico HD</span>
+                    <span class="dropzone-hint">Haz clic o arrastra un banner de alta resolución</span>
+                  </div>
+                </div>
+                <div class="dropzone-action-btn" style="border-color: rgba(6, 182, 212, 0.3);">Explorar PC</div>
               </div>
 
               <div id="bannerPreview" style="display: none; margin: 10px 0; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px;">
@@ -357,8 +862,19 @@
               Selecciona una o varias imágenes desde tu ordenador (puedes arrastrar o seleccionar varias manteniendo presionada la tecla Ctrl / Shift).
             </p>
 
-            <div style="margin-bottom: 0.85rem;">
-              <input type="file" name="screenshotFiles" id="game_screenshotFiles" class="form-control" accept="image/*" multiple onchange="previewScreenshotsFromFiles(this)">
+            <!-- Custom Dropzone Elegante para Capturas Múltiples -->
+            <div class="custom-dropzone" id="dropzone_screenshots" onclick="document.getElementById('game_screenshotFiles').click()" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.04); margin-bottom: 0.85rem; padding: 1.25rem 1.4rem;">
+              <input type="file" name="screenshotFiles" id="game_screenshotFiles" accept="image/*" multiple style="display: none;" onchange="handleDropzoneScreenshots(this)">
+              <div class="dropzone-info">
+                <div class="dropzone-icon-bubble" style="background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: var(--accent-cyan); width: 48px; height: 48px; font-size: 1.4rem;">📸</div>
+                <div class="dropzone-texts">
+                  <span class="dropzone-main-text" id="dropzone_screenshots_label">Seleccionar Capturas de Pantalla Múltiples</span>
+                  <span class="dropzone-hint">Haz clic o arrastra varias imágenes juntas (Ctrl + Clic para elegir varias)</span>
+                </div>
+              </div>
+              <div class="dropzone-action-btn" style="background: rgba(6, 182, 212, 0.15); border-color: var(--accent-cyan); color: #fff;">
+                Seleccionar Imágenes
+              </div>
             </div>
 
             <!-- Previsualización de imágenes seleccionadas en PC -->
@@ -669,6 +1185,12 @@
       document.getElementById('iconPreview').style.display = 'none';
       document.getElementById('bannerPreview').style.display = 'none';
       document.getElementById('screenshotsFilesPreview').innerHTML = '';
+      const dzIcon = document.getElementById('dropzone_icon_label');
+      if (dzIcon) dzIcon.textContent = 'Subir Icono desde tu PC';
+      const dzBanner = document.getElementById('dropzone_banner_label');
+      if (dzBanner) dzBanner.textContent = 'Subir Banner Panorámico HD';
+      const dzScreens = document.getElementById('dropzone_screenshots_label');
+      if (dzScreens) dzScreens.textContent = 'Seleccionar Capturas de Pantalla Múltiples';
       document.getElementById('formTitle').textContent = 'Agregar Nuevo Juego al Catálogo';
       document.getElementById('downloadFilesContainer').innerHTML = '';
       fileCounter = 0;
@@ -701,6 +1223,14 @@
       document.getElementById('game_bannerFile').value = '';
       document.getElementById('game_screenshotFiles').value = '';
       document.getElementById('screenshotsFilesPreview').innerHTML = '';
+
+      // Actualizar textos informativos en los dropzones
+      const dzIcon = document.getElementById('dropzone_icon_label');
+      if (dzIcon) dzIcon.textContent = game.icon ? 'Icono actual configurado (clic para reemplazar)' : 'Subir Icono desde tu PC';
+      const dzBanner = document.getElementById('dropzone_banner_label');
+      if (dzBanner) dzBanner.textContent = game.banner ? 'Banner actual configurado (clic para reemplazar)' : 'Subir Banner Panorámico HD';
+      const dzScreens = document.getElementById('dropzone_screenshots_label');
+      if (dzScreens) dzScreens.textContent = (game.screenshots && game.screenshots.length > 0) ? (game.screenshots.length + ' capturas existentes (clic para subir nuevas)') : 'Seleccionar Capturas de Pantalla Múltiples';
 
       // Mostrar previsualización de imágenes existentes
       if (game.icon) {
@@ -745,6 +1275,7 @@
       if (container && container.children.length === 0) {
         addDownloadFileRow({ name: 'Instalador Principal APK', type: 'APK', size: '100 MB', badge: 'Principal', url: '' });
       }
+      setupDragAndDrop();
     });
   </script>
 
