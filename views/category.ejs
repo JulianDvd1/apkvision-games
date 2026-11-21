@@ -23,13 +23,24 @@
       <article class="game-card cascade-item" data-tilt>
         <a href="/juego/<%= game.slug %>" style="display: flex; flex-direction: column; height: 100%;">
           <div class="game-card-thumb-wrap">
+            <!-- Fondo ambiental difuminado para atmósfera de color -->
             <img 
               src="<%= game.icon || game.banner %>" 
-              alt="<%= game.title %>" 
-              class="game-card-thumb" 
+              alt="" 
+              class="game-card-thumb-ambient" 
               loading="lazy"
-              onerror="this.src='/images/placeholder-game.svg'"
+              aria-hidden="true"
             >
+            <!-- Icono móvil completo estilo App Store / Google Play -->
+            <div class="game-card-icon-box">
+              <img 
+                src="<%= game.icon || game.banner %>" 
+                alt="<%= game.title %>" 
+                class="game-card-thumb" 
+                loading="lazy"
+                onerror="this.src='/images/placeholder-game.svg'"
+              >
+            </div>
             <span class="game-badge <%= game.badge.toLowerCase().includes('mod') ? 'mod' : '' %>">
               <%= game.badge %>
             </span>

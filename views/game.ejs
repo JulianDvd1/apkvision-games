@@ -154,9 +154,17 @@
     <!-- Capturas de Pantalla con Lightbox Interactivo -->
     <% if (game.screenshots && game.screenshots.length > 0) { %>
       <div>
-        <h3 style="font-size: 1.2rem; font-weight: 800; margin: 1.5rem 0 0.9rem; display: flex; align-items: center; gap: 8px;">
-          <span>📸</span> Capturas de Pantalla (Clic para agrandar)
-        </h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0 0.9rem;">
+          <h3 style="font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin: 0;">
+            <span>📸</span> Capturas de Pantalla (Clic para agrandar)
+          </h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+            <span>Desliza para ver más</span>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </span>
+        </div>
         <div class="screenshots-wrap">
           <% game.screenshots.forEach((screen, i) => { %>
             <div class="screenshot-item" onclick="openLightbox('<%= screen %>')">
@@ -220,6 +228,15 @@
         <span style="display: flex; align-items: center; gap: 5px;">🚀 Servidores Cloud de alta velocidad</span>
         <span style="display: flex; align-items: center; gap: 5px;">💯 100% Funcional y Verificado</span>
       </div>
+    </div>
+
+    <!-- Anuncio Adsterra debajo de la Zona de Descargas (Máximo CTR y Visibilidad) -->
+    <div style="margin: 1.5rem 0;">
+      <%- include('partials/ad-slot', { 
+        slot: adsConfig.slots.inFeedNative, 
+        sizeClass: 'size-728x90', 
+        customClass: 'bottom-download-ad' 
+      }) %>
     </div>
 
   </div>
