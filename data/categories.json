@@ -1,0 +1,11 @@
+[
+  { "id": "todos", "name": "Todos", "slug": "todos", "icon": "sparkles" },
+  { "id": "deportes", "name": "Deportes", "slug": "deportes", "icon": "football" },
+  { "id": "accion", "name": "Acción", "slug": "accion", "icon": "fire" },
+  { "id": "aventura", "name": "Aventura", "slug": "aventura", "icon": "compass" },
+  { "id": "carreras", "name": "Carreras", "slug": "carreras", "icon": "truck" },
+  { "id": "estrategia", "name": "Estrategia", "slug": "estrategia", "icon": "chess" },
+  { "id": "arcade", "name": "Arcade", "slug": "arcade", "icon": "puzzle" },
+  { "id": "simulacion", "name": "Simulación", "slug": "simulacion", "icon": "cpu" },
+  { "id": "rpg", "name": "RPG", "slug": "rpg", "icon": "shield" }
+]

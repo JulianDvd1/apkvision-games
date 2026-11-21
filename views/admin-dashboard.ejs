@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .admin-nav {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    .admin-tab-btn {
+      padding: 0.75rem 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .admin-tab-btn.active {
+      color: var(--accent-green);
+      border-bottom-color: var(--accent-green);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .game-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .game-table th, .game-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+    }
+    .game-table th {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior del Panel Privado -->
+  <header class="admin-nav">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.4rem;">⚙️</span>
+        <strong style="font-size: 1.15rem; color: var(--text-primary);">Panel de Administración Privado</strong>
+        <span style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px; font-weight: 700;">ACTIVO</span>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/" target="_blank" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+          Ver Web Pública ↗
+        </a>
+        <form action="<%= adminPath %>/logout" method="POST" style="margin: 0;">
+          <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem; color: #ef4444;">
+            Cerrar Sesión
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="margin-bottom: 4rem;">
+
+    <% if (message) { %>
+      <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--accent-green); padding: 12px 18px; border-radius: var(--radius-md); margin-bottom: 2rem; font-weight: 600;">
+        ✓ <%= message %>
+      </div>
+    <% } %>
+
+    <!-- Pestañas de Navegación -->
+    <div class="admin-tabs">
+      <button class="admin-tab-btn active" onclick="switchTab('tab-juegos')">🎮 Catálogo de Juegos (<%= games.length %>)</button>
+      <button class="admin-tab-btn" onclick="switchTab('tab-nuevo')">➕ Agregar / Editar Juego</button>
+      <button class="admin-tab-btn" onclick="switchTab('tab-ads')">💰 Configuración Adsterra & Monetización</button>
+    </div>
+
+    <!-- TAB 1: LISTADO DE JUEGOS -->
+    <div id="tab-juegos" class="tab-content active">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 800;">Juegos Registrados</h2>
+        <button class="btn btn-primary" onclick="switchTab('tab-nuevo'); resetGameForm();">
+          + Agregar Nuevo Juego
+        </button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="game-table">
+          <thead>
+            <tr>
+              <th>Juego</th>
+              <th>Categoría</th>
+              <th>Versión</th>
+              <th>Badge</th>
+              <th>Tamaño</th>
+              <th>Enlace Externo</th>
+              <th style="text-align: right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% games.forEach(g => { %>
+              <tr>
+                <td style="display: flex; align-items: center; gap: 10px;">
+                  <img src="<%= g.icon %>" style="width: 36px; height: 36px; border-radius: 6px; object-fit: cover;">
+                  <div>
+                    <strong><%= g.title %></strong>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">/juego/<%= g.slug %></div>
+                  </div>
+                </td>
+                <td><%= g.category %></td>
+                <td><%= g.version %></td>
+                <td><span class="game-badge" style="position: static;"><%= g.badge %></span></td>
+                <td><%= g.size %></td>
+                <td>
+                  <a href="<%= g.downloadUrl %>" target="_blank" style="color: var(--accent-cyan); text-decoration: underline; font-size: 0.8rem; max-width: 150px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <%= g.downloadUrl %>
+                  </a>
+                </td>
+                <td style="text-align: right;">
+                  <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.78rem;" onclick='editGame(<%- JSON.stringify(g).replace(/'/g, "&#39;") %>)'>
+                    Editar
+                  </button>
+                  <form action="<%= adminPath %>/juego/<%= g.id %>/eliminar" method="POST" style="display: inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este juego?');">
+                    <button type="submit" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.78rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
+                      Borrar
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: AGREGAR / EDITAR JUEGO -->
+    <div id="tab-nuevo" class="tab-content">
+      <div class="admin-card">
+        <h2 id="formTitle" style="font-size: 1.3rem; font-weight: 800; margin-bottom: 1.5rem;">
+          Agregar Nuevo Juego al Catálogo
+        </h2>
+
+        <form action="<%= adminPath %>/juego/guardar" method="POST" id="gameForm">
+          <input type="hidden" name="id" id="game_id" value="">
+
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">Título del Juego *</label>
+              <input type="text" name="title" id="game_title" class="form-control" placeholder="Ej: Minecraft PE" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Categoría *</label>
+              <select name="category" id="game_category" class="form-control">
+                <option value="Acción">Acción</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Carreras">Carreras</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Simulación">Simulación</option>
+                <option value="RPG">RPG</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row cols-3">
+            <div class="form-group">
+              <label class="form-label">Etiqueta / Badge</label>
+              <input type="text" name="badge" id="game_badge" class="form-control" placeholder="MOD APK / FULL / VIP" value="MOD APK">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Versión</label>
+              <input type="text" name="version" id="game_version" class="form-control" placeholder="v1.0.0" value="v1.0.0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tamaño</label>
+              <input type="text" name="size" id="game_size" class="form-control" placeholder="150 MB" value="100 MB">
+            </div>
+          </div>
+
+          <div class="form-row cols-3">
+            <div class="form-group">
+              <label class="form-label">Requisitos Android</label>
+              <input type="text" name="requiresAndroid" id="game_requiresAndroid" class="form-control" placeholder="Android 7.0+" value="Android 6.0+">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Desarrollador</label>
+              <input type="text" name="developer" id="game_developer" class="form-control" placeholder="Nombre del estudio" value="Studio Games">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Rating (1.0 a 5.0)</label>
+              <input type="number" step="0.1" name="rating" id="game_rating" class="form-control" value="4.8">
+            </div>
+          </div>
+
+          <!-- URL de Descarga Externa -->
+          <div class="form-group" style="background: rgba(16, 185, 129, 0.08); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid rgba(16, 185, 129, 0.3);">
+            <label class="form-label" style="color: var(--accent-green); font-weight: 700;">
+              🔗 Enlace Externo de Descarga del Juego *
+            </label>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+              Coloca aquí la URL donde está alojado el archivo (MediaFire, Mega, Google Drive, servidor privado o acortador).
+            </p>
+            <input type="url" name="downloadUrl" id="game_downloadUrl" class="form-control" placeholder="https://mediafire.com/... o https://mega.nz/..." required>
+          </div>
+
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label">URL del Icono (PNG/JPG)</label>
+              <input type="url" name="icon" id="game_icon" class="form-control" placeholder="https://..." value="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80">
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL del Banner / Portada</label>
+              <input type="url" name="banner" id="game_banner" class="form-control" placeholder="https://..." value="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Descripción Corta (Para SEO y Tarjetas)</label>
+            <input type="text" name="shortDescription" id="game_shortDescription" class="form-control" placeholder="Breve resumen llamativo de una línea">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Descripción Completa</label>
+            <textarea name="description" id="game_description" class="form-control" rows="4" placeholder="Explica de qué trata el juego, controles, historia..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Características del MOD (Una por línea)</label>
+            <textarea name="modFeatures" id="game_modFeatures" class="form-control" rows="3" placeholder="Dinero ilimitado&#10;Gemas infinitas&#10;Sin anuncios"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="switch-label">
+              <input type="checkbox" name="featured" id="game_featured">
+              <span>Destacar en el Hero principal de la página de inicio</span>
+            </label>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary">
+              Guardar Juego
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="resetGameForm(); switchTab('tab-juegos');">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- TAB 3: CONFIGURACIÓN DE ADSTERRA -->
+    <div id="tab-ads" class="tab-content">
+      <div class="admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800;">Configuración de Anuncios y Monetización</h2>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+              Configura tus bloques de Adsterra (Social Bar, Banners, Native y Smartlink).
+            </p>
+          </div>
+        </div>
+
+        <form action="<%= adminPath %>/ads/guardar" method="POST">
+          
+          <!-- Controles Maestros -->
+          <div style="background: var(--bg-elevated); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 2rem; border: 1px solid var(--border-color);">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-cyan);">
+              Ajustes Generales de Monetización
+            </h3>
+
+            <div class="form-row cols-2" style="margin-bottom: 1.25rem;">
+              <label class="switch-label">
+                <input type="checkbox" name="enabled" <%= ads.enabled ? 'checked' : '' %>>
+                <span><strong>Habilitar Anuncios Globalmente</strong></span>
+              </label>
+
+              <label class="switch-label">
+                <input type="checkbox" name="testMode" <%= ads.testMode ? 'checked' : '' %>>
+                <span><strong>Modo Prueba</strong> (Muestra cajas estilizadas de preview en vez de los anuncios reales)</span>
+              </label>
+            </div>
+
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Segundos de Cuenta Regresiva (Página de Descarga)</label>
+                <input type="number" name="downloadCountdownSeconds" class="form-control" value="<%= ads.settings.downloadCountdownSeconds || 6 %>" min="2" max="30">
+                <small style="color: var(--text-muted);">Recomendado: 5 a 8 segundos para dar tiempo al usuario de ver el anuncio.</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Adsterra Direct Link (Smartlink)</label>
+                <input type="url" name="directLinkUrl" class="form-control" placeholder="https://..." value="<%= ads.slots.directLinkUrl || '' %>">
+                <label class="switch-label" style="margin-top: 8px; font-size: 0.82rem;">
+                  <input type="checkbox" name="directLinkBeforeDownload" <%= ads.settings.directLinkBeforeDownload ? 'checked' : '' %>>
+                  <span>Abrir Direct Link automáticamente al terminar la cuenta regresiva</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slots de Anuncios -->
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin: 1.5rem 0 1rem;">
+            Formatos de Anuncios Adsterra
+          </h3>
+
+          <!-- Slot: Header 728x90 -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <label class="switch-label">
+                <input type="checkbox" name="headerBanner_enabled" <%= (ads.slots.headerBanner && ads.slots.headerBanner.enabled) ? 'checked' : '' %>>
+                <strong>Banner Superior (Header 728x90 / 320x50 Mobile)</strong>
+              </label>
+            </div>
+            <textarea name="headerBanner_code" class="form-control" rows="3" placeholder="Pega el código HTML/JS proporcionado por Adsterra"><%= (ads.slots.headerBanner) ? ads.slots.headerBanner.code : '' %></textarea>
+          </div>
+
+          <!-- Slot: Native In-Feed -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="inFeedNative_enabled" <%= (ads.slots.inFeedNative && ads.slots.inFeedNative.enabled) ? 'checked' : '' %>>
+              <strong>Banner Nativo en Catálogo (Native Banners)</strong>
+            </label>
+            <textarea name="inFeedNative_code" class="form-control" rows="3" placeholder="Pega el código del Native Banner de Adsterra"><%= (ads.slots.inFeedNative) ? ads.slots.inFeedNative.code : '' %></textarea>
+          </div>
+
+          <!-- Slot: Game Detail Top 300x250 -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="gameDetailTop_enabled" <%= (ads.slots.gameDetailTop && ads.slots.gameDetailTop.enabled) ? 'checked' : '' %>>
+              <strong>Ficha del Juego (300x250 o 728x90 cerca del botón)</strong>
+            </label>
+            <textarea name="gameDetailTop_code" class="form-control" rows="3" placeholder="Pega el código de banner para la ficha del juego"><%= (ads.slots.gameDetailTop) ? ads.slots.gameDetailTop.code : '' %></textarea>
+          </div>
+
+          <!-- Slot: Download Countdown Banner -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="downloadPageBanner_enabled" <%= (ads.slots.downloadPageBanner && ads.slots.downloadPageBanner.enabled) ? 'checked' : '' %>>
+              <strong>Página de Cuenta Regresiva de Descarga (300x250 - Máximo CPM)</strong>
+            </label>
+            <textarea name="downloadPageBanner_code" class="form-control" rows="3" placeholder="Pega el código de banner para la pantalla de descarga"><%= (ads.slots.downloadPageBanner) ? ads.slots.downloadPageBanner.code : '' %></textarea>
+          </div>
+
+          <!-- Slot: Social Bar -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="socialBar_enabled" <%= (ads.slots.socialBar && ads.slots.socialBar.enabled) ? 'checked' : '' %>>
+              <strong>Social Bar / In-Page Push (Adsterra)</strong>
+            </label>
+            <textarea name="socialBar_code" class="form-control" rows="3" placeholder="Pega el script de Social Bar de Adsterra"><%= (ads.slots.socialBar) ? ads.slots.socialBar.code : '' %></textarea>
+          </div>
+
+          <!-- Slot: Popunder -->
+          <div class="admin-card" style="background: rgba(255,255,255,0.02);">
+            <label class="switch-label" style="margin-bottom: 0.5rem;">
+              <input type="checkbox" name="popunder_enabled" <%= (ads.slots.popunder && ads.slots.popunder.enabled) ? 'checked' : '' %>>
+              <strong>Popunder OnClick (Adsterra)</strong>
+            </label>
+            <textarea name="popunder_code" class="form-control" rows="3" placeholder="Pega el script de Popunder de Adsterra"><%= (ads.slots.popunder) ? ads.slots.popunder.code : '' %></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">
+            Guardar Configuración de Adsterra
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.admin-tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      
+      event?.target?.classList?.add('active');
+    }
+
+    function resetGameForm() {
+      document.getElementById('gameForm').reset();
+      document.getElementById('game_id').value = '';
+      document.getElementById('formTitle').textContent = 'Agregar Nuevo Juego al Catálogo';
+    }
+
+    function editGame(game) {
+      switchTab('tab-nuevo');
+      document.getElementById('formTitle').textContent = 'Editar Juego: ' + game.title;
+      document.getElementById('game_id').value = game.id;
+      document.getElementById('game_title').value = game.title || '';
+      document.getElementById('game_category').value = game.category || 'Acción';
+      document.getElementById('game_badge').value = game.badge || 'MOD APK';
+      document.getElementById('game_version').value = game.version || '';
+      document.getElementById('game_size').value = game.size || '';
+      document.getElementById('game_requiresAndroid').value = game.requiresAndroid || '';
+      document.getElementById('game_developer').value = game.developer || '';
+      document.getElementById('game_rating').value = game.rating || 4.8;
+      document.getElementById('game_downloadUrl').value = game.downloadUrl || '';
+      document.getElementById('game_icon').value = game.icon || '';
+      document.getElementById('game_banner').value = game.banner || '';
+      document.getElementById('game_shortDescription').value = game.shortDescription || '';
+      document.getElementById('game_description').value = game.description || '';
+      document.getElementById('game_modFeatures').value = (game.modFeatures || []).join('\n');
+      document.getElementById('game_featured').checked = !!game.featured;
+    }
+  </script>
+
+</body>
+</html>

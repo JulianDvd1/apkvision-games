@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<div class="section-header" style="margin-top: 1.8rem;">
+  <h1 class="section-title">
+    <span class="bar"></span>
+    Categoría: <%= categoryName %>
+  </h1>
+  <span style="color: var(--text-muted); font-size: 0.9rem;">
+    <%= games.length %> títulos encontrados
+  </span>
+</div>
+
+<% if (games.length === 0) { %>
+  <div style="background: var(--bg-card); border-radius: var(--radius-md); padding: 3.5rem; text-align: center; border: 1px solid var(--border-color); margin: 2rem 0;">
+    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.2rem;">
+      No hay juegos registrados en la categoría "<%= categoryName %>" todavía.
+    </p>
+    <a href="/" class="btn btn-primary">Volver al Inicio</a>
+  </div>
+<% } else { %>
+  <div class="games-grid">
+    <% games.forEach((game, index) => { %>
+      <article class="game-card cascade-item" data-tilt>
+        <a href="/juego/<%= game.slug %>" style="display: flex; flex-direction: column; height: 100%;">
+          <div class="game-card-thumb-wrap">
+            <img 
+              src="<%= game.banner || game.icon %>" 
+              alt="<%= game.title %>" 
+              class="game-card-thumb" 
+              loading="lazy"
+              onerror="this.src='/images/placeholder-game.svg'"
+            >
+            <span class="game-badge <%= game.badge.toLowerCase().includes('mod') ? 'mod' : '' %>">
+              <%= game.badge %>
+            </span>
+            <span class="game-version-badge">
+              <%= game.version %>
+            </span>
+          </div>
+
+          <div class="game-card-body">
+            <h3 class="game-card-title"><%= game.title %></h3>
+            <div class="game-card-cat"><%= game.category %> • <%= game.developer %></div>
+            
+            <div class="game-card-footer">
+              <span class="game-rating">
+                ★ <%= game.rating %>
+              </span>
+              <span class="game-size">
+                <%= game.size %>
+              </span>
+            </div>
+          </div>
+        </a>
+      </article>
+    <% }) %>
+  </div>
+<% } %>
+
+<!-- Banner Adsterra al final -->
+<%- include('partials/ad-slot', { 
+  slot: adsConfig.slots.inFeedNative, 
+  sizeClass: 'size-728x90', 
+  customClass: 'bottom-ad-banner' 
+}) %>
+
+<%- include('partials/footer') %>

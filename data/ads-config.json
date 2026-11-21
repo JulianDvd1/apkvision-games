@@ -1,0 +1,43 @@
+{
+  "enabled": true,
+  "testMode": true,
+  "settings": {
+    "siteName": "APKGaming",
+    "siteTagline": "Descarga los mejores juegos y MODs para Android",
+    "directLinkBeforeDownload": false,
+    "downloadCountdownSeconds": 6
+  },
+  "slots": {
+    "headerBanner": {
+      "enabled": true,
+      "format": "728x90 Billboard / 320x50 Mobile",
+      "code": "<!-- Pega aquí el script o iframe de Adsterra Banner 728x90 / 320x50 -->"
+    },
+    "inFeedNative": {
+      "enabled": true,
+      "format": "Native Banner Adsterra",
+      "code": "<!-- Pega aquí el script de Native Banner de Adsterra -->"
+    },
+    "gameDetailTop": {
+      "enabled": true,
+      "format": "300x250 Medium Rectangle",
+      "code": "<!-- Pega aquí el banner de Adsterra 300x250 para la ficha del juego -->"
+    },
+    "downloadPageBanner": {
+      "enabled": true,
+      "format": "728x90 o 300x250",
+      "code": "<!-- Pega aquí el anuncio para la pantalla de cuenta regresiva de descarga -->"
+    },
+    "socialBar": {
+      "enabled": false,
+      "format": "Social Bar / In-Page Push (Adsterra)",
+      "code": "<!-- Pega aquí el script Social Bar de Adsterra -->"
+    },
+    "popunder": {
+      "enabled": false,
+      "format": "Popunder OnClick (Adsterra)",
+      "code": "<!-- Pega aquí el script Popunder de Adsterra -->"
+    },
+    "directLinkUrl": ""
+  }
+}

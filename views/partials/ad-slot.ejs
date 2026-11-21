@@ -1,0 +1,16 @@
+<%# Componente reutilizable para anuncios de Adsterra %>
+<% if (adsConfig && adsConfig.enabled && slot && slot.enabled) { %>
+  <div class="ad-slot-wrapper <%= customClass || '' %>">
+    <% if (adsConfig.testMode || !slot.code || slot.code.includes('<!-- Pega aquí')) { %>
+      <div class="ad-placeholder <%= sizeClass || 'size-728x90' %>">
+        <span class="ad-tag">Publicidad Adsterra</span>
+        <strong>Formato: <%= slot.format || 'Banner' %></strong>
+        <span>Este espacio está reservado para monetizar con Adsterra.</span>
+      </div>
+    <% } else { %>
+      <div class="ad-live-code">
+        <%- slot.code %>
+      </div>
+    <% } %>
+  </div>
+<% } %>

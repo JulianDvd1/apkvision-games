@@ -1,0 +1,121 @@
+<%- include('partials/header') %>
+
+<!-- HERO SECTION: Juego Destacado con Shimmer & Glow -->
+<% if (featuredGames && featuredGames.length > 0) { 
+    const hero = featuredGames[0];
+%>
+<section class="hero-section">
+  <div class="hero-card">
+    <div class="hero-content">
+      <span class="hero-tag">🔥 Juego Destacado del Día</span>
+      <h1 class="hero-title"><%= hero.title %></h1>
+      <p class="hero-desc"><%= hero.shortDescription %></p>
+      <div class="hero-actions">
+        <a href="/juego/<%= hero.slug %>" class="btn btn-primary">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          Descargar <%= hero.version %>
+        </a>
+        <a href="/juego/<%= hero.slug %>" class="btn btn-secondary">
+          Ver Ficha Técnica
+        </a>
+      </div>
+    </div>
+    <div class="hero-image-area">
+      <img src="<%= hero.banner || hero.icon %>" alt="<%= hero.title %>" class="hero-img">
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- SECCIÓN: Catálogo de Juegos con Efecto Cascada -->
+<div class="section-header">
+  <h2 class="section-title">
+    <span class="bar"></span>
+    Juegos Recientes y Actualizados
+  </h2>
+  <span style="color: var(--text-muted); font-size: 0.85rem;">
+    <%= recentGames.length %> disponibles
+  </span>
+</div>
+
+<div class="games-grid">
+  <% recentGames.forEach((game, index) => { %>
+    <article class="game-card cascade-item" data-tilt>
+      <a href="/juego/<%= game.slug %>" style="display: flex; flex-direction: column; height: 100%;">
+        <div class="game-card-thumb-wrap">
+          <img 
+            src="<%= game.banner || game.icon %>" 
+            alt="<%= game.title %>" 
+            class="game-card-thumb" 
+            loading="lazy"
+            onerror="this.src='/images/placeholder-game.svg'"
+          >
+          <span class="game-badge <%= game.badge.toLowerCase().includes('mod') ? 'mod' : '' %>">
+            <%= game.badge %>
+          </span>
+          <span class="game-version-badge">
+            <%= game.version %>
+          </span>
+        </div>
+
+        <div class="game-card-body">
+          <h3 class="game-card-title"><%= game.title %></h3>
+          <div class="game-card-cat"><%= game.category %> • <%= game.developer %></div>
+          
+          <div class="game-card-footer">
+            <span class="game-rating">
+              ★ <%= game.rating %>
+            </span>
+            <span class="game-size">
+              <%= game.size %>
+            </span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+    <%# Intercalar banner nativo de Adsterra perfectamente alineado como una tarjeta de juego más %>
+    <% if (index === 2) { %>
+      <article class="game-card cascade-item" style="border-color: rgba(245, 158, 11, 0.3);">
+        <% if (adsConfig.testMode || !adsConfig.slots.inFeedNative.code || adsConfig.slots.inFeedNative.code.includes('<!-- Pega aquí')) { %>
+          <a href="#" onclick="event.preventDefault();" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="game-card-thumb-wrap">
+              <img 
+                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" 
+                alt="Patrocinado" 
+                class="game-card-thumb"
+              >
+              <span class="game-badge" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: #000;">
+                PATROCINADO
+              </span>
+              <span class="game-version-badge">ANUNCIO</span>
+            </div>
+            <div class="game-card-body">
+              <h3 class="game-card-title">Juegos Móviles & Ofertas</h3>
+              <div class="game-card-cat">Publicidad • Adsterra Native</div>
+              <div class="game-card-footer">
+                <span class="game-rating" style="color: var(--accent-amber);">★ 5.0</span>
+                <span style="color: var(--accent-green); font-weight: 800; font-size: 0.75rem;">VISITAR ↗</span>
+              </div>
+            </div>
+          </a>
+        <% } else { %>
+          <div style="padding: 10px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <%- adsConfig.slots.inFeedNative.code %>
+          </div>
+        <% } %>
+      </article>
+    <% } %>
+  <% }) %>
+</div>
+
+<!-- Banner Adsterra In-Feed al final del catálogo -->
+<%- include('partials/ad-slot', { 
+  slot: adsConfig.slots.inFeedNative, 
+  sizeClass: 'size-728x90', 
+  customClass: 'bottom-ad-banner' 
+}) %>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+<!-- PANTALLA INTERMEDIA DE DESCARGA CON CONTADOR (ADSTERRA OPTIMIZED) -->
+<div class="download-page-card">
+  
+  <img src="<%= game.icon %>" alt="<%= game.title %>" class="download-app-icon" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80'">
+  
+  <h1 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.3rem;">
+    <%= (typeof selectedFile !== 'undefined') ? selectedFile.name : game.title %>
+  </h1>
+  <p style="color: var(--text-secondary); font-size: 0.9rem;">
+    Tipo: <strong><%= (typeof selectedFile !== 'undefined' && selectedFile.type) ? selectedFile.type : (game.badge || 'APK') %></strong> • Tamaño: <strong><%= (typeof selectedFile !== 'undefined' && selectedFile.size) ? selectedFile.size : game.size %></strong>
+  </p>
+
+  <!-- Contador visual -->
+  <div 
+    id="countdownNumber" 
+    class="countdown-timer-circle"
+    data-seconds="<%= adsConfig.settings.downloadCountdownSeconds || 6 %>"
+  >
+    <%= adsConfig.settings.downloadCountdownSeconds || 6 %>
+  </div>
+
+  <p style="font-weight: 600; color: var(--text-primary); font-size: 1rem;">
+    Preparando enlace seguro de descarga...
+  </p>
+  <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
+    Por favor espera unos segundos mientras generamos el servidor más rápido para ti.
+  </p>
+
+  <!-- Barra de progreso animada -->
+  <div class="download-progress-bar-wrap">
+    <div id="downloadProgressBar" class="download-progress-bar"></div>
+  </div>
+
+  <!-- ANUNCIO DE ALTO CPM: Adsterra Download Page Banner -->
+  <%- include('partials/ad-slot', { 
+    slot: adsConfig.slots.downloadPageBanner, 
+    sizeClass: 'size-300x250', 
+    customClass: 'download-timer-ad' 
+  }) %>
+
+  <!-- Contenedor del Botón Final (se activa con JavaScript) -->
+  <div 
+    id="downloadFinalBtnWrapper" 
+    class="download-button-wrapper"
+    data-url="<%= (typeof selectedFile !== 'undefined') ? selectedFile.url : game.downloadUrl %>"
+    data-directlink="<%= (adsConfig.settings.directLinkBeforeDownload && adsConfig.slots.directLinkUrl) ? adsConfig.slots.directLinkUrl : '' %>"
+  >
+    <button class="btn btn-secondary" style="opacity: 0.6; cursor: not-allowed; width: 100%; max-width: 420px;" disabled>
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      Generando enlace seguro...
+    </button>
+  </div>
+
+  <!-- Insignias de confianza y seguridad -->
+  <div class="safety-badges">
+    <div class="safety-badge-item">
+      <svg width="18" height="18" fill="none" stroke="var(--accent-green)" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+      <span>Sin Malware ni Virus</span>
+    </div>
+    <div class="safety-badge-item">
+      <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      <span>Velocidad Máxima</span>
+    </div>
+    <div class="safety-badge-item">
+      <svg width="18" height="18" fill="none" stroke="var(--accent-amber)" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+      <span>100% Gratuito</span>
+    </div>
+  </div>
+
+  <!-- Instrucciones de instalación para el usuario móvil -->
+  <div style="margin-top: 2rem; text-align: left; background: var(--bg-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-secondary);">
+    <strong style="color: var(--text-primary); display: block; margin-bottom: 6px;">💡 ¿Cómo instalar este juego en Android?</strong>
+    <ol style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px;">
+      <li>Haz clic en el botón de descarga verde una vez termine el temporizador.</li>
+      <li>Descarga el archivo APK desde el servidor externo.</li>
+      <li>Si es la primera vez que instalas fuera de Google Play, permite <em>"Instalar desde orígenes desconocidos"</em> en los ajustes de tu navegador o gestor de archivos.</li>
+      <li>Abre el archivo descargado y presiona <strong>Instalar</strong>. ¡A disfrutar!</li>
+    </ol>
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>
