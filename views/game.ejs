@@ -175,6 +175,15 @@
       </div>
     <% } %>
 
+    <!-- Anuncio Adsterra ENCIMA de la Zona de Descargas (Solo en Móvil para monetizar antes del botón) -->
+    <div class="mobile-only-ad" style="margin: 1.5rem 0;">
+      <%- include('partials/ad-slot', { 
+        slot: adsConfig.slots.inFeedNative, 
+        sizeClass: 'size-728x90', 
+        customClass: 'before-download-mobile-ad' 
+      }) %>
+    </div>
+
     <!-- ZONA OFICIAL DE DESCARGAS (AL FINAL PARA OBLIGAR A PASAR POR ANUNCIOS Y DESCRIPCIÓN) -->
     <div id="zona-descargas" style="margin: 2rem 0; padding: 2.2rem 1.8rem; background: linear-gradient(145deg, rgba(22, 31, 51, 0.85) 0%, rgba(14, 20, 33, 0.98) 100%); border-radius: var(--radius-xl); border: 1px solid rgba(16, 185, 129, 0.35); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(16, 185, 129, 0.15); scroll-margin-top: 80px;">
       
@@ -244,12 +253,14 @@
   <!-- COLUMNA LATERAL: SIDEBAR (DERECHA) -->
   <aside class="game-sidebar">
     
-    <!-- Anuncio Adsterra 300x250 en Sidebar (Máxima Visibilidad) -->
-    <%- include('partials/ad-slot', { 
-      slot: adsConfig.slots.gameDetailTop, 
-      sizeClass: 'size-300x250', 
-      customClass: 'sidebar-ad-banner' 
-    }) %>
+    <!-- Anuncio Adsterra 300x250 en Sidebar (Solo visible en PC para no duplicar en móvil) -->
+    <div class="desktop-only-ad">
+      <%- include('partials/ad-slot', { 
+        slot: adsConfig.slots.gameDetailTop, 
+        sizeClass: 'size-300x250', 
+        customClass: 'sidebar-ad-banner' 
+      }) %>
+    </div>
 
     <!-- Widget: Juegos Más Populares -->
     <% if (typeof popularGames !== 'undefined' && popularGames.length > 0) { %>

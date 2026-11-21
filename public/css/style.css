@@ -882,6 +882,24 @@ img {
   min-height: 500px;
 }
 
+/* Utilidades Responsive para Publicidad (Desktop vs Móvil) */
+.mobile-only-ad {
+  display: block;
+}
+
+.desktop-only-ad {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .mobile-only-ad {
+    display: none !important;
+  }
+  .desktop-only-ad {
+    display: block !important;
+  }
+}
+
 /* ================= FICHA DE DETALLE DEL JUEGO ================= */
 .game-detail-header {
   position: relative;
