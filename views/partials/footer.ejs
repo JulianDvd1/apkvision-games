@@ -45,5 +45,15 @@
 
   <!-- Script Principal -->
   <script src="/js/main.js"></script>
+
+  <!-- Publicidad Global Adsterra: Social Bar & Popunder -->
+  <% if (adsConfig && adsConfig.enabled) { %>
+    <% if (adsConfig.slots.socialBar && adsConfig.slots.socialBar.enabled && adsConfig.slots.socialBar.code && !adsConfig.slots.socialBar.code.includes('<!-- Pega aquí')) { %>
+      <%- adsConfig.slots.socialBar.code %>
+    <% } %>
+    <% if (adsConfig.slots.popunder && adsConfig.slots.popunder.enabled && adsConfig.slots.popunder.code && !adsConfig.slots.popunder.code.includes('<!-- Pega aquí')) { %>
+      <%- adsConfig.slots.popunder.code %>
+    <% } %>
+  <% } %>
 </body>
 </html>

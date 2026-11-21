@@ -16,27 +16,27 @@
     "inFeedNative": {
       "enabled": true,
       "format": "Native Banner Adsterra",
-      "code": "<!-- Pega aquí el script de Native Banner de Adsterra -->"
+      "code": "<script async=\"async\" data-cfasync=\"false\" src=\"https://bellnewyork.org/21/a9b4406e574138a3b2c1b83b6618f7ed\"></script>\n<div id=\"container-a9b4406e574138a3b2c1b83b6618f7ed\"></div>"
     },
     "gameDetailTop": {
       "enabled": true,
       "format": "300x250 Medium Rectangle",
-      "code": "<!-- Pega aquí el banner de Adsterra 300x250 para la ficha del juego -->"
+      "code": "<script>\n  atOptions = {\n    'key' : 'c074571bba1964bdc6efacb06acfe034',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bellnewyork.org/22/c074571bba1964bdc6efacb06acfe034\"></script>"
     },
     "sidebarSticky": {
       "enabled": true,
-      "format": "300x600 Half Page / Skyscraper Vertical",
-      "code": "<!-- Pega aquí el banner vertical 300x600 de Adsterra para el lateral derecho -->"
+      "format": "300x250 Medium Rectangle (Sidebar)",
+      "code": "<script>\n  atOptions = {\n    'key' : 'c074571bba1964bdc6efacb06acfe034',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bellnewyork.org/22/c074571bba1964bdc6efacb06acfe034\"></script>"
     },
     "downloadPageBanner": {
       "enabled": true,
-      "format": "728x90 o 300x250",
-      "code": "<!-- Pega aquí el anuncio para la pantalla de cuenta regresiva de descarga -->"
+      "format": "300x250 Medium Rectangle (Contador Descarga)",
+      "code": "<script>\n  atOptions = {\n    'key' : 'c074571bba1964bdc6efacb06acfe034',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bellnewyork.org/22/c074571bba1964bdc6efacb06acfe034\"></script>"
     },
     "socialBar": {
-      "enabled": false,
+      "enabled": true,
       "format": "Social Bar / In-Page Push (Adsterra)",
-      "code": "<!-- Pega aquí el script Social Bar de Adsterra -->"
+      "code": "<script data-cfasync=\"false\" src=\"https://bellnewyork.org/14/3a5faea467483cd1434d8c1522eac1d8\"></script>"
     },
     "popunder": {
       "enabled": false,
