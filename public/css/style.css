@@ -750,16 +750,17 @@ img {
   object-fit: cover;
   mask-image: linear-gradient(to right, transparent 0%, black 35%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
-  animation: heroBannerPan 22s ease-in-out infinite alternate;
+  transform-origin: center center;
+  animation: heroBannerPan 7.5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 @keyframes heroBannerPan {
   0% {
-    transform: scale(1.06) translate3d(-2.5%, 0, 0);
+    transform: scale(1.14) translate3d(-5%, 0, 0);
   }
   100% {
-    transform: scale(1.06) translate3d(2.5%, 0, 0);
+    transform: scale(1.14) translate3d(5%, 0, 0);
   }
 }
 
@@ -972,6 +973,17 @@ img {
   filter: blur(16px) brightness(0.28) saturate(1.4);
   opacity: 0.8;
   pointer-events: none;
+  animation: cardAmbientPan 8s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes cardAmbientPan {
+  0% {
+    transform: scale(1.08) translate3d(-3%, 0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(3%, 0, 0);
+  }
 }
 
 /* Icono móvil estilizado estilo Squircle (Google Play / App Store) */
@@ -1231,22 +1243,23 @@ img {
   object-fit: cover;
   filter: brightness(0.65);
   transform-origin: center center;
-  animation: bannerPan 20s ease-in-out infinite alternate;
+  animation: bannerPan 7.5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 @keyframes bannerPan {
   0% {
-    transform: scale(1.08) translate3d(-3%, 0, 0);
+    transform: scale(1.14) translate3d(-5%, 0, 0);
   }
   100% {
-    transform: scale(1.08) translate3d(3%, 0, 0);
+    transform: scale(1.14) translate3d(5%, 0, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .game-detail-banner img,
-  .hero-img {
+  .hero-img,
+  .game-card-thumb-ambient {
     animation: none !important;
     transform: none !important;
   }
