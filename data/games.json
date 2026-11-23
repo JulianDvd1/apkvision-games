@@ -433,5 +433,60 @@
       }
     ],
     "featured": false
+  },
+  {
+    "id": "call-of-duty-black-ops-2",
+    "slug": "call-of-duty-black-ops-2",
+    "title": "Call of Duty: Black Ops 2 APK + Datos (Full Port Android vBeta 2.4 - T6 Requiem)",
+    "shortDescription": "La aclamada obra maestra bélica de Treyarch llega a Android con el port completo vBeta 2.4. Vive la intensa campaña en dos épocas temporales contra Raul Menendez, el legendario Modo Zombis (TranZit), misiones Strike Force y soporte para mandos.",
+    "description": "¡Experimenta uno de los shooters bélicos más influyentes y premiados de todos los tiempos directamente en tu smartphone o tablet Android! **Call of Duty: Black Ops 2** para Android se presenta en su versión **Full Port vBeta 2.4**, impulsado por el nuevo entorno y lanzador **T6 Requiem**, optimizado específicamente para la arquitectura **arm64-v8a** de los procesadores móviles modernos.\n\nAmbientado en una alarmante Guerra Fría del siglo XXI, la narrativa del juego conecta dos líneas de tiempo maestras: los sangrientos conflictos encubiertos de finales de los años 80 protagonizados por **Alex Mason** y **Frank Woods**, y el año 2025, donde la tecnología militar automatizada, drones no tripulados y ciberguerra han transformado por completo el campo de batalla. En el papel de **David Mason (\"Section\")**, líder de las fuerzas especiales JSOC de élite, deberás dar caza a **Raul Menendez**, un carismático y despiadado líder revolucionario que ha tomado el control de la infraestructura de defensa de las superpotencias mundiales.\n\n---\n\n### 🎖️ Características y Modos Incluidos en el Port Android\n\n* **Lanzador Optimizado T6 Requiem:** Nuevo motor de arranque que optimiza la carga de shaders, incorpora un modo de alto rendimiento y aprovecha al máximo procesadores Snapdragon y MediaTek Dimensity con arquitectura ARM64.\n* **Campaña Cinemática con Decisiones Ramificadas:** Por primera vez en la franquicia, tus decisiones tácticas en el campo de batalla y las misiones secundarias de **Fuerza de Ataque (Strike Force)** alteran permanentemente el destino de los personajes y determinan múltiples finales posibles para la historia.\n* **Modo Zombis Legendario Completo:** Adéntrate en el terror cooperativo y supervivencia con los mapas clásicos más queridos de la comunidad: recorre el colosal mundo posapocalíptico de **TranZit** en el autobús blindado, defiende la **Ciudad (Town)**, la **Granja (Farm)** y sobrevive a hordas implacables con tus ventajas (Perks) y armas de la Caja Misteriosa.\n* **Algoritmo de Compresión de Archivos y Modo Rendimiento:** Reduce el consumo de almacenamiento y memoria RAM, manteniendo tasas estables de 30 a 60 FPS según la potencia gráfica de tu dispositivo.\n* **Soporte Completo de Mandos y Controles Táctiles:** Interfaz de pantalla táctil totalmente personalizable en tamaño y posición, y compatibilidad Plug-and-Play nativa para mandos físicos Bluetooth y USB-C (Xbox Wireless, PS4 DualShock, PS5 DualSense, Nintendo Switch Pro Controller, GameSir y Razer Kishi).\n* **Partidas Personalizadas y Bots Inteligentes:** Disfruta de la experiencia multijugador clásica con mapas emblemáticos como Standoff, Raid y Hijacked contra bots offline con dificultad ajustable.\n\n---\n\n### 📋 Guía de Instalación Paso a Paso en Android\n\n1. **Instala el APK del Lanzador:** Descarga el archivo **Call-of-Duty-Black-Ops-2-vBeta-2.4-apkvision.apk** (81.32 MB) desde el botón principal de descarga e instálalo en tu dispositivo permitiendo orígenes desconocidos.\n2. **Descarga el Paquete de Datos:** Descarga el archivo comprimido **COD-BO-II-apkvision.rar** (30.84 GB) que contiene las texturas en alta resolución, cinemáticas, archivos de campaña y mapas zombis.\n3. **Descomprime los Datos:** Con una aplicación de gestión de archivos como ZArchiver o RAR para Android, extrae el contenido del archivo RAR en el almacenamiento interno de tu móvil (recomendado en la carpeta `/Download/` o `/COD-BO2/`).\n4. **Vincula la Carpeta en T6 Requiem:** Abre el lanzador T6 Requiem instalado, selecciona la opción de vincular directorio del juego y navega hasta la carpeta extraída.\n5. **Ajusta los Gráficos y Juega:** Selecciona tu resolución preferida, tasa de fotogramas (30 FPS para gama media o 60 FPS para gama alta) y ¡disfruta de la experiencia completa de Black Ops 2 en cualquier lugar!\n\n---\n\n### ⚙️ Especificaciones y Requisitos del Sistema\n\n* **Plataforma:** Android (Arquitectura ARM64-v8a)\n* **Versión:** vBeta 2.4 (Lanzador T6 Requiem)\n* **Desarrollador Original:** Treyarch / Activision\n* **Adaptación Móvil:** Android Port Team\n* **Espacio Libre Requerido:** Aprox. 32 GB libres en almacenamiento interno\n* **Sistema Operativo:** Android 8.0 (Oreo) o superior\n* **Memoria RAM Mínima:** 6 GB de RAM (Recomendado 8 GB o superior para 60 FPS)\n* **Procesador Sugerido:** Qualcomm Snapdragon 855 / 865 / 8 Gen 1+ o MediaTek Dimensity equivalente",
+    "category": "Acción",
+    "badge": "FULL PORT + DATOS",
+    "version": "vBeta 2.4 (T6 Requiem)",
+    "size": "30.9 GB (APK + Datos)",
+    "requiresAndroid": "Android 8.0+ (ARM64)",
+    "developer": "Treyarch / Activision / Port Team",
+    "updatedAt": "2026-11-23",
+    "rating": 4.8,
+    "downloadsCount": "620K+",
+    "icon": "/uploads/games/call_of_duty_black_ops_2-squar-1795405980363.png",
+    "banner": "/uploads/games/9c953e771b77e507dfb3a3cf079dfe-1795405980364.png",
+    "screenshots": [
+      "/uploads/games/ss_299da22559d2345e0643ab61378-1795405980786.png",
+      "/uploads/games/ss_1f0118d4d0260709122df43095e-1795405980883.png",
+      "/uploads/games/ss_c8dbd43d5eaaf11241d6a8afcec-1795405980886.png",
+      "/uploads/games/ss_0f03487cfbad1a33d5a5a1717da-1795405981186.png",
+      "/uploads/games/ss_222702efa413c2d5c3068526910-1795405981284.png",
+      "/uploads/games/ss_0cd41677a068a20478f96200d97-1795405981292.png",
+      "/uploads/games/ss_aa5f28d5d5fb0956c5de65b0a3e-1795405981482.png",
+      "/uploads/games/ss_ac2194dfb623d65003f54450fb1-1795405981588.png"
+    ],
+    "modFeatures": [
+      "Port completo nativo para Android (ARM64-v8a) con nuevo lanzador T6 Requiem",
+      "Campaña cinemática completa en dos líneas temporales: Guerra Fría (1980s) y futuro cercano (2025)",
+      "Misiones Strike Force con decisiones tácticas en tiempo real y finales alternativos",
+      "Modo Zombis legendario completo con mapas clásicos (TranZit, Ciudad, Granja, Nuketown Zombies)",
+      "Modo de alto rendimiento y algoritmo de compresión de texturas para mayor fluidez de FPS",
+      "Soporte nativo de controles táctiles personalizables y mandos físicos Bluetooth (Xbox, PS4/PS5, Switch Pro, GameSir)",
+      "Opción experimental de pantalla dividida y multijugador local con bots inteligentes"
+    ],
+    "downloadUrl": "https://dl.apkvision.org/call-of-duty-black-ops-2/Call-of-Duty-Black-Ops-2-vBeta-2.4-apkvision.apk",
+    "downloadFiles": [
+      {
+        "name": "Call of Duty: Black Ops 2 APK (Lanzador T6 Requiem vBeta 2.4)",
+        "type": "APK",
+        "size": "81.32 MB",
+        "badge": "Instalador Principal",
+        "url": "https://dl.apkvision.org/call-of-duty-black-ops-2/Call-of-Duty-Black-Ops-2-vBeta-2.4-apkvision.apk"
+      },
+      {
+        "name": "Call of Duty: Black Ops 2 Datos Completos (Campaña + Zombis + Texturas)",
+        "type": "DATOS / RAR",
+        "size": "30.84 GB",
+        "badge": "Archivos del Juego",
+        "url": "https://dl.apkvision.net/call-of-duty-black-ops-2/COD-BO-II-apkvision.rar"
+      }
+    ],
+    "featured": false
   }
 ]
