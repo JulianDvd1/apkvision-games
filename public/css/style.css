@@ -750,11 +750,17 @@ img {
   object-fit: cover;
   mask-image: linear-gradient(to right, transparent 0%, black 35%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
-  transition: transform 0.4s ease;
+  animation: heroBannerPan 22s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-.hero-card:hover .hero-img {
-  transform: scale(1.03);
+@keyframes heroBannerPan {
+  0% {
+    transform: scale(1.06) translate3d(-2.5%, 0, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(2.5%, 0, 0);
+  }
 }
 
 @media (max-width: 767px) {
@@ -1224,6 +1230,26 @@ img {
   height: 100%;
   object-fit: cover;
   filter: brightness(0.65);
+  transform-origin: center center;
+  animation: bannerPan 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes bannerPan {
+  0% {
+    transform: scale(1.08) translate3d(-3%, 0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(3%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-detail-banner img,
+  .hero-img {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 .game-detail-main {
