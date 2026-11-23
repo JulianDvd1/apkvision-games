@@ -381,5 +381,57 @@
       }
     ],
     "featured": true
+  },
+  {
+    "id": "the-legend-of-zelda-twilight-princess",
+    "slug": "the-legend-of-zelda-twilight-princess",
+    "title": "The Legend of Zelda: Twilight Princess APK + ROM (Port Nativo Android - Dusklight v2.0.3)",
+    "shortDescription": "Disfruta de la legendaria aventura de Link y Midna en Android con el port nativo Dusklight v2.0.3 en C++. Gráficos panorámicos 16:9 a 60 FPS, soporte de mandos Bluetooth y pantalla táctil, Randomizer integrado y textos en español.",
+    "description": "¡Adéntrate en una de las mayores epopeyas de la historia de los videojuegos ahora directamente en tu móvil! **The Legend of Zelda: Twilight Princess** llega a Android gracias a **Dusklight v2.0.3**, el revolucionario proyecto de descompilación y port nativo en C++ desarrollado por la comunidad de **Twilit Realm**. A diferencia de los emuladores convencionales, este port ejecuta el código del juego de forma nativa en procesadores **ARM64**, garantizando un rendimiento ultra fluido a **60 FPS**, resolución panorámica 16:9 nativa, bajo consumo de batería y cero tirones de compilación de shaders.\n\nEn esta oscura y madura entrega de la franquicia de Nintendo, encarnarás al joven granjero **Link** de la apacible aldea de Ordon. Cuando una misteriosa sombra envuelve el reino de Hyrule convirtiéndolo en el **Reino del Crepúsculo (Twilight Realm)**, Link es transformado en un lobo sagrado y encerrado en las mazmorras del castillo. Allí conoce a **Midna**, una misteriosa e impetuosa criatura del crepúsculo. Juntos forjarán una alianza legendaria para recorrer templos colosales, dominar el combate a caballo con Epona, restaurar la luz de los espíritus guardianes y derrotar al usurpador Zant y al mal ancestral que amenaza con destruir Hyrule.\n\n---\n\n### 🗡️ Novedades del Port Nativo Dusklight v2.0.3\n\n* **Motor Nativo en C++ (Sin Emulación Pesada):** Al ejecutarse mediante código nativo recompilado para Android ARM64, elimina la sobrecarga computacional de Dolphin, permitiendo jugar en una inmensa gama de smartphones con temperaturas estables y máxima eficiencia energética.\n* **60 FPS Fluidos con Interpolación Avanzada:** Disfruta de la aventura a 60 fotogramas por segundo estables con interpolación de frames de última generación y menús rediseñados con delta-time variable.\n* **Formato Panorámico 16:9 Nativo:** Amplía el campo de visión sin estirar la interfaz de usuario ni distorsionar los modelados originales.\n* **Dusklight Randomizer Integrado:** Genera partidas completamente personalizadas con semillas únicas y ajustes aleatorios de objetos y mazmorras directamente desde el menú del juego.\n* **Gestor y Navegador de Mods en el Juego:** Descarga e instala texturas en alta resolución, atuendos y modificaciones comunitarias directamente desde la interfaz del juego sin salir a explorar carpetas.\n* **Controles Táctiles y Soporte de Mandos Bluetooth:** Juega con cómodos botones virtuales en pantalla configurables o conecta mandos físicos por Bluetooth y USB-C (Xbox, PlayStation DualShock/DualSense, Nintendo Switch Pro Controller, GameSir, Razer Kishi).\n* **Audio Envolvente 5.1 y 7.1:** Paisajes sonoros tridimensionales envolventes con la inolvidable banda sonora orquestal compuesta por Koji Kondo, Toru Minegishi y Asuka Ohta.\n* **ROM Oficial Europea con Textos en Español:** Compatible al 100% con la ROM europea multidioma (En, Fr, De, Es, It) que garantiza cinemáticas, subtítulos, nombres de objetos y diálogos totalmente traducidos al castellano.\n\n---\n\n### 📋 Guía Rápida de Instalación en Android\n\n1. **Instala el Motor Dusklight:** Descarga el archivo **Dusklight v2.0.3 APK** (56 MB) desde los enlaces inferiores e instálalo en tu dispositivo Android.\n2. **Descarga la ROM del Juego:** Descarga el archivo comprimido de la ROM europea oficial de GameCube (**888 MB**).\n3. **Extrae la ROM:** Utiliza una aplicación como ZArchiver para descomprimir el archivo .zip y obtener la imagen .rvz o .iso en tu almacenamiento interno.\n4. **Carga el Juego en Dusklight:** Abre Dusklight, pulsa sobre el botón **Cargar Juego (Load Game)**, navega hasta la carpeta donde guardaste la ROM y selecciónala.\n5. **Configura y Juega:** El motor extraerá y compilará los recursos necesarios en segundos. Accede al menú de ajustes para elegir tu esquema de control favorito (táctil o mando) y disfruta de la aventura a 60 FPS.\n\n---\n\n### ⚙️ Especificaciones y Requisitos Técnicos\n\n* **Plataforma:** Android (Arquitectura ARM64-v8a)\n* **Versión del Motor:** Dusklight v2.0.3 Oficial\n* **Desarrollador Original:** Nintendo EAD / Shigeru Miyamoto & Eiji Aonuma\n* **Desarrollador del Port:** Twilit Realm Project\n* **Espacio Requerido:** Aprox. 1.8 GB libres (APK + ROM extraída)\n* **Sistema Operativo Mínimo:** Android 8.0 (Oreo) o superior\n* **Memoria RAM Recomendada:** 4 GB de RAM o superior\n* **Idioma:** Español (Textos e Interfaz Oficial en Castellano)",
+    "category": "Aventura",
+    "badge": "PORT NATIVO + ROM",
+    "version": "v2.0.3 (Dusklight Engine)",
+    "size": "944 MB (APK + ROM)",
+    "requiresAndroid": "Android 8.0+ (ARM64)",
+    "developer": "Nintendo / Twilit Realm",
+    "updatedAt": "2026-11-23",
+    "rating": 4.9,
+    "downloadsCount": "850K+",
+    "icon": "/uploads/games/image--7--1795404112015.png",
+    "banner": "/uploads/games/twilightprincessheaderjpg-0813-1795404112197.png",
+    "screenshots": [
+      "/uploads/games/the_legend_of_zelda_twilight_p-1795404112343.png",
+      "/uploads/games/scfub2-1795404112372.png",
+      "/uploads/games/operationrainfall-1795404112420.png",
+      "/uploads/games/image--8--1795404112519.png",
+      "/uploads/games/maxresdefault-1795404112616.png"
+    ],
+    "modFeatures": [
+      "Port nativo compilado en C++ (Dusklight v2.0) sin sobrecarga de emulador",
+      "Rendimiento de hasta 60 FPS con interpolación avanzada de frames y soporte panorámico 16:9",
+      "Dusklight Randomizer integrado en el menú principal para partidas personalizadas",
+      "Soporte completo para mandos Bluetooth (Xbox, DualShock/DualSense, Switch Pro) y controles táctiles",
+      "Navegación fluida por menús con delta-time variable y audio envolvente 5.1 / 7.1",
+      "Soporte de mods comunitarios, texturas en alta resolución y catálogo de mods en el juego",
+      "Incluye ROM europea multidioma oficial con textos y cinemáticas en español"
+    ],
+    "downloadUrl": "https://github.com/TwilitRealm/dusklight/releases/download/v2.0.3/Dusklight-v2.0.3-android-arm64.apk",
+    "downloadFiles": [
+      {
+        "name": "Dusklight v2.0.3 APK (Motor Nativo Android ARM64)",
+        "type": "APK",
+        "size": "56 MB",
+        "badge": "Requerido",
+        "url": "https://github.com/TwilitRealm/dusklight/releases/download/v2.0.3/Dusklight-v2.0.3-android-arm64.apk"
+      },
+      {
+        "name": "The Legend of Zelda: Twilight Princess ROM (Español Multi-5 ISO/RVZ)",
+        "type": "ISO / ROM",
+        "size": "888 MB",
+        "badge": "Juego Base",
+        "url": "https://sto.romsfast.com/GameCube-RVZ/Legend%20of%20Zelda%20The%20-%20Twilight%20Princess%20(Europe)%20(EnFrDeEsIt).zip?e=1795489961&s=bdxBSLY5MOMROQ_hA8E1TsBKAuJoLN1cSUhmC3YIWSM"
+      }
+    ],
+    "featured": false
   }
 ]
