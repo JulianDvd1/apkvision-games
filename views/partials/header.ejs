@@ -32,7 +32,7 @@
   <% } %>
   
   <!-- Favicon / Estilos -->
-  <link rel="stylesheet" href="/css/style.css?v=2.3">
+  <link rel="stylesheet" href="/css/style.css?v=2.4">
 </head>
 <body>
 
@@ -86,35 +86,104 @@
     </div>
   </header>
 
-  <!-- Barra de Categorías / Píldoras -->
-  <nav class="categories-bar">
-    <div class="container categories-scroll">
-      <% if (typeof categories !== 'undefined' && categories.length > 0) { 
-          const iconMap = {
-            'todos': '✨',
-            'deportes': '⚽',
-            'accion': '💥',
-            'aventura': '🧭',
-            'carreras': '🏎️',
-            'estrategia': '♟️',
-            'arcade': '🕹️',
-            'disparos': '🎯',
-            'simulacion': '🚜',
-            'rpg': '🛡️',
-            'lucha': '🥊',
-            'terror': '🧟'
-          };
-      %>
-        <% categories.forEach(cat => { %>
-          <a 
-            href="/categoria/<%= cat.slug %>" 
-            class="category-pill <%= (typeof activeCategory !== 'undefined' && activeCategory === cat.slug) ? 'active' : '' %>"
-          >
-            <span><%= iconMap[cat.slug] || '🎮' %></span>
-            <span><%= cat.name %></span>
+  <!-- Barra de Categorías / Menú Compacto por Géneros (Organizado y con Glassmorphism) -->
+  <nav class="categories-bar" aria-label="Categorías de juegos">
+    <div class="container categories-wrapper">
+      <div class="categories-scroll" id="categoriesScroll">
+        
+        <!-- Píldora: Todos -->
+        <a 
+          href="/categoria/todos" 
+          class="category-pill <%= (typeof activeCategory !== 'undefined' && activeCategory === 'todos') ? 'active' : '' %>"
+        >
+          <span class="cat-icon">✨</span>
+          <span class="cat-label">Todos</span>
+        </a>
+
+        <!-- Grupo: Acción & Combate -->
+        <div class="category-dropdown <%= (typeof activeCategory !== 'undefined' && ['grupo-accion', 'accion', 'disparos', 'lucha'].includes(activeCategory)) ? 'active' : '' %>">
+          <a href="/categoria/grupo-accion" class="category-pill dropdown-trigger">
+            <span class="cat-icon">⚔️</span>
+            <span class="cat-label">Acción & Combate</span>
+            <span class="cat-chevron">▾</span>
           </a>
-        <% }) %>
-      <% } %>
+          <div class="category-dropdown-menu">
+            <a href="/categoria/accion" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'accion') ? 'active' : '' %>">
+              <span class="cat-icon">💥</span> Acción
+            </a>
+            <a href="/categoria/disparos" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'disparos') ? 'active' : '' %>">
+              <span class="cat-icon">🎯</span> Disparos (Shooter)
+            </a>
+            <a href="/categoria/lucha" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'lucha') ? 'active' : '' %>">
+              <span class="cat-icon">🥊</span> Lucha & Pelea
+            </a>
+          </div>
+        </div>
+
+        <!-- Grupo: Aventura & Rol -->
+        <div class="category-dropdown <%= (typeof activeCategory !== 'undefined' && ['grupo-aventura', 'aventura', 'rpg', 'terror'].includes(activeCategory)) ? 'active' : '' %>">
+          <a href="/categoria/grupo-aventura" class="category-pill dropdown-trigger">
+            <span class="cat-icon">🧭</span>
+            <span class="cat-label">Aventura & Rol</span>
+            <span class="cat-chevron">▾</span>
+          </a>
+          <div class="category-dropdown-menu">
+            <a href="/categoria/aventura" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'aventura') ? 'active' : '' %>">
+              <span class="cat-icon">🧭</span> Aventura
+            </a>
+            <a href="/categoria/rpg" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'rpg') ? 'active' : '' %>">
+              <span class="cat-icon">🛡️</span> RPG
+            </a>
+            <a href="/categoria/terror" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'terror') ? 'active' : '' %>">
+              <span class="cat-icon">🧟</span> Terror & Supervivencia
+            </a>
+          </div>
+        </div>
+
+        <!-- Grupo: Deportes & Velocidad -->
+        <div class="category-dropdown <%= (typeof activeCategory !== 'undefined' && ['grupo-deportes', 'deportes', 'carreras'].includes(activeCategory)) ? 'active' : '' %>">
+          <a href="/categoria/grupo-deportes" class="category-pill dropdown-trigger">
+            <span class="cat-icon">🏎️</span>
+            <span class="cat-label">Deportes & Velocidad</span>
+            <span class="cat-chevron">▾</span>
+          </a>
+          <div class="category-dropdown-menu">
+            <a href="/categoria/deportes" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'deportes') ? 'active' : '' %>">
+              <span class="cat-icon">⚽</span> Deportes
+            </a>
+            <a href="/categoria/carreras" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'carreras') ? 'active' : '' %>">
+              <span class="cat-icon">🏎️</span> Carreras
+            </a>
+          </div>
+        </div>
+
+        <!-- Grupo: Estrategia & Simulación -->
+        <div class="category-dropdown <%= (typeof activeCategory !== 'undefined' && ['grupo-estrategia', 'estrategia', 'simulacion'].includes(activeCategory)) ? 'active' : '' %>">
+          <a href="/categoria/grupo-estrategia" class="category-pill dropdown-trigger">
+            <span class="cat-icon">♟️</span>
+            <span class="cat-label">Estrategia & Simulación</span>
+            <span class="cat-chevron">▾</span>
+          </a>
+          <div class="category-dropdown-menu">
+            <a href="/categoria/estrategia" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'estrategia') ? 'active' : '' %>">
+              <span class="cat-icon">♟️</span> Estrategia
+            </a>
+            <a href="/categoria/simulacion" class="dropdown-item <%= (typeof activeCategory !== 'undefined' && activeCategory === 'simulacion') ? 'active' : '' %>">
+              <span class="cat-icon">🚜</span> Simulación
+            </a>
+          </div>
+        </div>
+
+        <!-- Píldora: Arcade -->
+        <a 
+          href="/categoria/arcade" 
+          class="category-pill <%= (typeof activeCategory !== 'undefined' && activeCategory === 'arcade') ? 'active' : '' %>"
+        >
+          <span class="cat-icon">🕹️</span>
+          <span class="cat-label">Arcade</span>
+        </a>
+
+      </div>
     </div>
   </nav>
 

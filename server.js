@@ -377,26 +377,42 @@ app.get('/', (req, res) => {
   });
 });
 
-// Juegos por categoría
+// Juegos por categoría (soporta categorías individuales y macro-grupos optimizados)
 app.get('/categoria/:slug', (req, res) => {
   const { slug } = req.params;
   const categories = getCategories();
-  const category = categories.find(c => c.slug.toLowerCase() === slug.toLowerCase());
+  
+  const groupMap = {
+    'grupo-accion': { name: 'Acción & Combate', matches: ['Acción', 'Disparos (Shooter)', 'Lucha & Pelea'] },
+    'grupo-aventura': { name: 'Aventura & Rol', matches: ['Aventura', 'RPG', 'Terror & Supervivencia'] },
+    'grupo-deportes': { name: 'Deportes & Velocidad', matches: ['Deportes', 'Carreras'] },
+    'grupo-estrategia': { name: 'Estrategia & Simulación', matches: ['Estrategia', 'Simulación'] }
+  };
 
-  if (!category && slug !== 'todos') {
+  const allGames = getGames();
+  let category = categories.find(c => c.slug.toLowerCase() === slug.toLowerCase());
+  let categoryName = 'Todos';
+  let filtered = [];
+
+  if (slug === 'todos') {
+    filtered = allGames;
+    categoryName = 'Todos';
+  } else if (groupMap[slug]) {
+    categoryName = groupMap[slug].name;
+    const targets = groupMap[slug].matches.map(m => m.toLowerCase());
+    filtered = allGames.filter(g => targets.includes((g.category || '').toLowerCase()));
+  } else if (category) {
+    categoryName = category.name;
+    filtered = allGames.filter(g => (g.category || '').toLowerCase() === category.name.toLowerCase());
+  } else {
     return res.redirect('/');
   }
 
-  const allGames = getGames();
-  const filtered = (slug === 'todos') 
-    ? allGames 
-    : allGames.filter(g => g.category.toLowerCase() === (category ? category.name.toLowerCase() : ''));
-
   res.render('category', {
-    title: `Juegos de ${category ? category.name : 'Todos'} para Android APK | AuraAPK`,
-    metaDesc: `Descarga los mejores juegos móviles de la categoría ${category ? category.name : 'Todos'}. Versiones completas y actualizadas en AuraAPK.`,
+    title: `Juegos de ${categoryName} para Android APK | AuraAPK`,
+    metaDesc: `Descarga los mejores juegos móviles de la categoría ${categoryName}. Versiones completas y actualizadas en AuraAPK.`,
     games: filtered,
-    categoryName: category ? category.name : 'Todos',
+    categoryName: categoryName,
     activeCategory: slug
   });
 });

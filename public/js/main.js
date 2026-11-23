@@ -187,6 +187,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ================= DROPDOWNS DE CATEGORÍAS (COMPACTO Y MÓVIL) =================
+  const categoryDropdowns = document.querySelectorAll('.category-dropdown');
+  categoryDropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector('.dropdown-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        // En móviles o pantallas pequeñas, el primer toque abre el menú desplegable
+        if (window.innerWidth <= 991) {
+          const isOpen = dropdown.classList.contains('open');
+          if (!isOpen) {
+            e.preventDefault();
+            categoryDropdowns.forEach(d => d.classList.remove('open'));
+            dropdown.classList.add('open');
+          }
+        }
+      });
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.category-dropdown')) {
+      categoryDropdowns.forEach(d => d.classList.remove('open'));
+    }
+  });
 });
 
 // ================= LIGHTBOX GLOBAL PARA SCREENSHOTS =================
